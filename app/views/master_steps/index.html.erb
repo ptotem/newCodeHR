@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Master Steps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @master_steps.each do |master_step| %>
+      <tr>
+        <td><%= link_to 'Show', master_step %></td>
+        <td><%= link_to 'Edit', edit_master_step_path(master_step) %></td>
+        <td><%= link_to 'Destroy', master_step, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Master step', new_master_step_path %>
