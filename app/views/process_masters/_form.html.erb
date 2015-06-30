@@ -11,22 +11,149 @@
     </div>
   <% end %>
 
-  <div id="form-holder">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label class="col-md-12 control-label">Select Action</label>
-          <input type="text" placeholder="Action" class="col-md-12">
+
+  <div class="row">
+    <div class="col-md-12">
+      <form id="form-holder" class="form-horizontal" role="form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="form-group">
+                <label class="col-md-3 control-label no-padding-right"> Process Name </label>
+                <input type="text" class="col-md-9" placeholder="Process Name">
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="widget-box">
+              <div class="widget-header">
+                <h4 class="widget-title">
+                Master Steps 
+                <a class="btn btn-xs btn-primary" onclick="addMasterStep()" style="margin-left: 15px">Add Step</a></h4>
+              </div>
+
+              <div class="widget-body">
+                <div class="widget-main">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="space-32"></div>
+        <div class="space-32"></div>
+        <div class="space-32"></div>
+
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="form-group">
+                <label class="col-md-3 control-label no-padding-right"> Action </label>
+                <div class="col-md-9">
+                  <select class="form-control" onchange="buildActionForm($(this))">
+                    <option value="">Select Action</option>
+                    <option value="Fill">Fill</option>
+                    <option value="Approve">Approve</option>
+                    <option value="Notify">Notify</option>
+                    <option value="MarkComplete">MarkComplete</option>
+                    <option value="SpawnD">SpawnD</option>
+                    <option value="SpawnI">SpawnI</option>
+                    <!-- <option value="Update">Update</option> -->
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="form-group">
+                <label class="col-md-3 control-label no-padding-right"> Action Model </label>
+                <div class="col-md-9">
+                  <select class="form-control">
+                  </select>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-6"></div>
+
+        <div class="row">
+          <div class="col-md-1">...</div>
+          <div class="col-md-10 form-container">
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="col-md-3 control-label no-padding-right"></div>
+                </div>  
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </form>
     </div>
   </div>
   
+  <br /><br />
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
 <script>
-  
+
+  function buildActionForm(_this) {
+
+    var action = _this.val();
+    console.log(_this.val())
+    console.log(typeof gon.actionForms[action])
+    if(typeof gon.actionForms[action] == "object") 
+      initHTMLAppender($("#form-container"), gon.actionForms[action]);
+
+
+  }
+
+  $( "#accordion" ).accordion({
+          collapsible: true ,
+          heightStyle: "content",
+          animate: 250,
+          header: ".accordion-header"
+        }).sortable({
+          axis: "y",
+          handle: ".accordion-header",
+          stop: function( event, ui ) {
+            // IE doesn't register the blur when sorting
+            // so trigger focusout handlers to remove .ui-state-focus
+            ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
+          }
+        });
+
 </script>
