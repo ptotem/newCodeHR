@@ -38,4 +38,7 @@ Rails.application.configure do
 
   # Added while setting up Devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  #For Precompiling Assets
+  # config.assets.compile = true
 end

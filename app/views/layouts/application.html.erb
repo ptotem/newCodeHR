@@ -10,31 +10,32 @@
   <title>CodeHR</title>
   <%#= stylesheet_link_tag "application", :media => "all" %>
 
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", :media => "all" %>
+  <%# stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
   <%= include_gon %>
 
   <!-- bootstrap & fontawesome -->
-  <link rel="stylesheet" href="assets/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/font-awesome.min.css" />
+  <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="/assets/font-awesome.min.css" />
 
   <!-- page specific plugin styles -->
-  <link rel="stylesheet" href="assets/jquery-ui.custom.min.css" />
-  <link rel="stylesheet" href="assets/chosen.css" />
-  <link rel="stylesheet" href="assets/datepicker.css" />
-  <link rel="stylesheet" href="assets/bootstrap-timepicker.css" />
-  <link rel="stylesheet" href="assets/daterangepicker.css" />
-  <link rel="stylesheet" href="assets/bootstrap-datetimepicker.css" />
-  <link rel="stylesheet" href="assets/colorpicker.css" />
+  <link rel="stylesheet" href="/assets/jquery-ui.custom.min.css" />
+  <link rel="stylesheet" href="/assets/chosen.css" />
+  <link rel="stylesheet" href="/assets/datepicker.css" />
+  <link rel="stylesheet" href="/assets/bootstrap-timepicker.css" />
+  <link rel="stylesheet" href="/assets/daterangepicker.css" />
+  <link rel="stylesheet" href="/assets/bootstrap-datetimepicker.css" />
+  <link rel="stylesheet" href="/assets/colorpicker.css" />
 
   <!-- text fonts -->
-  <link rel="stylesheet" href="assets/ace-fonts.css" />
+  <link rel="stylesheet" href="/assets/ace-fonts.css" />
 
   <!-- ace styles -->
-  <link rel="stylesheet" href="assets/ace.min.css" id="main-ace-style" />
-  <!-- <link rel="stylesheet" href="/assets/ace-responsive.min.css"/> -->
+  <link rel="stylesheet" href="/assets/ace.min.css" id="main-ace-style" />
+  <link rel="stylesheet" href="/assets/ace-responsive.min.css"/>
 
-  <!-- <link rel="stylesheet" href="assets/ace-rtl.min.css" /> -->
+  <link rel="stylesheet" href="/assets/ace-rtl.min.css" />
 
 </head>
 
