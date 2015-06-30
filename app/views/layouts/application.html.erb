@@ -13,350 +13,348 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= include_gon %>
-  <!--<script type="text/javascript" src="/assets/jquery.js"></script>-->
-  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
-  <!-- basic styles -->
-  <link href="/assets/bootstrap.min.css" rel="stylesheet"/>
 
-  <link href="/assets/bootstrap-responsive.min.css" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="/assets/font-awesome.min.css"/>
-  <!--[if IE 7]>
-  <link rel="stylesheet" href="/assets/font-awesome-ie7.min.css"/>
-  <![endif]-->
-
-
+  <!-- bootstrap & fontawesome -->
+  <link rel="stylesheet" href="assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/font-awesome.min.css" />
 
   <!-- page specific plugin styles -->
-  <link rel="stylesheet" href="/assets/jquery-ui-1.10.2.custom.min.css" />
-  <link rel="stylesheet" href="/assets/chosen.css" />
-  <link rel="stylesheet" href="/assets/datepicker.css" />
-  <link rel="stylesheet" href="/assets/bootstrap-timepicker.css" />
-  <link rel="stylesheet" href="/assets/daterangepicker.css" />
-  <link rel="stylesheet" href="/assets/colorpicker.css" />
+  <link rel="stylesheet" href="assets/jquery-ui.custom.min.css" />
+  <link rel="stylesheet" href="assets/chosen.css" />
+  <link rel="stylesheet" href="assets/datepicker.css" />
+  <link rel="stylesheet" href="assets/bootstrap-timepicker.css" />
+  <link rel="stylesheet" href="assets/daterangepicker.css" />
+  <link rel="stylesheet" href="assets/bootstrap-datetimepicker.css" />
+  <link rel="stylesheet" href="assets/colorpicker.css" />
 
-
-
+  <!-- text fonts -->
+  <link rel="stylesheet" href="assets/ace-fonts.css" />
 
   <!-- ace styles -->
-  <link rel="stylesheet" href="/assets/ace.min.css"/>
-  <link rel="stylesheet" href="/assets/ace-responsive.min.css"/>
-  <link rel="stylesheet" href="/assets/ace-skins.min.css"/>
-  <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/assets/ace-ie.min.css"/>
-  <link rel="stylesheet" href="/assets/hris.css"/>
-  <![endif]-->
+  <link rel="stylesheet" href="assets/ace.min.css" id="main-ace-style" />
+  <!-- <link rel="stylesheet" href="/assets/ace-responsive.min.css"/> -->
+
+  <!-- <link rel="stylesheet" href="assets/ace-rtl.min.css" /> -->
+
 </head>
 
-<body>
-<div class="navbar navbar-inverse">
-<div class="navbar-inner">
-<div class="container-fluid">
+<body class="no-skin">
 
+  <div id="navbar" class="navbar navbar-default">
+    <div class="navbar-container" id="navbar-container">
+      
+      <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+        <span class="sr-only">Toggle sidebar</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-<a class="brand" href="/">
-  <small><i class="icon-leaf"></i> CodeHR</small>
-</a>
-<ul class="nav ace-nav pull-right">
-<li class="grey">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <i class="icon-tasks"></i>
-    <span class="badge" id="remtask"><%= current_user.user_tasks.where(seen: false).count %></span>
-  </a>
-  <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-    <li class="nav-header" id="remain_task">
-      <i class="icon-ok"></i> <%= current_user.user_tasks.where(seen: false).count %> Tasks to complete
-    </li>
-
-    <% current_user.user_tasks.where(seen: false).limit(5).desc(:created_at).each do |nm| %>
-        <li class="unduntask">
-          <a href="/user_tasks/<%= nm._id %>">
-            <div class="clearfix">
-              <span class="pull-left"><%= nm.title %></span>
-            </div>
-          </a>
-        </li>
-    <% end %>
-
-    <li>
-      <a href="#">
-         <%= link_to 'See tasks with details', user_tasks_path %>
-        <!--<i class="icon-arrow-right"></i>-->
-      </a>
-    </li>
-  </ul>
-</li>
-
-
-<li class="purple">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <i class="icon-bell-alt icon-animated-bell icon-only"></i>
-    <span id="notcnt" class="badge badge-important"><%= current_user.notification_masters.where(read: false).count %></span>
-  </a>
-  <ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-    <li class="nav-header" id="nott">
-      <i class="icon-warning-sign"></i> <%= current_user.notification_masters.where(read: false).count %> Unread Notifications
-    </li>
-
-    <% current_user.notification_masters.where(read: false).limit(5).desc(:created_at).each do |nm| %>
-        <li class="unread_nott">
-          <a href="/notification_masters/<%= nm.id %>">
-            <div class="clearfix">
-              <span class="pull-left"><i class="icon-comment btn btn-mini btn-pink"></i><%=nm.description.truncate(20) %></span>
-            </div>
-          </a>
-        </li>
-    <% end %>
-
-    <li>
-      <a href="#">
-        <%= link_to 'See all notifications', notification_masters_path %>
-      </a>
-    </li>
-  </ul>
-</li>
-
-
-<li class="light-blue user-profile">
-  <a class="user-menu dropdown-toggle" href="#" data-toggle="dropdown">
-    <img alt="Jason's Photo" src="/assets/user.jpg" class="nav-user-photo"/>
-		<span id="user_info">
-			<small>Welcome,</small>
-	      <%# if current_user.employee_master.employee_name.blank? %>
-	        <%= current_user.name %>
-	      <%# else %>
-	        <%#= current_user.employee_master.employee_name %>
-	      <%# end %>
-		</span>
-    <i class="icon-caret-down"></i>
-  </a>
-  <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-    <li>
-      <a href="/employee_masters/<%= current_user.employee_master.id rescue nil %>/edit">
-        <i class="icon-cog"></i>
-        Settings
-      </a>
-    </li>
-    <li>
-      <a href="/employee_details/<%= current_user.employee_master.id rescue nil %>/edit">
-        <i class="icon-user"></i>
-        Profile
-      </a>
-    </li>
-    <li class="divider"></li>
-    <li><a href="<%= destroy_user_session_path %>"><i class="icon-off"></i> Logout</a></li>
-  </ul>
-</li>
-
-
-</ul>
-<!--/.ace-nav-->
-
-</div>
-<!--/.container-fluid-->
-</div>
-<!--/.navbar-inner-->
-</div>
-<!--/.navbar-->
-<div class="container-fluid" id="main-container">
-  <a href="#" id="menu-toggler"><span></span></a><!-- menu toggler -->
-
-  <div id="sidebar">
-
-    <div id="sidebar-shortcuts">
-      <div id="sidebar-shortcuts-large">
-        <a href = "/reports" class="btn btn-small btn-success"><i class="icon-signal"></i></a>
-        <a href="<%# left_panels_path %>" class="btn btn-small btn-info"><i class="icon-pencil"></i></a>
-        <a href="<%# ability_matrices_path %>" class="btn btn-small btn-warning"><i class="icon-group"></i></a>
-        <a href="/power_admin" class="btn btn-small btn-danger"><i class="icon-cogs"></i></a>
+      <div class="navbar-header pull-left">
+        <a href="#" class="navbar-brand">
+          <small>
+            <i class="fa fa-leaf"></i>
+            CodeHR
+          </small>
+        </a>
       </div>
-      <div id="sidebar-shortcuts-mini">
-        <span class="btn btn-success"></span>
-        <span class="btn btn-info"></span>
-        <span class="btn btn-warning"></span>
-        <span class="btn btn-danger"></span>
+
+      <div class="navbar-buttons navbar-header pull-right" role="navigation">
+        <ul class="nav ace-nav">
+          <li class="grey">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <i class="ace-icon fa fa-tasks"></i>
+              <span class="badge badge-grey"><%= current_user.user_tasks.where(read: false).count %></span>
+            </a>
+
+            <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+              <li class="dropdown-header" id="remain_task">
+                <i class="ace-icon fa fa-check"></i>
+                <%= current_user.user_tasks.where(read: false).count %> Tasks to complete
+              </li>
+
+              <% current_user.user_tasks.where(seen: false).limit(5).desc(:created_at).each do |nm| %>
+                <li class="undone_task">
+                  <a href="/user_tasks/<%= nm._id %>">
+                    <div class="clearfix">
+                      <span class="pull-left"><%= nm.title %></span>
+                    </div>
+                  </a>
+                </li>
+              <% end %>
+
+              <li class="dropdown-footer">
+                <a href="#">
+                  <%= link_to 'See tasks with details', user_tasks_path %>
+                  <!-- See tasks with details
+                  <i class="ace-icon fa fa-arrow-right"></i> -->
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="purple">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+              <span class="badge badge-important"><%= current_user.notification_masters.where(read: false).count %></span>
+            </a>
+
+            <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+              <li class="dropdown-header" id="nott">
+                <i class="ace-icon fa fa-exclamation-triangle"></i>
+                <%= current_user.notification_masters.where(read: false).count %> Notifications
+              </li>
+
+              <% current_user.notification_masters.where(read: false).limit(5).desc(:created_at).each do |nm| %>
+                <li class="unread_nott">
+                  <a href="/notification_masters/<%= nm.id %>">
+                    <div class="clearfix">
+                      <span class="pull-left">
+                        <i class="btn btn-xs no-hover btn-primary fa fa-comment"></i>
+                        <%=nm.title.truncate(20) %>
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              <% end %>
+
+              <li class="dropdown-footer">
+                <a href="#">
+                  <%= link_to 'See all notifications', notification_masters_path %>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="light-blue">
+            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+              <img alt="Jason's Photo" src="/assets/user.jpg" class="nav-user-photo"/>
+              <span class="user-info">
+                <small>Welcome,</small>
+                <%= current_user.name %>
+              </span>
+
+              <i class="ace-icon fa fa-caret-down"></i>
+            </a>
+
+            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+              <li>
+                <a href="/employee_masters/<%= current_user.employee_master.id rescue nil %>/edit">
+                  <i class="ace-icon fa fa-cog"></i>
+                  Settings
+                </a>
+              </li>
+
+              <li>
+                <a href="/employee_details/<%= current_user.employee_master._id.to_s rescue nil %>/edit">
+                  <i class="ace-icon fa fa-user"></i>
+                  Profile
+                </a>
+              </li>
+
+              <li class="divider"></li>
+
+              <li>
+                <a href="<%= destroy_user_session_path %>">
+                  <i class="ace-icon fa fa-power-off"></i>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main-container" id="main-container">
+
+    <div id="sidebar" class="sidebar responsive">
+      <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+          <a href = "/reports" class="btn btn-success">
+            <i class="ace-icon fa fa-signal"></i>
+          </a>
+
+          <a href="<%# left_panels_path %>" class="btn btn-info">
+            <i class="ace-icon fa fa-pencil"></i>
+          </a>
+
+          <!-- #section:basics/sidebar.layout.shortcuts -->
+          <a href="<%# ability_matrices_path %>" class="btn btn-warning">
+            <i class="ace-icon fa fa-users"></i>
+          </a>
+
+          <a href="/power_admin" class="btn btn-danger">
+            <i class="ace-icon fa fa-cogs"></i>
+          </a>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+          <span class="btn btn-success"></span>
+          <span class="btn btn-info"></span>
+          <span class="btn btn-warning"></span>
+          <span class="btn btn-danger"></span>
+        </div>
+
+        <ul class="nav nav-list">
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-tag pull-left"></i>
+              <span class="menu-text pull-left"> More Pages </span>
+
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+              <li class="">
+                <a href="profile.html" style="text-align: left">
+                  <i class="menu-icon fa fa-caret-right pull-left"></i>
+                  User Profile
+                </a>
+
+                <b class="arrow"></b>
+              </li>
+              
+            </ul>
+          </li>
+        </ul>
+
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+          <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div>
+
       </div>
     </div>
-    
 
-    <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
-
-
-  </div>
-  <!--/#sidebar-->
-
-
-  <div id="main-content" class="clearfix">
-
-    <div id="breadcrumbs">
-      <!--<ul class="breadcrumb">-->
-      <!--<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span>-->
-      <!--</li>-->
-      <!--<li><a href="#">Other Pages</a> <span class="divider"><i class="icon-angle-right"></i></span></li>-->
-      <!--<li class="active">Blank Page</li>-->
-      <!--</ul>-->
-      <!--.breadcrumb-->
-
-      <!--<div id="nav-search">-->
-      <!--<form class="form-search">-->
-      <!--<span class="input-icon">-->
-      <!--<input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..."/>-->
-      <!--<i id="nav-search-icon" class="icon-search"></i>-->
-      <!--</span>-->
-      <!--</form>-->
-      <!--</div>-->
-      <!--#nav-search-->
-    </div>
-    <!--#breadcrumbs-->
-
-
-    <div id="page-content" class="clearfix">
-
-
-      <!--<div class="row-fluid">-->
-      <!-- PAGE CONTENT BEGINS HERE -->
-      <%= yield %>
-      <!-- PAGE CONTENT ENDS HERE -->
-      <!--</div>-->
-      <!--/row-->
+    <div class="main-content">
+      <div class="page-content">
+        <div class="page-content-area">
+          <%= yield %>
+        </div>
+      </div>
 
     </div>
-    <!--/#page-content-->
-
-
-
   </div>
-  <!-- #main-content -->
 
-</div>
+  <script type="text/javascript">
 
-<!--/.fluid-container#main-container-->
+      $(function() {
+          $(document).ajaxSend(function(e, xhr, options) {
+              var token = $("meta[name='csrf-token']").attr("content");
+              xhr.setRequestHeader("X-CSRF-Token", token);
+          });
 
+          $('.text_filter').css('width','65%');
 
-<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
-  <i class="icon-double-angle-up icon-only"></i>
-</a>
+          $('table th input:checkbox').on('click', function () {
+              var that = this;
+              $(this).closest('table').find('tr > td:first-child input:checkbox')
+                      .each(function () {
+                          this.checked = that.checked;
+                          $(this).closest('tr').toggleClass('selected');
+                      });
 
+          });
 
-<!-- basic scripts -->
-<script src="/assets/bootstrap-timepicker.min.js"></script>
-
-<script src="/assets/HTMLAppender-script.js"></script>
-
-<script type="text/javascript">
-
-    $(function() {
-        $(document).ajaxSend(function(e, xhr, options) {
-            var token = $("meta[name='csrf-token']").attr("content");
-            xhr.setRequestHeader("X-CSRF-Token", token);
-        });
-
-        $('.text_filter').css('width','65%');
-
-        $('table th input:checkbox').on('click', function () {
-            var that = this;
-            $(this).closest('table').find('tr > td:first-child input:checkbox')
-                    .each(function () {
-                        this.checked = that.checked;
-                        $(this).closest('tr').toggleClass('selected');
-                    });
-
-        });
-
-        $('#id-disable-check').on('click', function() {
-            var inp = $('#form-input-readonly').get(0);
-            if(inp.hasAttribute('disabled')) {
-                inp.setAttribute('readonly' , 'true');
-                inp.removeAttribute('disabled');
-                inp.value="This text field is readonly!";
-            }
-            else {
-                inp.setAttribute('disabled' , 'disabled');
-                inp.removeAttribute('readonly');
-                inp.value="This text field is disabled!";
-            }
-        });
+          $('#id-disable-check').on('click', function() {
+              var inp = $('#form-input-readonly').get(0);
+              if(inp.hasAttribute('disabled')) {
+                  inp.setAttribute('readonly' , 'true');
+                  inp.removeAttribute('disabled');
+                  inp.value="This text field is readonly!";
+              }
+              else {
+                  inp.setAttribute('disabled' , 'disabled');
+                  inp.removeAttribute('readonly');
+                  inp.value="This text field is disabled!";
+              }
+          });
 
 
-        $(".chzn-select").chosen();
-        $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+          $(".chzn-select").chosen();
+          $(".chzn-select-deselect").chosen({allow_single_deselect:true});
 
-        $('textarea[class*=limited]').each(function() {
-            var limit = parseInt($(this).attr('data-maxlength')) || 100;
-            $(this).inputlimiter({
-                "limit": limit,
-                remText: '%n character%s remaining...',
-                limitText: 'max allowed : %n.'
-            });
-        });
+          $('textarea[class*=limited]').each(function() {
+              var limit = parseInt($(this).attr('data-maxlength')) || 100;
+              $(this).inputlimiter({
+                  "limit": limit,
+                  remText: '%n character%s remaining...',
+                  limitText: 'max allowed : %n.'
+              });
+          });
 
-        $( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
-            // read initial values from markup and remove that
-            var value = parseInt( $( this ).text(), 10 );
-            $( this ).empty().slider({
-                value: value,
-                range: "min",
-                animate: true
+          $( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
+              // read initial values from markup and remove that
+              var value = parseInt( $( this ).text(), 10 );
+              $( this ).empty().slider({
+                  value: value,
+                  range: "min",
+                  animate: true
 
-            });
-        });
+              });
+          });
 
-        $('.date-picker').datepicker();
-        $('.time-picker').timepicker();
-    });
+          $('.date-picker').datepicker();
+          $('.time-picker').timepicker();
+      });
 
-    function poll_notification() {
-        //alert('Sunny');
-        return $.get('/notifications.json', null, function(data, status, jqXHR) {
-            var d, m, msgsSorted, _i, _len;
-            $('.unread_nott').empty().remove();
-            $('#nott').html('<i class="icon-warning-sign"></i>'+data.length+' Unread Notifications');
-            $('#notcnt').html(data.length);
-            for (_i = 0; _i < data.length; _i++) {
-                m = data[_i];
-                var $a = $('.purple_open').find('.navbar-pink');
-                var link= "/notification_masters/"+ m._id;
-                var b= '<li class="unread_nott"><a href="'+link+'"><div class="clearfix">'+
-                        '<span class="pull-left">' +
-                        '<i class="icon-comment btn btn-mini btn-pink"></i>' +
-                        m.description +
-                        '</span>'+
-                        '</div></a></li>';
-                $(b).insertAfter($('#nott'));
-            }
-            return setTimeout(poll_notification, 5000);
-        });
-        console.log('testing')
-    };
+      function poll_notification() {
+          //alert('Sunny');
+          return $.get('/notifications.json', null, function(data, status, jqXHR) {
+              var d, m, msgsSorted, _i, _len;
+              $('.unread_nott').empty().remove();
+              $('#nott').html('<i class="icon-warning-sign"></i>'+data.length+' Unread Notifications');
+              $('#notcnt').html(data.length);
+              for (_i = 0; _i < data.length; _i++) {
+                  m = data[_i];
+                  var $a = $('.purple_open').find('.navbar-pink');
+                  var link= "/notification_masters/"+ m._id;
+                  var b= '<li class="unread_nott"><a href="'+link+'"><div class="clearfix">'+
+                          '<span class="pull-left">' +
+                          '<i class="btn btn-xs no-hover btn-primary fa fa-comment"></i>' +
+                          m.title +
+                          '</span>'+
+                          '</div></a></li>';
+                  $(b).insertAfter($('#nott'));
+              }
+              return setTimeout(poll_notification, 5000);
+          });
+          console.log('testing')
+      };
 
 
-    function poll_task() {
-        return $.get('/tasks.json', null, function(data, status, jqXHR) {
-            var d, m, msgsSorted, _i, _len;
-            $('.unduntask').empty().remove();
-            $('#remain_task').html('<i class="icon-ok"></i> '+data.length+' Tasks to complete');
-            $('#remtask').html(data.length);
-            for (_i = 0; _i < data.length; _i++) {
-                m = data[_i];
-                var $a = $('.purple_open').find('.navbar-pink');
-                var link= "/notification_masters/"+ m._id;
-                var b= '<li class="unduntask"><a href="'+link+'"><div class="clearfix">'+
-                        '<span class="pull-left">' +
-                        '<i class="icon-comment btn btn-mini btn-pink"></i>' +
-                        m.description +
-                        '</span>'+
-                        '</div></a></li>';
-                $(b).insertAfter($('#remain_task'));
-            }
-            return setTimeout(poll_task, 5000);
-        });
-        console.log('testing')
-    };
+      function poll_task() {
+          return $.get('/tasks.json', null, function(data, status, jqXHR) {
+              var d, m, msgsSorted, _i, _len;
+              $('.undone_task').empty().remove();
+              $('#remain_task').html('<i class="icon-ok"></i> '+data.length+' Tasks to complete');
+              $('#remtask').html(data.length);
+              for (_i = 0; _i < data.length; _i++) {
+                  m = data[_i];
+                  var $a = $('.purple_open').find('.navbar-pink');
+                  var link= "/notification_masters/"+ m._id;
+                  var b= '<li class="undone_task"><a href="'+link+'"><div class="clearfix">'+
+                          '<span class="pull-left">' +
+                          '<i class="btn btn-xs no-hover btn-primary fa fa-comment"></i>' +
+                          m.description +
+                          '</span>'+
+                          '</div></a></li>';
+                  $(b).insertAfter($('#remain_task'));
+              }
+              return setTimeout(poll_task, 5000);
+          });
+          console.log('testing')
+      };
 
 
 
 
-</script>
+  </script>
 
 </body>
 </html>
