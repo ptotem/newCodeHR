@@ -173,7 +173,6 @@
 
   function renameMasterSteps() {
     var stepLabels = $("#process-master-form .step-label");
-    console.log(stepLabels)
     for(var i = 0, len = stepLabels.length; i < len; i++) {
       stepLabels[i].innerHTML = "Step #"+(i+1);
     }

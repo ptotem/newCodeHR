@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :bands
+
+  resources :groups
+
+  resources :departments
+
+  resources :roles
+
+  resources :employees
+
   resources :process_masters
 
   resources :master_steps

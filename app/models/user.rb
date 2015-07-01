@@ -39,4 +39,6 @@ class User
   accepts_nested_attributes_for :user_tasks
 
   has_and_belongs_to_many :notification_masters
+
+  has_one :employee
 end
