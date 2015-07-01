@@ -49,13 +49,12 @@ class ProcessMastersController < ApplicationController
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
 						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
-									{type: "<label />", attributes: {}, child:[
-										{type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", placeholder: "Repeat Escalation"}}	
-									]},
-									
-								]}
+							{type: "<div />", attributes: {class: "col-md-6"}, child: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
+									{type: "<span />", attributes: {class: "lbl"}}
+								]},
+								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Manager's Approval?"}}
 							]}
 						]}
 					]},
@@ -85,6 +84,7 @@ class ProcessMastersController < ApplicationController
 					]}
 				]}
 			],
+
 			Notify: [
 				{type: "<div />", attributes: {class: "row"}, child: [
 					{type: "<div />", attributes: {class: "col-md-6"}, child: [
@@ -107,23 +107,24 @@ class ProcessMastersController < ApplicationController
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
 						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation"}}
-								]}
+							{type: "<div />", attributes: {class: "col-md-6"}, child: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
+									{type: "<span />", attributes: {class: "lbl"}}
+								]},
+								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Notify Initiator?"}}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
 						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Escalation"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation"}}
-								]}
+							{type: "<div />", attributes: {class: "col-md-6"}, child: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
+									{type: "<span />", attributes: {class: "lbl"}}
+								]},
+								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Include File?"}}
 							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
+						]}
 
 					]},
 					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, child: [
