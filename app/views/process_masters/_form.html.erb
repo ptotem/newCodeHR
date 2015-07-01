@@ -41,176 +41,7 @@
                 <div class="widget-main">
 
                   <div id="accordion" class="accordion-style1 panel-group">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
-                            &nbsp;Group Item #1
-                          </a>
-                        </h4>
-                      </div>
-
-                      <div class="panel-collapse collapse in" id="collapseOne">
-                        <div class="panel-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
-                            &nbsp;Group Item #1
-                          </a>
-                        </h4>
-                      </div>
-
-                      <div class="panel-collapse collapse in" id="collapseTwo">
-                        <div class="panel-body">
-                          <div class="row">
-                          <div class="col-md-6">
-                            <div class="row">
-                              <div class="form-group">
-                                <label class="col-md-3 control-label no-padding-right"> Set Reminder </label>
-                                <input type="text" class="col-md-7 col-md-offset-1" placeholder="Process Name">
-                              </div>
-                            </div>
-                            </div>
-                            <div class="col-md-6"  style="border-left:1px dashed black">
-                              
-                              <div class="row">
-                                <div class="form-group">
-                                  <label class="col-md-3 control-label no-padding-right"> Action </label>
-                                  <div class="col-md-9">
-                                    <select class="form-control chosen-select" onchange="buildActionForm($(this))">
-                                      <option value="">Select Action</option>
-                                      <option value="Fill">Fill</option>
-                                      <option value="Approve">Approve</option>
-                                      <option value="Notify">Notify</option>
-                                      <option value="MarkComplete">MarkComplete</option>
-                                      <option value="SpawnD">SpawnD</option>
-                                      <option value="SpawnI">SpawnI</option>
-                                      <!-- <option value="Update">Update</option> -->
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="space-10"></div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="table-header">
-                                    Select Users
-                                  </div>
-                                  <table id="user_table" class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                      <tr>
-                                        <th class="center">
-                                          <label class="position-relative">
-                                            <input type="checkbox" class="ace" />
-                                            <span class="lbl"></span>
-                                          </label>
-                                        </th>
-                                        <th>Domain</th>
-                                        <th>Price</th>
-                                        <th class="hidden-480">Clicks</th>
-
-                                        <th>
-                                          <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                          Update
-                                        </th>
-                                        <th class="hidden-480">Status</th>
-
-                                        <th></th>
-                                      </tr>
-                                    </thead>
-
-                                    <tbody>
-                                      <tr>
-                                        <td class="center">
-                                          <label class="position-relative">
-                                            <input type="checkbox" class="ace" />
-                                            <span class="lbl"></span>
-                                          </label>
-                                        </td>
-
-                                        <td>
-                                          <a href="#">app.com</a>
-                                        </td>
-                                        <td>$45</td>
-                                        <td class="hidden-480">3,330</td>
-                                        <td>Feb 12</td>
-
-                                        <td class="hidden-480">
-                                          <span class="label label-sm label-warning">Expiring</span>
-                                        </td>
-
-                                        <td>
-                                          <div class="hidden-sm hidden-xs action-buttons">
-                                            <a class="blue" href="#">
-                                              <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                            </a>
-
-                                            <a class="green" href="#">
-                                              <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                            </a>
-
-                                            <a class="red" href="#">
-                                              <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                            </a>
-                                          </div>
-
-                                          <div class="hidden-md hidden-lg">
-                                            <div class="inline position-relative">
-                                              <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                              </button>
-
-                                              <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                <li>
-                                                  <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                    <span class="blue">
-                                                      <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                    </span>
-                                                  </a>
-                                                </li>
-
-                                                <li>
-                                                  <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                    <span class="green">
-                                                      <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                    </span>
-                                                  </a>
-                                                </li>
-
-                                                <li>
-                                                  <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                    <span class="red">
-                                                      <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                    </span>
-                                                  </a>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-
-                                      
-                                    </tbody>
-                                </table>
-                                </div>
-                              </div>
-                                    
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="test"></div>
+                    
 
                   </div>
 
@@ -304,42 +135,113 @@
 
 <script>
 
-$('.chosen-select').chosen(); 
-$('.chosen-container').css('width','100%');
+    
 // apply_dataTable('#user_table_table', '#user_table_wrapper','#user_table_length', '#user_table_filter');
 
+  function makeChosen() {
+    $('.chosen-select').chosen(); 
+    $('.chosen-container').css('width','95%');
+  }
+  makeChosen();
 
   function buildActionForm(_this) {
 
     var action = _this.val();
-    console.log(_this.val())
-    console.log(typeof gon.actionForms[action])
+    var actionContainer = _this.closest('.action-holder').siblings('.action-form-container');
+    actionContainer.empty();
+
     if(typeof gon.actionForms[action] == "object") 
-      initHTMLAppender($("#form-container"), gon.actionForms[action]);
-
-
+      initHTMLAppender(actionContainer, gon.actionForms[action]);
   }
 
-  var masterStep = [
-    {type: "<div />", attributes: {class:"panel panel-default"}, child:[
-      {type: "<div />", attributes: {class:"panel-heading"}, child:[
-        {type: "<h4 />", attributes: {class:"panel-title"}, child:[
-          {type: "<a />", attributes: {class:"accordion-toggle", "data-toggle":'toggle'}, child:[
-            {type: "<i />", attributes: {class:"ace-icon fa fa-angle-down bigger-110"}},
-            {type: "<span />", attributes: {html: "Step #"}}
-          ]}
-        ]}
-      ]},
-      {type: "<div />", attributes: {class:"panel-collapse collapse in", id:"accordionTwo"},child:[
-        {type: "<div />", attributes: {class:"panel-body"}, child:[
-          {type: "<span />", attributes: {class:"content"}}
-        ]}    
-      ]}
-    ]}
-  ]
-
   function addMasterStep() {
-    initHTMLAppender($("#test"), masterStep)
+    var stepno = $("#accordion .panel").length + 1;
+    initHTMLAppender($("#accordion"), buildMasterStep(stepno))
+    makeChosen();
+    $("#accordion .panel .accordion-toggle").last().trigger('click');
+  }
+
+  function buildMasterStep(stepno) {
+    var masterStep = [
+      {type: "<div />", attributes: {class:"panel panel-default"}, child:[
+        {type: "<div />", attributes: {class:"panel-heading"}, child:[
+          {type: "<h4 />", attributes: {class:"panel-title"}, child:[
+            {type: "<a />", attributes: {class:"accordion-toggle collapsed", onclick:"toggleMasterStep($(this))"}, child:[
+              {type: "<i />", attributes: {class:"ace-icon fa fa-angle-down bigger-110"}},
+              {type: "<span />", attributes: {}, child:[
+                {type: "<span />", attributes: {class: "step-label", html: "Step #"+stepno}},
+                {type: "<a />", attributes: {class: "btn btn-xs btn-danger", style: "margin-left: 15px", onclick: "deleteMasterStep($(this))", html: "Delete Step"}}
+              ]}
+            ]}
+          ]}
+        ]},
+        {type: "<div />", attributes: {class:"panel-collapse collapse"},child:[
+          {type: "<div />", attributes: {class:"panel-body"}, child:[
+            {type: "<div />", attributes: {class: "row action-holder"}, child: [
+              {type: "<div />", attributes: {class: "col-md-6"}, child: [
+                {type: "<div />", attributes: {class:"row"}, child: [
+                  {type: "<div />", attributes: {class:"form-group"}, child: [
+                    {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action "}},
+                    {type: "<div />", attributes: {class:"col-md-9"}, child: [
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "buildActionForm($(this))"}, child: [
+                        {type: "<option />", attributes: {value: "", html: "Select Action"}},
+                        {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
+                        {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
+                        {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
+                        {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
+                        {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
+                        {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
+                      ]}
+                    ]}
+                  ]}
+                ]}
+              ]},
+              {type: "<div />", attributes: {class: "col-md-6"}, child: [
+                {type: "<div />", attributes: {class:"row"}, child: [
+                  {type: "<div />", attributes: {class:"form-group"}, child: [
+                    {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action Model "}},
+                    {type: "<div />", attributes: {class:"col-md-9"}, child: [
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "buildActionForm($(this))"}, child: [
+                        {type: "<option />", attributes: {value: "", html: "Select Action"}},
+                        {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
+                        {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
+                        {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
+                        {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
+                        {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
+                        {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
+                      ]}
+                    ]}
+                  ]}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-10"}},
+            {type: "<div />", attributes: {class: "action-form-container"}}
+          ]}    
+        ]}
+      ]}
+    ]
+
+    return masterStep
+  }
+
+  function toggleMasterStep(_this) {
+    _this.toggleClass('collapsed');
+    _this.closest('.panel-heading').siblings('.panel-collapse').toggle('height');
+    _this.closest('.panel-heading').siblings('.panel-collapse').toggleClass('in');
+  }
+
+  function deleteMasterStep(_this) {
+    _this.closest('.panel').remove();
+    renameMasterSteps();
+  }
+
+  function renameMasterSteps() {
+    var stepLabels = $("#accordion .step-label");
+    console.log(stepLabels)
+    for(var i = 0, len = stepLabels.length; i < len; i++) {
+      stepLabels[i].innerHTML = "Step #"+(i+1);
+    }
   }
 
   // $('#user_table')

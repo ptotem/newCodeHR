@@ -8,8 +8,8 @@ class ProcessMastersController < ApplicationController
 
 		@process_master = ProcessMaster.new
 		@actionForms = {
-			Fill: [], 
-			Approve: [] 
+			Fill: [{type: "<span />", attributes: {html: "Fill"}}], 
+			Approve: [{type: "<span />", attributes: {html: "Approve"}}] 
 		}
 
 		gon.actionForms = @actionForms
