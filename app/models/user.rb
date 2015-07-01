@@ -40,5 +40,5 @@ class User
 
   has_and_belongs_to_many :notification_masters
 
-  has_one :employee
+  belongs_to :employee
 end
