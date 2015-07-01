@@ -48,7 +48,16 @@ class ProcessMastersController < ApplicationController
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-
+						{type: "<div />", attributes: {class: "row"}, child: [
+							{type: "<div />", attributes: {class: "col-md-12"}, child: [
+								{type: "<div />", attributes: {class: "form-group"}, child: [
+									{type: "<label />", attributes: {}, child:[
+										{type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", placeholder: "Repeat Escalation"}}	
+									]},
+									
+								]}
+							]}
+						]}
 					]},
 					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, child: [
 						{type: "<div />", attributes: {class: "row"}, child: [
