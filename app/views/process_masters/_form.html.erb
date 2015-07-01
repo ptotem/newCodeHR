@@ -208,7 +208,7 @@
       {type: "<table />", attributes: {class: "table table-striped table-bordered table-hover"}, child: [
         {type: "<thead />", attributes: {}, child: [
           {type: "<tr />", attributes: {}, child: [
-            {type: "<th />", attributes: {html: "Select"}},
+            {type: "<th />", attributes: {class: "center", html: "Select"}},
             {type: "<th />", attributes: {html: "Name"}}
           ]}
         ]},
@@ -222,7 +222,9 @@
     $(_tableContainer.find('table')[0]).dataTable({
       pagingType: "full",
       order: [[1, 'asc']],
-      ordering: false
+      aoColumnDefs: [
+          { bSortable: false, aTargets: [ 0, 1 ] }
+       ]
     });
   }
 
