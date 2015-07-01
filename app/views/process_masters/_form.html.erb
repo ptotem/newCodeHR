@@ -84,12 +84,13 @@
 
     if(typeof gon.actionForms[action] == "object") 
       initHTMLAppender(actionContainer, gon.actionForms[action]);
+
     makeChosen();
   }
 
   function addMasterStep() {
     var stepno = $("#process-master-form .panel").length + 1;
-    initHTMLAppender($("#process-master-form"), buildMasterStep(stepno))
+    initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
     makeChosen();
     $("#process-master-form .panel .accordion-toggle").last().trigger('click');
   }
@@ -155,7 +156,7 @@
       ]}
     ]
 
-    return masterStep
+    return masterStep;
   }
 
   function toggleMasterStep(_this) {
@@ -179,6 +180,51 @@
   }
 
   addMasterStep();
+
+  function getModelTableData(_this) {
+    var modelValues = gon.modelData[_this.val()];
+    console.log(_this.val())
+    console.log(modelValues)
+    var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
+    var tableValues = [];
+
+    for(var i = 0, len = modelValues.length; i < len; i++) {
+      var obj = {type: "<tr />", attributes: {}, child: [
+        {type: "<td />", attributes: {class: "center"}, child: [
+          {type: "<label />", attributes: {class: "position-relative"}, child: [
+            {type: "<input />", attributes: {class: "ace", type: "checkbox", value: modelValues[i]._id.$oid}},
+            {type: "<span />", attributes: {class: "lbl"}}
+          ]}
+        ]},
+        {type: "<td />", attributes: {}, child: [
+          {type: "<span />", attributes: {html: modelValues[i].name}}
+        ]}
+      ]};
+
+      tableValues.push(obj);
+    }
+
+    var tableStruct = [
+      {type: "<table />", attributes: {class: "table table-striped table-bordered table-hover"}, child: [
+        {type: "<thead />", attributes: {}, child: [
+          {type: "<tr />", attributes: {}, child: [
+            {type: "<th />", attributes: {html: "Select"}},
+            {type: "<th />", attributes: {html: "Name"}}
+          ]}
+        ]},
+        {type: "<tbody />", attributes: {}, child: tableValues}
+      ]}
+    ]
+
+    _tableContainer.empty();
+    initHTMLAppender(_tableContainer, tableStruct);
+
+    $(_tableContainer.find('table')[0]).dataTable({
+      pagingType: "full",
+      order: [[1, 'asc']],
+      ordering: false
+    });
+  }
 
   // $('#user_table')
   //       //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)

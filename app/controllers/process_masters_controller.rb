@@ -7,6 +7,12 @@ class ProcessMastersController < ApplicationController
 	def new
 
 		@process_master = ProcessMaster.new
+		@employees = Employee.all
+		@bands = Band.all
+		@departments = Department.all
+		@roles = Role.all
+		@groups = Group.all
+
 		@actionForms = {
 			Fill: [], 
 			Approve: [
@@ -59,26 +65,26 @@ class ProcessMastersController < ApplicationController
 						]}
 					]},
 					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, child: [
-						{type: "<div />", attributes: {class: "row"}, child: [
+						{type: "<div />", attributes: {class: "row model-selector"}, child: [
 							{type: "<div />", attributes: {class: "form-group"}, child: [
 								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Approvers By:"}},
 								{type: "<div />", attributes: {class: "col-md-8"}, child: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelValues($(this).val())"}, child: [
+									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, child: [
 										{type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
-										{type: "<option />", attributes: {value: "EmployeeMaster", html: "Employee"}},
+										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
 										{type: "<option />", attributes: {value: "Role", html: "Role"}},
 										{type: "<option />", attributes: {value: "Department", html: "Department"}},
-										{type: "<option />", attributes: {value: "GroupMaster", html: "Group"}},
-										{type: "<option />", attributes: {value: "BandMaster", html: "Band"}}
+										{type: "<option />", attributes: {value: "Group", html: "Group"}},
+										{type: "<option />", attributes: {value: "Band", html: "Band"}}
 									]}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-10"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
+						{type: "<div />", attributes: {class: "row model-values"}, child: [
 							{type: "<div />", attributes: {class: "col-md-12"}, child: [
 								{type: "<div />", attributes: {class: "table-header", html: "Select Approvers"}},
-								{type: "<table />", attributes: {class: "table table-striped table-bordered table-hover"}}
+								{type: "<div />", attributes: {class: "table-container"}}
 							]}
 						]}
 					]}
@@ -132,13 +138,13 @@ class ProcessMastersController < ApplicationController
 							{type: "<div />", attributes: {class: "form-group"}, child: [
 								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
 								{type: "<div />", attributes: {class: "col-md-8"}, child: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelValues($(this).val())"}, child: [
+									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, child: [
 										{type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
-										{type: "<option />", attributes: {value: "EmployeeMaster", html: "Employee"}},
+										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
 										{type: "<option />", attributes: {value: "Role", html: "Role"}},
 										{type: "<option />", attributes: {value: "Department", html: "Department"}},
-										{type: "<option />", attributes: {value: "GroupMaster", html: "Group"}},
-										{type: "<option />", attributes: {value: "BandMaster", html: "Band"}}
+										{type: "<option />", attributes: {value: "Group", html: "Group"}},
+										{type: "<option />", attributes: {value: "Band", html: "Band"}}
 									]}
 								]}
 							]}
@@ -147,7 +153,7 @@ class ProcessMastersController < ApplicationController
 						{type: "<div />", attributes: {class: "row"}, child: [
 							{type: "<div />", attributes: {class: "col-md-12"}, child: [
 								{type: "<div />", attributes: {class: "table-header", html: "Select Recipients"}},
-								{type: "<table />", attributes: {class: "table table-striped table-bordered table-hover"}}
+								{type: "<div />", attributes: {class: "table-container"}}
 							]}
 						]}
 					]}
@@ -183,6 +189,12 @@ class ProcessMastersController < ApplicationController
 		}
 
 		gon.actionForms = @actionForms
+		gon.modelData = {}
+		gon.modelData['Employee'] = @employees
+		gon.modelData['Band'] = @bands
+		gon.modelData['Department'] = @departments
+		gon.modelData['Role'] = @roles
+		gon.modelData['Group'] = @groups
 		
 	end
 
