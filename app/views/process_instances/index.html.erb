@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Process Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @process_instances.each do |process_instance| %>
+      <tr>
+        <td><%= link_to 'Show', process_instance %></td>
+        <td><%= link_to 'Edit', edit_process_instance_path(process_instance) %></td>
+        <td><%= link_to 'Destroy', process_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Process instance', new_process_instance_path %>

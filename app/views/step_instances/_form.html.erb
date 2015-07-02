@@ -1,0 +1,17 @@
+<%= form_for(@step_instance) do |f| %>
+  <% if @step_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@step_instance.errors.count, "error") %> prohibited this step_instance from being saved:</h2>
+
+      <ul>
+      <% @step_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
