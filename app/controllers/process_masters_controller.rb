@@ -13,182 +13,6 @@ class ProcessMastersController < ApplicationController
 		@roles = Role.all
 		@groups = Group.all
 
-		@actionForms = {
-			Fill: [], 
-			Approve: [
-				{type: "<div />", attributes: {class: "row"}, children: [
-					{type: "<div />", attributes: {class: "col-md-6"}, children: [
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Reminder"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Reminder"}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Reminder"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Reminder"}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation"}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Escalation"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation"}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-6"}, children: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
-									{type: "<span />", attributes: {class: "lbl"}}
-								]},
-								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Manager's Approval?"}}
-							]}
-						]}
-					]},
-					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
-						{type: "<div />", attributes: {class: "row model-selector"}, children: [
-							{type: "<div />", attributes: {class: "form-group"}, children: [
-								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Approvers By:"}},
-								{type: "<div />", attributes: {class: "col-md-8"}, children: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, children: [
-										{type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
-										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
-										{type: "<option />", attributes: {value: "Role", html: "Role"}},
-										{type: "<option />", attributes: {value: "Department", html: "Department"}},
-										{type: "<option />", attributes: {value: "Group", html: "Group"}},
-										{type: "<option />", attributes: {value: "Band", html: "Band"}}
-									]}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-10"}},
-						{type: "<div />", attributes: {class: "row model-values"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "table-header", html: "Select Approvers"}},
-								{type: "<div />", attributes: {class: "table-container"}}
-							]}
-						]}
-					]}
-				]}
-			],
-
-			Notify: [
-				{type: "<div />", attributes: {class: "row"}, children: [
-					{type: "<div />", attributes: {class: "col-md-6"}, children: [
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Title"}},
-									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Title"}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "form-group"}, children: [
-									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Description"}},
-									{type: "<textarea />", attributes: {class: "col-md-7", placeholder: "Description", style: "height: auto; resize: none; word-wrap: break-word; padding-left: 4px; padding-right: 4px; "}}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-6"}, children: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
-									{type: "<span />", attributes: {class: "lbl"}}
-								]},
-								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Notify Initiator?"}}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-6"}, children: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
-									{type: "<span />", attributes: {class: "lbl"}}
-								]},
-								{type: "<span />", attributes: {style: "margin-left: 10px;", html: "Include File?"}}
-							]}
-						]}
-
-					]},
-					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "form-group"}, children: [
-								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
-								{type: "<div />", attributes: {class: "col-md-8"}, children: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, children: [
-										{type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
-										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
-										{type: "<option />", attributes: {value: "Role", html: "Role"}},
-										{type: "<option />", attributes: {value: "Department", html: "Department"}},
-										{type: "<option />", attributes: {value: "Group", html: "Group"}},
-										{type: "<option />", attributes: {value: "Band", html: "Band"}}
-									]}
-								]}
-							]}
-						]},
-						{type: "<div />", attributes: {class: "space-10"}},
-						{type: "<div />", attributes: {class: "row"}, children: [
-							{type: "<div />", attributes: {class: "col-md-12"}, children: [
-								{type: "<div />", attributes: {class: "table-header", html: "Select Recipients"}},
-								{type: "<div />", attributes: {class: "table-container"}}
-							]}
-						]}
-					]}
-				]}
-			],
-			MarkComplete: [],
-			SpawnD: [
-				{type: "<div />", attributes: {class: "row"}, children: [
-					{type: "<div />", attributes: {class: "form-group"}, children: [
-						{type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
-						{type: "<div />", attributes: {class: "col-md-4"}, children: [
-							{type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
-								{type: "<option />", attributes: {value: "", html: "Select SpawnD Process"}},
-								{type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
-							]}
-						]}
-					]}
-				]}
-			],
-			SpawnI: [
-				{type: "<div />", attributes: {class: "row"}, children: [
-					{type: "<div />", attributes: {class: "form-group"}, children: [
-						{type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
-						{type: "<div />", attributes: {class: "col-md-4"}, children: [
-							{type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
-								{type: "<option />", attributes: {value: "", html: "Select SpawnI Process"}},
-								{type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
-							]}
-						]}
-					]}
-				]}
-			]
-		}
-
-		gon.actionForms = @actionForms
 		gon.modelData = {}
 		gon.modelData['Employee'] = @employees
 		gon.modelData['Band'] = @bands
@@ -199,8 +23,49 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def create
-		render :json => params
-		return
+		masterSteps = []
+		params[:masterSteps].each do |key, value|
+			if value['approval_obj']
+				idsHash = value['approval_obj']['approvers']['ids']
+				idsArray = []
+				idsHash.each do |seq, id|
+					idsArray.push(id)
+				end
+				value['approval_obj']['approvers']['ids'] = idsArray
+			end
+
+			if value['notification_obj']
+				idsHash = value['notification_obj']['recipients']['ids']
+				idsArray = []
+				idsHash.each do |seq, id|
+					idsArray.push(id)
+				end
+				value['notification_obj']['recipients']['ids'] = idsArray
+			end
+			masterSteps.push(MasterStep.create!(value))
+		end
+		process_master = ProcessMaster.create!(params[:process])
+		process_master.master_steps = masterSteps
+
+		respond_to do |format|
+      if process_master.save
+        format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
+        format.json { render json: process_master, status: :created, location: process_master }
+      else
+        format.html { render action: "new" }
+        format.json { render json: process_master.errors, status: :unprocessable_entity }
+      end
+    end
+		
+	end
+
+	def show
+		@process_master = ProcessMaster.find(params[:id])
+
+		respond_to do |format|
+      format.html
+      format.json { render json: @process_master }
+    end
 		
 	end
 
