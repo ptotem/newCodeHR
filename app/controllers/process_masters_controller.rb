@@ -62,6 +62,9 @@ class ProcessMastersController < ApplicationController
 	def show
 		@process_master = ProcessMaster.find(params[:id])
 
+		# render :json => @process_master.master_steps
+		# return
+
 		respond_to do |format|
       format.html
       format.json { render json: @process_master }
