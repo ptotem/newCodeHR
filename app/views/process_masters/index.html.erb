@@ -1,25 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Process Masters</h1>
+<div class="row">
+  <div class="col-md-4">
+    <%= link_to 'New Master Process', new_process_master_path, :class=>"btn btn-info" %>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-header">Listing Master Pros</div>
+    <table id="master_pros_table" class="table table-striped table-bordered table-hover">
+      <thead>
+          <tr>
+            <th style="width: 25%">_id</th>
+            <th style="width: 45%">Name</th>
+            <th style="width: 10%" class="center">Show</th>
+            <th style="width: 10%" class="center">Edit</th>
+            <th style="width: 10%" class="center" class="center">Destroy</th>
+          </tr>
+      </thead>
 
-  <tbody>
-    <% @process_masters.each do |process_master| %>
-      <tr>
-        <td><%= link_to 'Show', process_master %></td>
-        <td><%= link_to 'Edit', edit_process_master_path(process_master) %></td>
-        <td><%= link_to 'Destroy', process_master, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Process master', new_process_master_path %>
+      <tbody>
+          <% @process_masters.each do |process_master| %>
+              <tr>
+                <td><%= process_master._id.to_s %></td>
+                <td><%= process_master.name %></td>
+                <td class="center">
+                  <a href="/process_masters/<%= process_master._id.to_s %>" class="btn btn-xs btn-info">
+                    <i class='fa fa-eye bigger-130'></i>
+                  </a>
+                </td>
+                <td class="center">
+                  <a href="/process_masters/<%# process_master._id.to_s %>/edit" class="btn btn-xs btn-warning">
+                    <i class='fa fa-edit bigger-130'></i>
+                  </a>
+                </td>
+                <td class="center">
+                  <a href="/process_masters/<%= process_master._id.to_s %>" data-confirm="Are you sure?" rel="nofollow" data-method="delete" class="btn btn-xs btn-danger">
+                    <i class='fa fa-trash bigger-130'></i>
+                  </a>
+                </td>
+              </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
