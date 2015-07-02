@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :step_instances
+
+  resources :process_instances
+
   resources :bands
 
   resources :groups
