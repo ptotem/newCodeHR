@@ -26,6 +26,8 @@ class ProcessMastersController < ApplicationController
 		masterSteps = []
 		params[:masterSteps].each do |key, value|
 			if value['approval_obj']
+				value['approval_obj']['manager'] = if value['approval_obj']['manager'] == 'on' then true else false end
+
 				idsHash = value['approval_obj']['approvers']['ids']
 				idsArray = []
 				idsHash.each do |seq, id|
@@ -35,6 +37,9 @@ class ProcessMastersController < ApplicationController
 			end
 
 			if value['notification_obj']
+				value['notification_obj']['initiator'] = if value['notification_obj']['initiator'] == 'on' then true else false end
+				value['notification_obj']['file'] = if value['notification_obj']['file'] == 'on' then true else false end
+					
 				idsHash = value['notification_obj']['recipients']['ids']
 				idsArray = []
 				idsHash.each do |seq, id|
