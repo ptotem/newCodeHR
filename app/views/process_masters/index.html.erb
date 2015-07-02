@@ -26,19 +26,19 @@
                 <td><%= process_master._id.to_s %></td>
                 <td><%= process_master.name %></td>
                 <td class="center">
-                  <a href="/process_masters/<%= process_master._id.to_s %>" class="btn btn-xs btn-info">
-                    <i class='fa fa-eye bigger-130'></i>
-                  </a>
+                  <%= link_to process_master, :class => "btn btn-xs btn-info" do %>
+                     <i class='fa fa-eye bigger-130'></i>
+                  <% end %>
                 </td>
                 <td class="center">
-                  <a href="/process_masters/<%# process_master._id.to_s %>/edit" class="btn btn-xs btn-warning">
-                    <i class='fa fa-edit bigger-130'></i>
-                  </a>
+                  <%= link_to edit_process_master_path(process_master), :class => "btn btn-xs btn-warning" do %>
+                     <i class='fa fa-edit bigger-130'></i>
+                  <% end %>
                 </td>
                 <td class="center">
-                  <a href="/process_masters/<%= process_master._id.to_s %>" data-confirm="Are you sure?" rel="nofollow" data-method="delete" class="btn btn-xs btn-danger">
-                    <i class='fa fa-trash-o bigger-130'></i>
-                  </a>
+                  <%= link_to process_master, :class => "btn btn-xs btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                     <i class='fa fa-trash-o bigger-130'></i>
+                  <% end %>
                 </td>
               </tr>
           <% end %>

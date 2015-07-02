@@ -10,7 +10,6 @@
 			<div class="widget-body">
 				<div class="widget-main padding-8">
 					<div id="tree2" class="tree">
-
 						<% @process_master.master_steps.each do |step| %>
 						<div class="tree-folder">
 							<%if step.action == "Approve" || step.action == "Notify" %>
@@ -49,6 +48,13 @@
 									<div class="tree-item-name">
 										<i class="red ace-icon fa fa-chevron-right"></i>
 											Escalation: <%= step.approval_obj['escalation'] %>
+									</div>
+								</div>
+
+								<div class="tree-item">
+									<div class="tree-item-name">
+										<i class="red ace-icon fa fa-chevron-right"></i>
+											Manager's Approval?: <%= step.approval_obj['manager'] %>
 									</div>
 								</div>
 

@@ -32,8 +32,10 @@ class ProcessMastersController < ApplicationController
 
 				idsHash = value['approval_obj']['approvers']['ids']
 				idsArray = []
-				idsHash.each do |seq, id|
-					idsArray.push(id)
+				if !idsHash.nil?
+					idsHash.each do |seq, id|
+						idsArray.push(id)
+					end
 				end
 				value['approval_obj']['approvers']['ids'] = idsArray
 			end
@@ -44,8 +46,10 @@ class ProcessMastersController < ApplicationController
 					
 				idsHash = value['notification_obj']['recipients']['ids']
 				idsArray = []
-				idsHash.each do |seq, id|
-					idsArray.push(id)
+				if !idsHash.nil?
+					idsHash.each do |seq, id|
+						idsArray.push(id)
+					end
 				end
 				value['notification_obj']['recipients']['ids'] = idsArray
 			end
@@ -70,10 +74,9 @@ class ProcessMastersController < ApplicationController
 		@process_master = ProcessMaster.find(params[:id])
 		
 		respond_to do |format|
-      format.html
-      format.json { render json: @process_master }
-    end
-		
+	      format.html
+	      format.json { render json: @process_master }
+	    end
 	end
 
   private
