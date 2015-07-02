@@ -198,6 +198,12 @@ class ProcessMastersController < ApplicationController
 		
 	end
 
+	def create
+		render :json => params
+		return
+		
+	end
+
   private
 
     # def process_master_params
