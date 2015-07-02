@@ -76,21 +76,12 @@
   }
   makeChosen();
 
-  function buildActionForm(_this) {
-
-    var action = _this.val();
-    var actionContainer = _this.closest('.action-holder').siblings('.action-form-container');
-    actionContainer.empty();
-
-    if(typeof gon.actionForms[action] == "object") 
-      initHTMLAppender(actionContainer, gon.actionForms[action]);
-
-    makeChosen();
-  }
-
   function addMasterStep() {
-    var stepno = $("#process-master-form .panel").length + 1;
+    var lastStep = $("#process-master-form .stepno_hidden").last()[0];
+
+    var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
     initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
+    renameMasterSteps();
     makeChosen();
     $("#process-master-form .panel .accordion-toggle").last().trigger('click');
   }
@@ -103,7 +94,12 @@
             {type: "<a />", attributes: {class:"accordion-toggle collapsed", onclick:"toggleMasterStep($(this))"}, children:[
               {type: "<i />", attributes: {class:"ace-icon fa fa-angle-right bigger-110"}},
               {type: "<span />", attributes: {}, children:[
-                {type: "<span />", attributes: {class: "step-label", html: "Step #<span class='stepno'>"+stepno+"</span>"}},
+                {type: "<span />", attributes: {class: "step-label"}, children: [
+                  {type: "<span />", attributes: {class: "", html: "Step #"}},
+                  {type: "<span />", attributes: {class: "stepno", html: stepno}},
+                  {type: "<input />", attributes: {type:"hidden", class: "stepno_hidden", value: stepno}},
+                  {type: "<input />", attributes: {type:"hidden", class: "sequence", name: "masterStep["+stepno+"][sequence]", value: stepno}}
+                ]},
                 {type: "<i />", attributes: {class: "pull-right fa fa-close bigger-130 red", style:"cursor: pointer", onclick: "deleteMasterStep($(this))"}}
               ]}
             ]}
@@ -117,7 +113,7 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", onchange: "buildActionForm($(this))"}, children: [
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterStep["+stepno+"][action]"}, children: [
                         {type: "<option />", attributes: {value: "", html: "Select Action"}},
                         {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
                         {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
@@ -135,7 +131,7 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action Model "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", onchange: "buildActionForm($(this))"}, children: [
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterStep["+stepno+"][action_class]"}, children: [
                         {type: "<option />", attributes: {value: "", html: "Select Action"}},
                         {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
                         {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
@@ -174,23 +170,217 @@
 
   function renameMasterSteps() {
     var stepLabels = $("#process-master-form .stepno");
+    var stepSeq = $("#process-master-form .sequence");
     for(var i = 0, len = stepLabels.length; i < len; i++) {
       stepLabels[i].innerHTML = i+1;
+      stepSeq[i].value = i;
     }
   }
-
   addMasterStep();
 
-  function getModelTableData(_this) {
+  function getActionForm(_this) {
+    var action = _this.val();
+    var actionContainer = _this.closest('.action-holder').siblings('.action-form-container');
+    actionContainer.empty();
+    var stepno = _this.closest('.panel-collapse').siblings('.panel-heading').find('.stepno_hidden').val();
+
+    var actionForm = buildActionForm(action, stepno);
+    if(typeof gon.actionForms[action] == "object") 
+      initHTMLAppender(actionContainer, actionForm);
+
+    makeChosen();
+  }
+
+  function buildActionForm(action, stepno) {
+    actionForms = {
+      Fill: [], 
+      Approve: [
+        {type: "<div />", attributes: {class: "row"}, children: [
+          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Reminder"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Reminder", name: "masterStep["+stepno+"][approval_obj][reminder]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Reminder"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Reminder", name: "masterStep["+stepno+"][approval_obj][repeat_reminder]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation", name: "masterStep["+stepno+"][approval_obj][escalation]"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation", name: "masterStep["+stepno+"][approval_obj][escalation]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Escalation"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation", name: "masterStep["+stepno+"][approval_obj][repeat_escalation]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-6"}, children: [
+                {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterStep["+stepno+"][approval_obj][manager]"}},
+                  {type: "<span />", attributes: {class: "lbl"}}
+                ]},
+                {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Manager's Approval?"}}
+              ]}
+            ]}
+          ]},
+          {type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
+            {type: "<div />", attributes: {class: "row model-selector"}, children: [
+              {type: "<div />", attributes: {class: "form-group"}, children: [
+                {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Approvers By:"}},
+                {type: "<div />", attributes: {class: "col-md-8"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'approval_obj', 'approvers')", name: "masterStep["+stepno+"][approval_obj][approvers][model]"}, children: [
+                    {type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
+                    {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
+                    {type: "<option />", attributes: {value: "Role", html: "Role"}},
+                    {type: "<option />", attributes: {value: "Department", html: "Department"}},
+                    {type: "<option />", attributes: {value: "Group", html: "Group"}},
+                    {type: "<option />", attributes: {value: "Band", html: "Band"}}
+                  ]}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-10"}},
+            {type: "<div />", attributes: {class: "row model-values"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "table-header", html: "Select Approvers"}},
+                {type: "<div />", attributes: {class: "table-container"}}
+              ]}
+            ]}
+          ]}
+        ]}
+      ],
+
+      Notify: [
+        {type: "<div />", attributes: {class: "row"}, children: [
+          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Title"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Title", name: "masterStep["+stepno+"][notification_obj][title]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "form-group"}, children: [
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Description"}},
+                  {type: "<textarea />", attributes: {class: "col-md-7", placeholder: "Description", style: "height: auto; resize: none; word-wrap: break-word; padding-left: 4px; padding-right: 4px;", name: "masterStep["+stepno+"][notification_obj][description]"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-6"}, children: [
+                {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox"}},
+                  {type: "<span />", attributes: {class: "lbl"}}
+                ]},
+                {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Notify Initiator?", name: "masterStep["+stepno+"][notification_obj][initiator]"}}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-4"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-6"}, children: [
+                {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterStep["+stepno+"][notification_obj][file]"}},
+                  {type: "<span />", attributes: {class: "lbl"}}
+                ]},
+                {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Include File?"}}
+              ]}
+            ]}
+
+          ]},
+          {type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "form-group"}, children: [
+                {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
+                {type: "<div />", attributes: {class: "col-md-8"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'notification_obj', 'recipients')", name: "masterStep["+stepno+"][notification_obj][recipients][model]"}, children: [
+                    {type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
+                    {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
+                    {type: "<option />", attributes: {value: "Role", html: "Role"}},
+                    {type: "<option />", attributes: {value: "Department", html: "Department"}},
+                    {type: "<option />", attributes: {value: "Group", html: "Group"}},
+                    {type: "<option />", attributes: {value: "Band", html: "Band"}}
+                  ]}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class: "space-10"}},
+            {type: "<div />", attributes: {class: "row"}, children: [
+              {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                {type: "<div />", attributes: {class: "table-header", html: "Select Recipients"}},
+                {type: "<div />", attributes: {class: "table-container"}}
+              ]}
+            ]}
+          ]}
+        ]}
+      ],
+      MarkComplete: [],
+      SpawnD: [
+        {type: "<div />", attributes: {class: "row"}, children: [
+          {type: "<div />", attributes: {class: "form-group"}, children: [
+            {type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
+            {type: "<div />", attributes: {class: "col-md-4"}, children: [
+              {type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
+                {type: "<option />", attributes: {value: "", html: "Select SpawnD Process"}},
+                {type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
+              ]}
+            ]}
+          ]}
+        ]}
+      ],
+      SpawnI: [
+        {type: "<div />", attributes: {class: "row"}, children: [
+          {type: "<div />", attributes: {class: "form-group"}, children: [
+            {type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
+            {type: "<div />", attributes: {class: "col-md-4"}, children: [
+              {type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
+                {type: "<option />", attributes: {value: "", html: "Select SpawnI Process"}},
+                {type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
+              ]}
+            ]}
+          ]}
+        ]}
+      ]
+    }
+
+    return actionForms[action]
+  }
+
+  function getModelTableData(_this, key, subkey) {
     var modelValues = gon.modelData[_this.val()];
     var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
     var tableValues = [];
+    var stepno = _this.closest('.panel-collapse').siblings('.panel-heading').find('.stepno_hidden').val();
 
     for(var i = 0, len = modelValues.length; i < len; i++) {
       var obj = {type: "<tr />", attributes: {}, children: [
         {type: "<td />", attributes: {class: "center"}, children: [
           {type: "<label />", attributes: {class: "position-relative"}, children: [
-            {type: "<input />", attributes: {class: "ace", type: "checkbox", value: modelValues[i]._id.$oid}},
+            {type: "<input />", attributes: {class: "ace", type: "checkbox", name: "masterStep["+stepno+"]["+key+"]["+subkey+"][ids]["+i+"]", value: modelValues[i]._id.$oid}},
             {type: "<span />", attributes: {class: "lbl"}}
           ]}
         ]},
@@ -225,29 +415,5 @@
        ]
     });
   }
-
-  // $('#user_table')
-  //       //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
-  //       .dataTable( {
-  //         bAutoWidth: false,
-  //         "aoColumns": [
-  //           { "bSortable": false },
-  //           null, null,null, null, null,
-  //           { "bSortable": false }
-  //         ],
-  //         "aaSorting": []
-      
-  //         //,
-  //         //"sScrollY": "200px",
-  //         //"bPaginate": false,
-      
-  //         //"sScrollX": "100%",
-  //         //"sScrollXInner": "120%",
-  //         //"bScrollCollapse": true,
-  //         //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
-  //         //you may want to wrap the table inside a "div.dataTables_borderWrap" element
-      
-  //         //"iDisplayLength": 50
-  //         } );
 
 </script>
