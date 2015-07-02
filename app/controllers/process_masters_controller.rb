@@ -16,47 +16,47 @@ class ProcessMastersController < ApplicationController
 		@actionForms = {
 			Fill: [], 
 			Approve: [
-				{type: "<div />", attributes: {class: "row"}, child: [
-					{type: "<div />", attributes: {class: "col-md-6"}, child: [
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+				{type: "<div />", attributes: {class: "row"}, children: [
+					{type: "<div />", attributes: {class: "col-md-6"}, children: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Reminder"}},
 									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Reminder"}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Reminder"}},
 									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Reminder"}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation"}},
 									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation"}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Escalation"}},
 									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation"}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-6"}, child: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-6"}, children: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
 									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
 									{type: "<span />", attributes: {class: "lbl"}}
 								]},
@@ -64,12 +64,12 @@ class ProcessMastersController < ApplicationController
 							]}
 						]}
 					]},
-					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, child: [
-						{type: "<div />", attributes: {class: "row model-selector"}, child: [
-							{type: "<div />", attributes: {class: "form-group"}, child: [
+					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
+						{type: "<div />", attributes: {class: "row model-selector"}, children: [
+							{type: "<div />", attributes: {class: "form-group"}, children: [
 								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Approvers By:"}},
-								{type: "<div />", attributes: {class: "col-md-8"}, child: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, child: [
+								{type: "<div />", attributes: {class: "col-md-8"}, children: [
+									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, children: [
 										{type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
 										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
 										{type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -81,8 +81,8 @@ class ProcessMastersController < ApplicationController
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-10"}},
-						{type: "<div />", attributes: {class: "row model-values"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
+						{type: "<div />", attributes: {class: "row model-values"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
 								{type: "<div />", attributes: {class: "table-header", html: "Select Approvers"}},
 								{type: "<div />", attributes: {class: "table-container"}}
 							]}
@@ -92,29 +92,29 @@ class ProcessMastersController < ApplicationController
 			],
 
 			Notify: [
-				{type: "<div />", attributes: {class: "row"}, child: [
-					{type: "<div />", attributes: {class: "col-md-6"}, child: [
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+				{type: "<div />", attributes: {class: "row"}, children: [
+					{type: "<div />", attributes: {class: "col-md-6"}, children: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Title"}},
 									{type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Title"}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
-								{type: "<div />", attributes: {class: "form-group"}, child: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
+								{type: "<div />", attributes: {class: "form-group"}, children: [
 									{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Description"}},
 									{type: "<textarea />", attributes: {class: "col-md-7", placeholder: "Description", style: "height: auto; resize: none; word-wrap: break-word; padding-left: 4px; padding-right: 4px; "}}
 								]}
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-6"}, child: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-6"}, children: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
 									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
 									{type: "<span />", attributes: {class: "lbl"}}
 								]},
@@ -122,9 +122,9 @@ class ProcessMastersController < ApplicationController
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-4"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-6"}, child: [
-								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, child:[
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-6"}, children: [
+								{type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
 									{type: "<input />", attributes: {class: "ace ace-switch ace-switch-2", type: "checkbox"}},
 									{type: "<span />", attributes: {class: "lbl"}}
 								]},
@@ -133,12 +133,12 @@ class ProcessMastersController < ApplicationController
 						]}
 
 					]},
-					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, child: [
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "form-group"}, child: [
+					{type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "form-group"}, children: [
 								{type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
-								{type: "<div />", attributes: {class: "col-md-8"}, child: [
-									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, child: [
+								{type: "<div />", attributes: {class: "col-md-8"}, children: [
+									{type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this))"}, children: [
 										{type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
 										{type: "<option />", attributes: {value: "Employee", html: "Employee"}},
 										{type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -150,8 +150,8 @@ class ProcessMastersController < ApplicationController
 							]}
 						]},
 						{type: "<div />", attributes: {class: "space-10"}},
-						{type: "<div />", attributes: {class: "row"}, child: [
-							{type: "<div />", attributes: {class: "col-md-12"}, child: [
+						{type: "<div />", attributes: {class: "row"}, children: [
+							{type: "<div />", attributes: {class: "col-md-12"}, children: [
 								{type: "<div />", attributes: {class: "table-header", html: "Select Recipients"}},
 								{type: "<div />", attributes: {class: "table-container"}}
 							]}
@@ -161,11 +161,11 @@ class ProcessMastersController < ApplicationController
 			],
 			MarkComplete: [],
 			SpawnD: [
-				{type: "<div />", attributes: {class: "row"}, child: [
-					{type: "<div />", attributes: {class: "form-group"}, child: [
+				{type: "<div />", attributes: {class: "row"}, children: [
+					{type: "<div />", attributes: {class: "form-group"}, children: [
 						{type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
-						{type: "<div />", attributes: {class: "col-md-4"}, child: [
-							{type: "<select />", attributes: {class: "form-control chosen-select"}, child: [
+						{type: "<div />", attributes: {class: "col-md-4"}, children: [
+							{type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
 								{type: "<option />", attributes: {value: "", html: "Select SpawnD Process"}},
 								{type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
 							]}
@@ -174,11 +174,11 @@ class ProcessMastersController < ApplicationController
 				]}
 			],
 			SpawnI: [
-				{type: "<div />", attributes: {class: "row"}, child: [
-					{type: "<div />", attributes: {class: "form-group"}, child: [
+				{type: "<div />", attributes: {class: "row"}, children: [
+					{type: "<div />", attributes: {class: "form-group"}, children: [
 						{type: "<label />", attributes: {class: "col-md-2 control-label no-padding-right", html: "Select Process"}},
-						{type: "<div />", attributes: {class: "col-md-4"}, child: [
-							{type: "<select />", attributes: {class: "form-control chosen-select"}, child: [
+						{type: "<div />", attributes: {class: "col-md-4"}, children: [
+							{type: "<select />", attributes: {class: "form-control chosen-select"}, children: [
 								{type: "<option />", attributes: {value: "", html: "Select SpawnI Process"}},
 								{type: "<option />", attributes: {value: "process_id", html: "[Process Name]"}}
 							]}

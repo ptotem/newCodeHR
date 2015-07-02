@@ -6,7 +6,7 @@ function initHTMLAppender(parent, html) {
 
 function appendHTML(parent, html) {
     var thisElem = $(html.type, html.attributes).appendTo(parent)
-    if(html.child != undefined) {
-    	initHTMLAppender(thisElem, html.child);
+    if(html['children'] != undefined) {
+    	initHTMLAppender(thisElem, html['children']);
     } 
 }
