@@ -201,6 +201,38 @@
         </div>
 
         <ul class="nav nav-list">
+
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-tag pull-left"></i>
+              <span class="menu-text pull-left"> Process Masters </span>
+
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <% @process_masters = ProcessMaster.all %>
+
+            <ul class="submenu">
+              <% @process_masters.each do |process_master| %>
+              <li class="">
+                <%= link_to process_master, :style => "text-align: left" do %>
+                  <i class="menu-icon fa fa-caret-right pull-left"></i>
+                  <%= process_master.name %>
+                <% end %>
+                <!-- <a href="" style="text-align: left">
+                  <i class="menu-icon fa fa-caret-right pull-left"></i>
+                  <%= process_master.name %>
+                </a> -->
+
+                <b class="arrow"></b>
+              </li>
+              <% end %>
+              
+            </ul>
+          </li>
+
           <li class="">
             <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-tag pull-left"></i>
@@ -223,6 +255,7 @@
               
             </ul>
           </li>
+
         </ul>
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

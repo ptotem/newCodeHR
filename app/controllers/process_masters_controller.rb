@@ -74,9 +74,9 @@ class ProcessMastersController < ApplicationController
 		@process_master = ProcessMaster.find(params[:id])
 		
 		respond_to do |format|
-	      format.html
-	      format.json { render json: @process_master }
-	    end
+      format.html
+      format.json { render json: @process_master }
+    end
 	end
 
   private
