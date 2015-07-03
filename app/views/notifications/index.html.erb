@@ -1,25 +1,40 @@
+<style>
+  .hover-div:hover{
+    background-color: rgba(0,0,0,0.1);
+  }
+</style>
 <p id="notice"><%= notice %></p>
-
 <h1>Listing Notifications</h1>
+<% colorClassArr = ["item-orange", "item-red", "item-default", "item-blue", "item-grey", "item-green"] %>
+<% i = -1 %>
+<ul id="tasks" class="item-list">
+  <% current_user.notifications.desc(:created_at).each do |notification| %>
+    <%i = (i+1) % 5 %>
+    <li class="<%= colorClassArr[i]%> hover-div">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <label class="inline">
+        <span class="" onclick="showNotification($(this))" style="margin-left:5px;cursor:pointer"> <%= notification.title %> </span>
+        <span class="grey" onclick="showNotification($(this))" style="margin-left:20px;cursor:pointer"> <%= notification.description.truncate(50) %>  </span>
+      </label>
 
-  <tbody>
-    <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= link_to 'Show', notification %></td>
-        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div class="pull-right action-buttons">
+        <%= link_to notification, :class => "blue show-notification" do %>
+           <i class='fa fa-eye bigger-130'></i>
+        <% end %>
+        <span class="vbar"></span>
+        <%= link_to notification, method: :delete,:class => 'red', data: { confirm: 'Are you sure?' } do%>
+          <i class="ace-icon fa fa-trash-o bigger-130"></i>
+        <% end %>
+      </div>
+    </li>
+
+  <% end %>
+</ul>
 
 <br>
 
-<%= link_to 'New Notification', new_notification_path %>
+<script>
+  function showNotification(_this){
+    window.location = _this.closest('.hover-div').find('.show-notification')[0].href
+  }
+</script>
