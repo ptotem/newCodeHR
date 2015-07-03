@@ -1,7 +1,7 @@
 class StepInstance
   include Mongoid::Document
   include Mongoid::Timestamps
-  include AASM
+  # include AASM
   include ApplicationHelper
 
   field :sequence, type: Integer
@@ -16,33 +16,52 @@ class StepInstance
   # field :repeat_on, type: String
   field :initiated_at, type: DateTime
   field :finished_at, type: DateTime
+  field :state, type: String, :default => "Created"
   field :erased, type: Boolean
   # field :reporting_officer, type: Boolean
 
   belongs_to :process_instance
 
 
-  aasm do
-    state :Created, :initial => true
-    state :Initiated
-    state :Processing
-    state :Finished
+  # aasm do
+  #   state :Created, :initial => true
+  #   state :Initiated
+  #   state :Processing
+  #   state :Finished
 
-    event :initialise_step, :after => :init_step do
-      transitions :from => :Created, :to => :Initiated
-    end
+  #   event :initialise_step, :after => :init_step do
+  #     transitions :from => :Created, :to => :Initiated
+  #   end
 
-    event :start_processing_step, :after => :post_process_step do
-      transitions :from =>:Initiated, :to => :Processing
-    end
+  #   event :start_processing_step, :after => :post_process_step do
+  #     transitions :from =>:Initiated, :to => :Processing
+  #   end
 
-    event :end_processing_step, :after => :post_finish_step do
-      transitions :from => :Processing, :to => :Finished
-    end
+  #   event :end_processing_step, :after => :post_finish_step do
+  #     transitions :from => :Processing, :to => :Finished
+  #   end
+  # end
+
+  # def aasm_state
+  #   self[:aasm_state] || "Created"
+  # end
+
+  def initialise_step
+    self.state = "Initiated"
+    self.save!
+    self.init_step
   end
 
-  def aasm_state
-    self[:aasm_state] || "Created"
+  def start_processing_step
+    self.state = "Processing"
+    self.save!
+    self.post_process_step
+  end
+
+  def end_processing_step
+    self.state = "Finished"
+    self.save!
+    self.post_finish_step
   end
 
   def load_step

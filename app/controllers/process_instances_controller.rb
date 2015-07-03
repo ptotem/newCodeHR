@@ -13,6 +13,7 @@ class ProcessInstancesController < InheritedResources::Base
 
 		processInstance = duplicateModelObject(@process_master)
 		processInstance['process_master_id'] = @process_master._id.to_s
+		processInstance['initiator'] = current_user._id
 
 		stepInstances = []
 		@master_steps.each do |step|
@@ -30,9 +31,12 @@ class ProcessInstancesController < InheritedResources::Base
 		process_instance.load_process
 
 		redirect_to root_path
+	end
 
-
-
+	def index
+		@process_instances = ProcessInstance.where(initiator: current_user._id)
+		# render :json => @process_instances
+		# return
 	end
 
 
