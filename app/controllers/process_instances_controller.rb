@@ -6,8 +6,8 @@ class ProcessInstancesController < InheritedResources::Base
 	end
 
 	def create
-		render :json => params
-		return
+		# render :json => params
+		# return
 		@process_master = ProcessMaster.find(params[:process_master])
 		@master_steps = @process_master.master_steps
 
@@ -23,10 +23,11 @@ class ProcessInstancesController < InheritedResources::Base
 		process_instance = ProcessInstance.create!(processInstance)
 		process_instance.step_instances = stepInstances
 
-		render :json => process_instance
-		return
+		# render :json => process_instance
+		# return
 		
 		process_instance.save!
+		process_instance.load_process
 
 
 	end
