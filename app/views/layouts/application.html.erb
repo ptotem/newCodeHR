@@ -65,20 +65,20 @@
           <li class="grey">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <i class="ace-icon fa fa-tasks"></i>
-              <span class="badge badge-grey"><%= current_user.user_tasks.where(read: false).count %></span>
+              <span class="badge badge-grey"><%= current_user.tasks.where(read: false).count %></span>
             </a>
 
             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
               <li class="dropdown-header" id="remain_task">
                 <i class="ace-icon fa fa-check"></i>
-                <%= current_user.user_tasks.where(read: false).count %> Tasks to complete
+                <%= current_user.tasks.where(read: false).count %> Tasks to complete
               </li>
 
-              <% current_user.user_tasks.where(seen: false).limit(5).desc(:created_at).each do |nm| %>
+              <% current_user.tasks.where(read: false).limit(5).desc(:created_at).each do |task| %>
                 <li class="undone_task">
-                  <a href="/user_tasks/<%= nm._id %>">
+                  <a href="/tasks/<%= task._id %>">
                     <div class="clearfix">
-                      <span class="pull-left"><%= nm.title %></span>
+                      <span class="pull-left"><%= task.title %></span>
                     </div>
                   </a>
                 </li>
@@ -86,7 +86,7 @@
 
               <li class="dropdown-footer">
                 <a href="#">
-                  <%= link_to 'See tasks with details', user_tasks_path %>
+                  <%= link_to 'See all Tasks', tasks_path %>
                   <!-- See tasks with details
                   <i class="ace-icon fa fa-arrow-right"></i> -->
                 </a>
@@ -97,22 +97,22 @@
           <li class="purple">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-              <span class="badge badge-important"><%= current_user.notification_masters.where(read: false).count %></span>
+              <span class="badge badge-important"><%= current_user.notifications.where(read: false).count %></span>
             </a>
 
             <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
               <li class="dropdown-header" id="nott">
                 <i class="ace-icon fa fa-exclamation-triangle"></i>
-                <%= current_user.notification_masters.where(read: false).count %> Notifications
+                <%= current_user.notifications.where(read: false).count %> Notifications
               </li>
 
-              <% current_user.notification_masters.where(read: false).limit(5).desc(:created_at).each do |nm| %>
+              <% current_user.notifications.where(read: false).limit(5).desc(:created_at).each do |notification| %>
                 <li class="unread_nott">
-                  <a href="/notification_masters/<%= nm.id %>">
+                  <a href="/notifications/<%= notification.id %>">
                     <div class="clearfix">
                       <span class="pull-left">
                         <i class="btn btn-xs no-hover btn-primary fa fa-comment"></i>
-                        <%=nm.title.truncate(20) %>
+                        <%=notification.title.truncate(20) %>
                       </span>
                     </div>
                   </a>
@@ -121,7 +121,7 @@
 
               <li class="dropdown-footer">
                 <a href="#">
-                  <%= link_to 'See all notifications', notification_masters_path %>
+                  <%= link_to 'See all Notifications', notifications_path %>
                 </a>
               </li>
             </ul>
