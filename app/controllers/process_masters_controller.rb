@@ -79,6 +79,13 @@ class ProcessMastersController < ApplicationController
     end
 	end
 
+	def destroy
+		process_master = ProcessMaster.find(params[:id])
+		process_master.destroy
+		process_masters = ProcessMaster.new
+		redirect_to process_masters
+	end
+
   private
 
     # def process_master_params
