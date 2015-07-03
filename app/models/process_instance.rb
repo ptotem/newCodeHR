@@ -1,43 +1,62 @@
 class ProcessInstance
   include Mongoid::Document
   include Mongoid::Timestamps
-  include AASM
+  # include AASM
 
   field :name, type: String
+  field :initiator, type: String
+  field :facilitators, type: Array #TODO: Yet to Implement Facilitators Functionality
   field :process_master_id, type: String
   field :spawn, type: Boolean, :default => false
   field :dependent, type: Boolean, :default => false
   field :parent_process, type: String, :default => ""
   field :parent_stepno, type: Integer
+  field :state, type: String, :default => "Created"
   field :erased, type: Boolean, :default => false
 
   has_many :step_instances
   accepts_nested_attributes_for :step_instances
 
-  aasm do
-    state :Created, :initial => true
-    state :Initiated
-    state :Processing
-    state :Finished
+  # DON'T DELETE...THIS IS TO UNDERSTAND THE FLOW
+  # aasm do
+  #   state :Created, :initial => true
+  #   state :Initiated
+  #   state :Processing
+  #   state :Finished
 
-    event :initialise_process, :after => :init_process do
-      transitions :from => :Created, :to => :Initiated
-    end
+  #   event :initialise_process, :after => :init_process do
+  #     transitions :from => :Created, :to => :Initiated
+  #   end
 
+  #   event :start_processing, :after => :post_operating_process do
+  #     transitions :from => :Initiated, :to => :proce
+  #   end
 
-    event :start_processing, :after => :post_operating_process do
-      transitions :from => :Initiated, :to => :Processing
-    end
+  #   event :end_processing, :after => :post_finish_process  do
+  #     transitions :from => :Processing, :to => :Finished
+  #   end
+  # end
 
-    event :end_processing, :after => :post_finish_process  do
-      transitions :from => :Processing, :to => :Finished
-    end
+  # def aasm_state
+  #   self[:aasm_state] || "Created"
+  # end
 
-
+  def initialise_process
+    self.state = "Initiated"
+    self.save!
+    self.init_process
   end
 
-  def aasm_state
-    self[:aasm_state] || "Created"
+  def start_processing
+    self.state = "Processing"
+    self.save!
+    self.post_operating_process
+  end
+
+  def end_processing
+    self.state = "Finished"
+    self.save!
+    self.post_finish_process
   end
 
   def load_process
@@ -55,9 +74,9 @@ class ProcessInstance
   def post_operating_process
     puts "step is processing.."
     puts "Step is preparing for finish processing"
-    #self.end_processing
-    self.step_instances.first.load_step
-    #self.finish_process
+    # self.end_processing
+    # self.step_instances.first.load_step
+    self.finish_process
   end
 
   def post_finish_process
