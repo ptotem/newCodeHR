@@ -27,6 +27,10 @@ class ProcessInstancesController < InheritedResources::Base
 		# return
 		
 		process_instance.save!
+		process_instance.load_process
+
+		redirect_to root_path
+
 
 
 	end

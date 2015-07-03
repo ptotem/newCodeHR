@@ -61,15 +61,15 @@ class ProcessInstance
   def post_finish_process
     puts "Process is finished"
     puts "Notification Sent to everyone...."
-    if created_by_process
-      if !self.dependent.nil?
-        if self.dependent
-          @parent_pro = ProcessTransact.find(self.parent_pro_id)
-          puts "Child Process has ended now resuming back to parent process"
-          @parent_pro.step_transacts[self.parent_step_no.to_i].end_processing_step
-        end
-      end
-    end
+    # if created_by_process
+    #   if !self.dependent.nil?
+    #     if self.dependent
+    #       @parent_pro = ProcessTransact.find(self.parent_pro_id)
+    #       puts "Child Process has ended now resuming back to parent process"
+    #       @parent_pro.step_transacts[self.parent_step_no.to_i].end_processing_step
+    #     end
+    #   end
+    # end
   end
 
   def finish_process
