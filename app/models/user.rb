@@ -41,4 +41,17 @@ class User
   has_and_belongs_to_many :notification_masters
 
   belongs_to :employee
+
+  def notify(obj)
+    
+  end
+
+  def send_notification(notification_obj)
+    notification = self.notification_masters.build title:notification_obj['title'] , description:notification_obj['description']
+    notification.save
+  end
+
+  def send_task
+    
+  end
 end

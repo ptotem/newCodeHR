@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :tasks
+
+  resources :notifications
+
   resources :step_instances
 
   resources :process_instances
@@ -17,10 +21,6 @@ Rails.application.routes.draw do
   resources :process_masters
 
   resources :master_steps
-
-  resources :notification_masters
-
-  resources :user_tasks
 
   resources :welcomes
 
