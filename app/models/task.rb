@@ -6,8 +6,8 @@ class Task
   field :title, type: String
   field :description, type: String
   field :link, type: String
-  field :read, type: Boolean
-  field :erased, type: Boolean
+  field :read, type: Boolean, :default => false
+  field :erased, type: Boolean, :default => false
 
   belongs_to :user
 end

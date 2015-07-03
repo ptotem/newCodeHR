@@ -42,15 +42,17 @@ class User
   has_and_belongs_to_many :notifications
 
   belongs_to :employee
-  
+
 
   def notify(obj)
+    obj['user_id'] = self._id
     self.send_notification(obj)
   end
 
   def send_notification(notification_obj)
-    notification = self.notification.build title:notification_obj['title'] , description:notification_obj['description']
-    notification.save
+    notification = Notification.create!(notification_obj)
+    self.notifications.push(notification)
+    self.save!
   end
 
   def send_task
