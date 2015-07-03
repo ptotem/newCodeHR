@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -35,19 +36,20 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  has_many :user_tasks
-  accepts_nested_attributes_for :user_tasks
+  has_many :tasks
+  accepts_nested_attributes_for :tasks
 
-  has_and_belongs_to_many :notification_masters
+  has_and_belongs_to_many :notifications
 
   belongs_to :employee
+  
 
   def notify(obj)
-    
+    self.send_notification(obj)
   end
 
   def send_notification(notification_obj)
-    notification = self.notification_masters.build title:notification_obj['title'] , description:notification_obj['description']
+    notification = self.notification.build title:notification_obj['title'] , description:notification_obj['description']
     notification.save
   end
 
