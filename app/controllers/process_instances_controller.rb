@@ -27,7 +27,6 @@ class ProcessInstancesController < InheritedResources::Base
 		# return
 		
 		process_instance.save!
-		process_instance.load_process
 
 
 	end

@@ -9,7 +9,7 @@ class ProcessInstance
   field :parent_process, type: String, :default => ""
   field :erased, type: Boolean, :default => false
 
-  embeds_many :step_instances
+  has_many :step_instances
   accepts_nested_attributes_for :step_instances
 
   aasm do

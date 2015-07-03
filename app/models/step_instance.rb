@@ -18,7 +18,7 @@ class StepInstance
   field :erased, type: Boolean
   # field :reporting_officer, type: Boolean
 
-  embedded_in :process_instance
+  belongs_to :process_instance
 
 
   aasm do
