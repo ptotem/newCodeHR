@@ -2,6 +2,7 @@ class StepInstance
   include Mongoid::Document
   include Mongoid::Timestamps
   include AASM
+  include ApplicationHelper
 
   field :sequence, type: Integer
   field :action, type: String
@@ -22,44 +23,44 @@ class StepInstance
 
 
   aasm do
-    state :created, :initial => true
-    state :initiated
-    state :processing
-    state :finished
+    state :Created, :initial => true
+    state :Initiated
+    state :Processing
+    state :Finished
 
     event :initialise_step, :after => :init_step do
-      transitions :from => :created, :to => :initiated
+      transitions :from => :Created, :to => :Initiated
     end
 
     event :start_processing_step, :after => :post_process_step do
-      transitions :from =>:initiated, :to => :processing
+      transitions :from =>:Initiated, :to => :Processing
     end
 
     event :end_processing_step, :after => :post_finish_step do
-      transitions :from => :processing, :to => :finished
+      transitions :from => :Processing, :to => :Finished
     end
   end
 
   def aasm_state
-    self[:aasm_state] || "created"
+    self[:aasm_state] || "Created"
   end
 
   def load_step
-    puts "#{self.name} is loading....."
+    puts "#{self.action} is loading....."
     self.initiated_at = DateTime.now
     self.initialise_step
   end
 
   def init_step
     puts "Initialise step...."
-    puts "#{self.name} initialised...."
-    puts "#{self.name} preparing to be processed"
+    puts "#{self.action} initialised...."
+    puts "#{self.action} preparing to be processed"
     self.start_processing_step
   end
 
   def post_process_step
-    puts "#{self.name} is processing.."
-    puts "#{self.name} is preparing for finish processing"
+    puts "#{self.action} is processing.."
+    puts "#{self.action} is preparing for finish processing"
     self.process_instance.save
     puts "----------------------------------------------"
     puts "Current Step State : "+self.aasm_state
@@ -71,7 +72,7 @@ class StepInstance
   end
 
   def post_finish_step
-    puts "#{self.name} is finished"
+    puts "#{self.action} is finished"
     self.finished_at = DateTime.now
     self.save
     puts "Calling Next step action or ending process to be done...."
@@ -80,7 +81,7 @@ class StepInstance
       self.process_instance.finish_process
     else
       puts "Initialising next steps"
-      self.process_instance.load_next_step(self.process_transact.step_transacts.index(self)+1)
+      self.process_instance.load_next_step(self.process_instance.step_instances.index(self)+1)
     end
   end
 end

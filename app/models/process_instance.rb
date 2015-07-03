@@ -5,37 +5,39 @@ class ProcessInstance
 
   field :name, type: String
   field :process_master_id, type: String
+  field :spawn, type: Boolean, :default => false
   field :dependent, type: Boolean, :default => false
   field :parent_process, type: String, :default => ""
+  field :parent_stepno, type: Integer
   field :erased, type: Boolean, :default => false
 
   has_many :step_instances
   accepts_nested_attributes_for :step_instances
 
   aasm do
-    state :created, :initial => true
-    state :initiated
-    state :processing
-    state :finished
+    state :Created, :initial => true
+    state :Initiated
+    state :Processing
+    state :Finished
 
     event :initialise_process, :after => :init_process do
-      transitions :from => :created, :to => :initiated
+      transitions :from => :Created, :to => :Initiated
     end
 
 
     event :start_processing, :after => :post_operating_process do
-      transitions :from => :initiated, :to => :processing
+      transitions :from => :Initiated, :to => :Processing
     end
 
     event :end_processing, :after => :post_finish_process  do
-      transitions :from => :processing, :to => :finished
+      transitions :from => :Processing, :to => :Finished
     end
 
 
   end
 
   def aasm_state
-    self[:aasm_state] || "created"
+    self[:aasm_state] || "Created"
   end
 
   def load_process
@@ -61,13 +63,11 @@ class ProcessInstance
   def post_finish_process
     puts "Process is finished"
     puts "Notification Sent to everyone...."
-    if created_by_process
-      if !self.dependent.nil?
-        if self.dependent
-          @parent_pro = ProcessTransact.find(self.parent_pro_id)
-          puts "Child Process has ended now resuming back to parent process"
-          @parent_pro.step_transacts[self.parent_step_no.to_i].end_processing_step
-        end
+    if self.spawn
+      if self.dependent
+        parent_process = ProcessInstance.find(self.parent_process)
+        puts "Child Process has ended now resuming back to parent process"
+        parent_process.step_instances[self.parent_stepno].end_processing_step
       end
     end
   end
