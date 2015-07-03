@@ -25,38 +25,25 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def create
-		masterSteps = []
+		process_master = ProcessMaster.create!(params[:process])
 		params[:masterSteps].each do |key, value|
 			if value['approval_obj']
 				value['approval_obj']['manager'] = if value['approval_obj']['manager'] == 'on' then true else false end
-
 				idsHash = value['approval_obj']['approvers']['ids']
-				idsArray = []
-				if !idsHash.nil?
-					idsHash.each do |seq, id|
-						idsArray.push(id)
-					end
-				end
-				value['approval_obj']['approvers']['ids'] = idsArray
+				value['approval_obj']['approvers']['ids'] = hashToArray(idsHash)
 			end
 
 			if value['notification_obj']
 				value['notification_obj']['initiator'] = if value['notification_obj']['initiator'] == 'on' then true else false end
-				value['notification_obj']['file'] = if value['notification_obj']['file'] == 'on' then true else false end
-					
+				value['notification_obj']['file'] = if value['notification_obj']['file'] == 'on' then true else false end		
 				idsHash = value['notification_obj']['recipients']['ids']
-				idsArray = []
-				if !idsHash.nil?
-					idsHash.each do |seq, id|
-						idsArray.push(id)
-					end
-				end
-				value['notification_obj']['recipients']['ids'] = idsArray
+				value['notification_obj']['recipients']['ids'] = hashToArray(idsHash)
 			end
-			masterSteps.push(MasterStep.create!(value))
+			process_master.master_steps.push(MasterStep.create!(value))
 		end
-		process_master = ProcessMaster.create!(params[:process])
-		process_master.master_steps = masterSteps
+
+		# render :json => process_master.master_steps
+		# return
 
 		respond_to do |format|
       if process_master.save
@@ -88,8 +75,18 @@ class ProcessMastersController < ApplicationController
 
   private
 
-    def process_master_params
-      params.require(:process_master).permit()
-    end
+  	def hashToArray(hash)
+  		array = []
+  		if !hash.nil?
+				hash.each do |key, value|
+					array.push(value)
+				end
+			end
+			return array
+  	end
+
+    # def process_master_params
+    #   params.require(:process_master).permit()
+    # end
 end
 
