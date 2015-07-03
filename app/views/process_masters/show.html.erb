@@ -197,8 +197,12 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<%= link_to 'Edit', edit_process_master_path(@process_master), :class => 'btn btn-warning'%>
-		<%= link_to 'Back', process_masters_path, :class => 'btn btn-primary' %>
+		<% @process_instance = ProcessInstance.new %>
+		<%= form_for(@process_instance) do |f| %>
+	    <%= f.submit 'Initiate Process', :class => 'btn btn-success' %>
+			<%= link_to 'Edit', edit_process_master_path(@process_master), :class => 'btn btn-warning'%>
+			<%= link_to 'Back', process_masters_path, :class => 'btn btn-primary' %>
+		<% end %>
 	</div>
 </div>
 
