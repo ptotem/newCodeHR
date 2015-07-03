@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :welcomes
 
   devise_for :users
+
+  match '/delete_notification' => 'notification#delete_notification', :as => :delete_notification, :via => [:get, :post]
   
   root :to => 'welcomes#index'
   mount RailsAdmin::Engine => '/power_admin', as: 'rails_admin'

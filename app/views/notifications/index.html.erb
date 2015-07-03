@@ -11,7 +11,7 @@
   <% current_user.notifications.desc(:created_at).each do |notification| %>
     <%i = (i+1) % 5 %>
     <li class="<%= colorClassArr[i]%> hover-div">
-
+      <%= hidden_field_tag 'notificationId', notification._id.to_s %>
       <label class="inline">
         <span class="" onclick="showNotification($(this))" style="margin-left:5px;cursor:pointer"> <%= notification.title %> </span>
         <span class="grey" onclick="showNotification($(this))" style="margin-left:20px;cursor:pointer"> <%= notification.description.truncate(50) %>  </span>
@@ -22,7 +22,7 @@
            <i class='fa fa-eye bigger-130'></i>
         <% end %>
         <span class="vbar"></span>
-        <%= link_to notification, method: :delete,:class => 'red', data: { confirm: 'Are you sure?' } do%>
+        <%= link_to notification, method: :delete,  remote: true,:class => 'red',:onclick=>"showDeleteAlertBox(deleteNotification,$(this), event)" do%>
           <i class="ace-icon fa fa-trash-o bigger-130"></i>
         <% end %>
       </div>
@@ -34,7 +34,33 @@
 <br>
 
 <script>
+$(function() {
+   function deleteNotification(_this){
+    console.log($('#notificationId').val())
+  }
+});
   function showNotification(_this){
     window.location = _this.closest('.hover-div').find('.show-notification')[0].href
   }
+
+  function deleteNotification(_this){
+    console.log($('#notificationId').val())
+    // test();
+    // console.log(Notification.find(#notificationId).val()))
+    // _this.closest('.hover-div').remove();
+     // 
+
+  }
+  // function test () {
+  //   $.ajax({
+  //      url: "/delete_notification",
+  //      type: "POST",
+  //      data: {"id" : $('#notificationId').val(),
+  //      dataType: "json",
+  //      success: function(data) {
+  //          alert('successfully');
+  //        }
+  //    });
+  // }
+
 </script>
