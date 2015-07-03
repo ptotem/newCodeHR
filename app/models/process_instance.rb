@@ -3,6 +3,7 @@ class ProcessInstance
   include Mongoid::Timestamps
 
   field :name, type: String
+  field :process_master_id, type: String
   field :erased, type: Boolean
 
   has_many :step_instances
