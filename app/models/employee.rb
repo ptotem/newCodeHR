@@ -11,10 +11,10 @@ class Employee
 
 
   has_one :user
-  belongs_to :role
-  belongs_to :department
+  has_and_belongs_to_many :role
+  has_and_belongs_to_many :department
   has_and_belongs_to_many :groups
-  belongs_to :band
+  has_and_belongs_to_many :band
 
   after_create :create_user
 
