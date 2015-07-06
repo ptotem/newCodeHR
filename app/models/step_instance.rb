@@ -82,7 +82,7 @@ class StepInstance
     puts "#{self.action} is preparing for finish processing"
     self.process_instance.save
     puts "----------------------------------------------"
-    puts "Current Step State : "+self.aasm_state
+    puts "Current Step State : "+self.state
     puts "----------------------------------------------"
     #self.end_processing_step
     #step_processing(self.oclass,self.oaction,self.action_to,self.content,self.process_tr._id,self.process_tr.step_trs.index(self),self.process_tr.user_id)

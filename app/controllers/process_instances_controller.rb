@@ -20,21 +20,21 @@ class ProcessInstancesController < InheritedResources::Base
 			_step = duplicateModelObject(step)
 			if _step['action_obj']
 				_step['action_obj']['agents']['users'] = getUsersFromAgents(_step['action_obj']['agents']['model'], _step['action_obj']['agents']['ids'])
-			end
-
-			if _step['action_obj']['manager'] 
-				current_emp = current_user.employee
-				if current_emp
-					current_emp['managers'].each do |manager|
-						_step['action_obj']['agents']['users'] << manager.user._id unless _step['action_obj']['agents']['users'].include?(manager.user._id)
+				
+				if _step['action_obj']['manager'] 
+					current_emp = current_user.employee
+					if current_emp
+						current_emp['managers'].each do |manager|
+							_step['action_obj']['agents']['users'] << manager.user._id unless _step['action_obj']['agents']['users'].include?(manager.user._id)
+						end
 					end
 				end
-			end
 
-			if _step['action_obj']['initiator'] 
-				_step['action_obj']['agents']['users'] << current_user._id unless _step['action_obj']['agents']['users'].include?(current_user._id)
+				if _step['action_obj']['initiator'] 
+					_step['action_obj']['agents']['users'] << current_user._id unless _step['action_obj']['agents']['users'].include?(current_user._id)
+				end
 			end
-
+			
 			# stepInstances.push(_step)
 			stepInstances.push(StepInstance.create!(_step))
 		end
