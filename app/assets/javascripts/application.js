@@ -11,9 +11,11 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery.min
-//= require jquery_ujs
+//= require jquery-ui
 //= require jquery_nested_form
 //= require jquery.dataTables.min
+//= require date-time/moment.min
 //= require bootstrap.min
+//= require x-editable/bootstrap-editable.min
 //= require ace.min
 //= require_tree .
