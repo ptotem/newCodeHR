@@ -75,8 +75,8 @@ class ProcessInstance
     puts "step is processing.."
     puts "Step is preparing for finish processing"
     # self.end_processing
-    # self.step_instances.first.load_step
-    self.finish_process
+    self.step_instances.first.load_step
+    # self.finish_process
   end
 
   def post_finish_process

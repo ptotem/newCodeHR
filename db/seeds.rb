@@ -308,18 +308,19 @@ userLen = @users.length
 while i < userLen do
 	
 
-	@users[i][:official_email] = @users[i][:official_email].downcase
-	@users[i][:gender] = if @users[i][:gender] == "Male" then "M" elsif @users[i][:gender] == "Female" then "F" else "O" end
-	@users[i][:date_of_birth] = if @users[i][:date_of_birth].blank? then "" else @users[i][:date_of_birth].to_date end
-	@users[i][:date_of_joining] = if @users[i][:date_of_joining].blank? then "" else @users[i][:date_of_joining].to_date end
+	# @users[i][:official_email] = @users[i][:official_email].downcase
+	# @users[i][:gender] = if @users[i][:gender] == "Male" then "M" elsif @users[i][:gender] == "Female" then "F" else "O" end
+	# @users[i][:date_of_birth] = if @users[i][:date_of_birth].blank? then "" else @users[i][:date_of_birth].to_date end
+	# @users[i][:date_of_joining] = if @users[i][:date_of_joining].blank? then "" else @users[i][:date_of_joining].to_date end
 	@users[i][:parent_ids] = if @users[i][:parent_ids] == "" then [] else [if !Employee.where(:code => @users[i][:parent_ids].to_s).first.nil? then Employee.where(:code => @users[i][:parent_ids].to_s).first.id end] end
-	@users[i][:role_ids] = [(Role.where(:name => @users[i][:role_ids].to_s).first.id rescue '')]
-	@users[i][:band_master_ids] = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first.id}
-	bandGrp = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first.id}
-	deptGrp = @users[i][:department].to_s.split(',').map{|i| Department.where(:name => i).first.id}
+	# @users[i][:role_ids] = [(Role.where(:name => @users[i][:role_ids].to_s).first.id rescue '')]
+	# @users[i][:band_master_ids] = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first.id}
+	bandGrp = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first}
+	deptGrp = @users[i][:department].to_s.split(',').map{|i| Department.where(:name => i).first}
+	roles = @users[i][:role_ids].to_s.split(',').map{|i| Role.where(:name => i).first}
 	# @users[i][:group_master_ids] = bandGrp.concat(deptGrp)
 	
-	@users[i].delete :band
+	# @users[i].delete :band
 	# @users[i].delete :department
 
 	thisEmp = {}
@@ -328,9 +329,9 @@ while i < userLen do
 	thisEmp[:email] = @users[i][:official_email].downcase
 	thisEmp[:managers] = @users[i][:parent_ids]
 
-	thisEmp[:role] = @users[i][:role_ids][0]
-	thisEmp[:department] = deptGrp[0]
-	thisEmp[:band] = bandGrp[0]
+	thisEmp[:role] = roles
+	thisEmp[:department] = deptGrp
+	thisEmp[:band] = bandGrp
 
 	@em = Employee.create!(thisEmp)
 	@em.save!

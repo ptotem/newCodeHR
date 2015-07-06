@@ -27,18 +27,26 @@ class ProcessMastersController < ApplicationController
 	def create
 		process_master = ProcessMaster.create!(params[:process])
 		params[:masterSteps].each do |key, value|
-			if value['approval_obj']
-				value['approval_obj']['manager'] = if value['approval_obj']['manager'] == 'on' then true else false end
-				idsHash = value['approval_obj']['approvers']['ids']
-				value['approval_obj']['approvers']['ids'] = hashToArray(idsHash)
+			if value['action_obj']
+				if value['action_obj']['manager'] 
+					value['action_obj']['manager'] = if value['action_obj']['manager'] == 'on' then true else false end 
+				end
+
+				if value['action_obj']['initiator'] 
+					value['action_obj']['initiator'] = if value['action_obj']['initiator'] == 'on' then true else false end 
+				end
+
+				if value['action_obj']['file'] 
+					value['action_obj']['file'] = if value['action_obj']['file'] == 'on' then true else false end 
+				end
+
+				idsHash = value['action_obj']['agents']['ids']
+				value['action_obj']['agents']['ids'] = hashToArray(idsHash)
 			end
 
-			if value['notification_obj']
-				value['notification_obj']['initiator'] = if value['notification_obj']['initiator'] == 'on' then true else false end
-				value['notification_obj']['file'] = if value['notification_obj']['file'] == 'on' then true else false end		
-				idsHash = value['notification_obj']['recipients']['ids']
-				value['notification_obj']['recipients']['ids'] = hashToArray(idsHash)
-			end
+			# render :json => value
+			# return
+
 			process_master.master_steps.push(MasterStep.create!(value))
 		end
 

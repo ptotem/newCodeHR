@@ -7,12 +7,12 @@ class StepInstance
   field :sequence, type: Integer
   field :action, type: String
   field :action_class, type: String
-  # field :action_obj, type: String
+  field :action_obj, type: Hash
   # field :auto, type: Boolean
   # field :action_parameter, type: Array
   # field :params_mapping, type: Hash
-  field :approval_obj, type: Hash
-  field :notification_obj, type: Hash
+  # field :approval_obj, type: Hash
+  # field :notification_obj, type: Hash
   # field :repeat_on, type: String
   field :initiated_at, type: DateTime
   field :finished_at, type: DateTime
@@ -82,7 +82,7 @@ class StepInstance
     puts "#{self.action} is preparing for finish processing"
     self.process_instance.save
     puts "----------------------------------------------"
-    puts "Current Step State : "+self.aasm_state
+    puts "Current Step State : "+self.state
     puts "----------------------------------------------"
     #self.end_processing_step
     #step_processing(self.oclass,self.oaction,self.action_to,self.content,self.process_tr._id,self.process_tr.step_trs.index(self),self.process_tr.user_id)

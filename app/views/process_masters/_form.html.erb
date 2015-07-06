@@ -206,7 +206,7 @@
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
                   {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Reminder"}},
-                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Reminder", name: "masterSteps["+stepno+"][approval_obj][reminder]"}}
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Reminder", name: "masterSteps["+stepno+"][action_obj][reminder]"}}
                 ]}
               ]}
             ]},
@@ -215,7 +215,7 @@
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
                   {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Reminder"}},
-                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Reminder", name: "masterSteps["+stepno+"][approval_obj][repeat_reminder]"}}
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Reminder", name: "masterSteps["+stepno+"][action_obj][repeat_reminder]"}}
                 ]}
               ]}
             ]},
@@ -223,8 +223,8 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation", name: "masterSteps["+stepno+"][approval_obj][escalation]"}},
-                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation", name: "masterSteps["+stepno+"][approval_obj][escalation]"}}
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}},
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}}
                 ]}
               ]}
             ]},
@@ -233,7 +233,7 @@
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
                   {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Repeat Escalation"}},
-                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation", name: "masterSteps["+stepno+"][approval_obj][repeat_escalation]"}}
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Repeat Escalation", name: "masterSteps["+stepno+"][action_obj][repeat_escalation]"}}
                 ]}
               ]}
             ]},
@@ -241,7 +241,7 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-6"}, children: [
                 {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][approval_obj][manager]"}},
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][action_obj][manager]"}},
                   {type: "<span />", attributes: {class: "lbl"}}
                 ]},
                 {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Manager's Approval?"}}
@@ -251,9 +251,9 @@
           {type: "<div />", attributes: {class: "col-md-6", style: "border-left: 1px dashed black;"}, children: [
             {type: "<div />", attributes: {class: "row model-selector"}, children: [
               {type: "<div />", attributes: {class: "form-group"}, children: [
-                {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Approvers By:"}},
+                {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select agents By:"}},
                 {type: "<div />", attributes: {class: "col-md-8"}, children: [
-                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'approval_obj', 'approvers')", name: "masterSteps["+stepno+"][approval_obj][approvers][model]"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'action_obj', 'agents')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
                     {type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
                     {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
                     {type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -267,7 +267,7 @@
             {type: "<div />", attributes: {class: "space-10"}},
             {type: "<div />", attributes: {class: "row model-values"}, children: [
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
-                {type: "<div />", attributes: {class: "table-header", html: "Select Approvers"}},
+                {type: "<div />", attributes: {class: "table-header", html: "Select agents"}},
                 {type: "<div />", attributes: {class: "table-container"}}
               ]}
             ]}
@@ -282,7 +282,7 @@
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
                   {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Title"}},
-                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Title", name: "masterSteps["+stepno+"][notification_obj][title]"}}
+                  {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Title", name: "masterSteps["+stepno+"][action_obj][title]"}}
                 ]}
               ]}
             ]},
@@ -291,7 +291,7 @@
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
                   {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Description"}},
-                  {type: "<textarea />", attributes: {class: "col-md-7", placeholder: "Description", style: "height: auto; resize: none; word-wrap: break-word; padding-left: 4px; padding-right: 4px;", name: "masterSteps["+stepno+"][notification_obj][description]"}}
+                  {type: "<textarea />", attributes: {class: "col-md-7", placeholder: "Description", style: "height: auto; resize: none; word-wrap: break-word; padding-left: 4px; padding-right: 4px;", name: "masterSteps["+stepno+"][action_obj][description]"}}
                 ]}
               ]}
             ]},
@@ -299,7 +299,7 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-6"}, children: [
                 {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][notification_obj][initiator]"}},
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][action_obj][initiator]"}},
                   {type: "<span />", attributes: {class: "lbl"}}
                 ]},
                 {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Notify Initiator?"}}
@@ -309,7 +309,7 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-6"}, children: [
                 {type: "<label />", attributes: {style: "vertical-align: middle; margin-top: 10px; margin-bottom: 0; padding-left: 12px"}, children:[
-                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][notification_obj][file]"}},
+                  {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "masterSteps["+stepno+"][action_obj][file]"}},
                   {type: "<span />", attributes: {class: "lbl"}}
                 ]},
                 {type: "<span />", attributes: {style: "margin-left: 10px;", html: "Include File?"}}
@@ -322,7 +322,7 @@
               {type: "<div />", attributes: {class: "form-group"}, children: [
                 {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
                 {type: "<div />", attributes: {class: "col-md-8"}, children: [
-                  {type: "<select />", attributes: {class: "form-control chosen-select",onchange: "getModelTableData($(this), 'notification_obj', 'recipients')", name: "masterSteps["+stepno+"][notification_obj][recipients][model]"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select",onchange: "getModelTableData($(this), 'action_obj', 'agents')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
                     {type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
                     {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
                     {type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -336,7 +336,7 @@
             {type: "<div />", attributes: {class: "space-10"}},
             {type: "<div />", attributes: {class: "row model-values"}, children: [
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
-                {type: "<div />", attributes: {class: "table-header", html: "Select Recipients"}},
+                {type: "<div />", attributes: {class: "table-header", html: "Select agents"}},
                 {type: "<div />", attributes: {class: "table-container"}}
               ]}
             ]}
