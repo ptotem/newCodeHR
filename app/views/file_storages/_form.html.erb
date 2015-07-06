@@ -1,0 +1,20 @@
+<%= form_for(@file_storage) do |f| %>
+  <% if @file_storage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@file_storage.errors.count, "error") %> prohibited this file_storage from being saved:</h2>
+
+      <ul>
+      <% @file_storage.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+  <%= f.file_field :file %>
+  <input type="file" name='test' />
+    <br /><br />
+    <%= f.submit %>
+  </div>
+<% end %>

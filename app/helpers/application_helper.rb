@@ -18,7 +18,30 @@ module ApplicationHelper
 		puts "Approve Step"
 		puts "############################################################"
 		puts process_instance.to_json
-		process_instance.end_processing_step
+		
+		approval = {}
+		approvers = []
+
+		approval['title'] = 'Approval Request'
+		approval['description'] = ''
+		approval['link'] = ''
+		approval['reminder'] = process_instance['action_obj']['reminder']
+		approval['repeat_reminder'] = process_instance['action_obj']['repeat_reminder']
+		approval['escalation'] = process_instance['action_obj']['escalation']
+		approval['repeat_escalation'] = process_instance['action_obj']['repeat_escalation']
+		approval['step_instance'] = process_instance
+
+		process_instance['action_obj']['agents']['users'].each do |approver|
+			approvers.push(Approver.create!(:user_id => approver))
+		end
+
+		approval_obj = Approval.create(approval)
+		approval_obj.approvers = approvers
+
+		approval_obj.save!
+
+
+		# process_instance.end_processing_step
 	end
 
 	def process_step_Notify(process_instance)

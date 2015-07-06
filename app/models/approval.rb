@@ -11,9 +11,9 @@ class Approval
   field :repeat_escalation, type: String
   
   field :status, type: String, :default => "Pending"
-  field :erased, type: Boolean
+  field :erased, type: Boolean, :default => false
 
-  belongs_to :process_instance
+  belongs_to :step_instance
   has_many :approvers
 
 end
