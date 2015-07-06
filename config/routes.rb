@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :approvers
+
   resources :approvals
 
   resources :generics
