@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :approvals
+
+  resources :generics
+
   resources :tasks
 
   resources :notifications
