@@ -97,7 +97,7 @@ class ProcessInstance
   end
 
   def load_next_step(counter)
-    puts "Loading next steps of process..."
+    puts "Loading next steps of process (counter: #{counter})..."
     self.step_instances[counter].load_step
   end
 end
