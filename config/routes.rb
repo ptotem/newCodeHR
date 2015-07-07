@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :approvals
 
   resources :generics
+  get "/fillForm/:step_id" => "generics#new", :as => :new_generic_form
 
   resources :tasks
 
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
 
   match '/delete_notification' => 'notification#delete_notification', :as => :delete_notification, :via => [:get, :post]
 
-  match '/approval/(:value)/(:approverId)' => 'tasks#approve', :as => :approve, :via => [:get, :post]
+  match '/approval/(:approvalId)' => 'approvals#approval', :as => :approval, :via => [:get, :post]
 
   root :to => 'welcomes#index'
   mount RailsAdmin::Engine => '/power_admin', as: 'rails_admin'

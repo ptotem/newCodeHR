@@ -292,7 +292,7 @@ admin.save!
 	              {type: "<div />", attributes: {class:"form-group"}, children: [
 	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document"}},
 	                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
-	                  {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "form[file]"}}
+	                  {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "files[file]"}}
 	                ]}
 	              ]}
 	            ]}

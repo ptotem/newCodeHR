@@ -13,6 +13,7 @@ class ProcessMastersController < ApplicationController
 		@roles = Role.all
 		@groups = Group.all
 		@processes = ProcessMaster.all
+		@forms = Generic.all
 
 		gon.modelData = {}
 		gon.modelData['Employee'] = @employees
@@ -21,6 +22,7 @@ class ProcessMastersController < ApplicationController
 		gon.modelData['Role'] = @roles
 		gon.modelData['Group'] = @groups
 		gon.modelData['processes'] = @processes
+		gon.modelData['forms'] = @forms
 		
 	end
 
