@@ -16,4 +16,21 @@ class Approval
   belongs_to :step_instance
   has_many :approvers
 
+
+  after_create :complete_obj
+
+
+  def complete_obj
+    self.title = "Approval Request"
+    self.description = "Please click on the link to perform your task."
+    self.link = ""
+
+    self.reminder = self.step_instance['action_obj']['reminder']
+    self.repeat_reminder = self.step_instance['action_obj']['repeat_reminder']
+    self.escalation = self.step_instance['action_obj']['escalation']
+    self.repeat_escalation = self.step_instance['action_obj']['repeat_escalation']
+    self.save!
+    
+  end
+
 end
