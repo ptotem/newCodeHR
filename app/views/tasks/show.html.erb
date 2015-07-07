@@ -1,4 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
+<%# link_to 'Edit', edit_task_path(@task) %> |
+<div class="row">
+	<div class="col-md-12">
+		<%= link_to @task.link %>
+		<%= link_to 'Reject', approve_path('123') %>
+	</div>
+</div>
 <%= link_to 'Back', tasks_path %>

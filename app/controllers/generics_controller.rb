@@ -24,11 +24,6 @@ class GenericsController < InheritedResources::Base
 		return
 		
 	end
-	def show
-		gon.notice = session[:notice]
-		# session[:notice] = nil
-		# redirect_to root_path
-	end
 
   private
 

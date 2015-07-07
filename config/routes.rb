@@ -37,8 +37,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   match '/delete_notification' => 'notification#delete_notification', :as => :delete_notification, :via => [:get, :post]
-  match '/delete_notification/(:id)' => 'notification#delete_notification_test', :as => :delete_notification_test, :via => [:get, :post]
-  
+
+  match '/approval/(:value)/(:approverId)' => 'tasks#approve', :as => :approve, :via => [:get, :post]
+
   root :to => 'welcomes#index'
   mount RailsAdmin::Engine => '/power_admin', as: 'rails_admin'
 
