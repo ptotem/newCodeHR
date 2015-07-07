@@ -132,14 +132,16 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action Model "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterSteps["+stepno+"][action_class]"}, children: [
-                        {type: "<option />", attributes: {value: "Document", html: "Document"}},
-                        {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
-                        {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
-                        {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
-                        {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
-                        {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
-                      ]}
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterSteps["+stepno+"][action_class]"}, children: buildActionClasses()
+                      // [
+                      //   {type: "<option />", attributes: {value: "Document", html: "Document"}},
+                      //   {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
+                      //   {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
+                      //   {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
+                      //   {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
+                      //   {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
+                      // ]
+                      }
                     ]}
                   ]}
                 ]}
@@ -153,6 +155,14 @@
     ]
 
     return masterStep;
+  }
+
+  function buildActionClasses() {
+    var actionClasses = [];
+    for(var i = 0, len = gon.modelData.forms.length; i < len; i++) {
+      actionClasses.push({type: "<option />", attributes: {value: gon.modelData.forms[i]['model'], html: gon.modelData.forms[i]['title']}});
+    }
+    return actionClasses;
   }
 
   function toggleMasterStep(_this) {
