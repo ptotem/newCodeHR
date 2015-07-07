@@ -1,5 +1,6 @@
 <%= form_for @generic, :html => { :multipart => true } do |f| %>
-
+  <input type="hidden" name="model" value="<%= @model %>">
+  <input type="hidden" name="step" value="<%= @step_instance[:id] %>111">
   <div class="row">
     <div class="col-md-12">
       <div id="form-holder">
