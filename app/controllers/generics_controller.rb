@@ -26,8 +26,6 @@ class GenericsController < InheritedResources::Base
 		end
 
 		step_instance['action_obj'] = {obj: params['form']}
-		# render :text => params['form']
-		# return
 		step_instance.save!
 		step_instance.end_processing_step
 		redirect_to root_path
@@ -36,11 +34,6 @@ class GenericsController < InheritedResources::Base
 	end
 
   private
-
-  	def bsonKeysToString(hash)
-  		hash
-  		
-  	end
 
     # def generic_params
     #   params.require(:generic).permit()

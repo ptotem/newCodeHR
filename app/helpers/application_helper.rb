@@ -13,8 +13,11 @@ module ApplicationHelper
 		puts step_instance.to_json
 		urlHelpers = Rails.application.routes.url_helpers
 
+		initiator = User.find(step_instance.process_instance.initiator)
+		title = step_instance['action_class']+" Creation"
+		description = step_instance['action_class']+" Creation"
 		link = urlHelpers.new_generic_form_path(step_instance._id)
-		puts link
+		initiator.send_task({title: title, description: description, link: link})
 		# step_instance.end_processing_step
 	end
 
