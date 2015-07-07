@@ -5,7 +5,6 @@ class GenericsController < InheritedResources::Base
 		@model = "Document"
 		@step_instance = {_id: "111"}
 		@form = Generic.find_by(model: @model)
-
 		gon.form = @form
 		
 	end
