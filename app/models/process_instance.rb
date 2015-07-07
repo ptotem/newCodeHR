@@ -17,8 +17,6 @@ class ProcessInstance
   has_many :step_instances
   accepts_nested_attributes_for :step_instances
   
-  has_one :approval
-
   # DON'T DELETE...THIS IS TO UNDERSTAND THE FLOW
   # aasm do
   #   state :Created, :initial => true

@@ -82,7 +82,7 @@ class ProcessInstancesController < InheritedResources::Base
   			end
 			else
 				array.each do |employee|
-					users.push(employee.user._id)
+					users.push(Employee.find(employee).user._id)
 				end
   		end
 

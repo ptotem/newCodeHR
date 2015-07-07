@@ -21,6 +21,7 @@ class StepInstance
   # field :reporting_officer, type: Boolean
 
   belongs_to :process_instance
+  has_one :approval
 
 
   # aasm do
