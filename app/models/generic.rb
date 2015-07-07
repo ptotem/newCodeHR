@@ -1,7 +1,10 @@
 class Generic
   include Mongoid::Document
-  include Mongoid::Paperclip
+  include Mongoid::Timestamps
 
+  field :model, type: String
+  field :title, type: String
+  field :labels, type: Hash
+  field :html, type: Array
 
-  has_mongoid_attached_file :file
 end

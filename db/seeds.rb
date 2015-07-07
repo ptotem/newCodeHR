@@ -251,6 +251,73 @@ admin.save!
 	{employee_code:"STT018",employee_name:"Karan Sigh",employee_middle_name_name:"",status:"",gender:"Male",marital_status:"Married",date_of_birth:"10-Jul-81",date_of_joining:"18-Apr-11",designation_joined_at:"Junior Engineer",official_email:"KaranSigh@stti.com",address_for_communication:"H. No. 2-7-2,Vill URK Puram, Post Pathatekkali, VIA Pundi (RS) Dist Srikakulam, State AP, Pin 532218",parent_ids:"STT005",role_ids:"Junior Engineer",group_master_ids:"",band:"Junior Management",department:"Services"}
 ]
 
+@forms = [
+	{
+		model: "Document",
+		title: "Fill Form - Document Creation",
+		labels: {
+			code: "Document Code",
+			name: "Document Name",
+			file: "Document",
+			version_controlled: "Version Controlled?"
+		},
+		html: [
+			{type: "<div />", attributes: {class: "row"}, children:[
+	      {type: "<div />", attributes: {class: "col-md-12"}, children: [
+
+	        {type: "<div />", attributes: {class: "row"}, children: [
+	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+	            {type: "<div />", attributes: {class:"row"}, children: [
+	              {type: "<div />", attributes: {class:"form-group"}, children: [
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Code"}},
+	                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Code", name: "form[code]"}}
+	              ]}
+	            ]}
+	          ]},
+	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+	            {type: "<div />", attributes: {class:"row"}, children: [
+	              {type: "<div />", attributes: {class:"form-group"}, children: [
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Name"}},
+	                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Name", name: "form[name]"}}
+	              ]}
+	            ]}
+	          ]}
+	        ]},
+
+	        {type: "<div />", attributes: {class: "space-12"}},
+
+	        {type: "<div />", attributes: {class: "row"}, children: [
+	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+	            {type: "<div />", attributes: {class:"row"}, children: [
+	              {type: "<div />", attributes: {class:"form-group"}, children: [
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document"}},
+	                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
+	                  {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "form[file]"}}
+	                ]}
+	              ]}
+	            ]}
+	          ]},
+	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
+	            {type: "<div />", attributes: {class:"row"}, children: [
+	              {type: "<div />", attributes: {class:"form-group"}, children: [
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Version Controlled ?"}},
+	                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
+	                  {type: "<label />", attributes: {}, children: [
+	                    {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form[version_controlled]"}},
+	                    {type: "<span />", attributes: {class: "lbl"}}
+	                  ]}
+	                ]}
+	              ]}
+	            ]}
+	          ]}
+	        ]}
+
+	      ]}
+	    ]}
+		]
+	}
+]
+
 # ---------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -338,6 +405,21 @@ while i < userLen do
 	i=i+1
 end
 puts "Users Seeded!"
+# ---------------------------------------------------------------------------------------------------------------------------------
+
+
+# Seeding Forms in Generic
+puts ""
+puts "Seeding Forms..."
+
+i = 0
+formLen = @forms.length
+while i < formLen do
+	@form = Generic.create!(@forms[i])
+	@form.save!
+	i=i+1
+end
+puts "Forms Seeded!"
 # ---------------------------------------------------------------------------------------------------------------------------------
 
 

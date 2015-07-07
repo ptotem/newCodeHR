@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :documents
+
   resources :file_storages
 
   resources :approvers
