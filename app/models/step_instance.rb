@@ -104,4 +104,16 @@ class StepInstance
       self.process_instance.load_next_step(self.process_instance.step_instances.index(self)+1)
     end
   end
+
+  def get_previous_step(query)
+    steps = self.process_instance.step_instances.where(query)
+    if !steps.nil?
+      if steps[0].sequence < self.sequence
+        return steps[0]
+      else
+        return nil
+      end
+    end
+    
+  end
 end

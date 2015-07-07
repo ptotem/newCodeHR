@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :approvals
 
   resources :generics
+  get "/fillForm/:id" => "generics#new", :as => :new_generic_form
 
   resources :tasks
 

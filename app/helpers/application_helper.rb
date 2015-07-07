@@ -10,6 +10,10 @@ module ApplicationHelper
 		puts "Fill Step"
 		puts "############################################################"
 		puts step_instance.to_json
+		urlHelpers = Rails.application.routes.url_helpers
+
+		link = urlHelpers.new_generic_form_path(step_instance._id)
+		puts link
 		step_instance.end_processing_step
 	end
 
@@ -72,6 +76,9 @@ module ApplicationHelper
 		puts "MarkComplete Step"
 		puts "############################################################"
 		puts step_instance.to_json
+		fillStep = step_instance.get_previous_step({action: "Fill"})
+		puts fillStep.to_json
+		eval(fillStep['action_class']).create!(fillStep['action_obj'])
 		step_instance.end_processing_step
 	end
 
