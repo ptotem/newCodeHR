@@ -2,11 +2,13 @@ class GenericsController < InheritedResources::Base
 
 	def new
 		@generic = Generic.new
-		@form_title = "Fill Form - Document Creation"
+		@form = Generic.find_by(model: "Document")
+		gon.form = @form
 		
 	end
 
 	def create
+		# file = FileStorage.create!(:file => params['form']['file'])
 		render :text => params
 		return
 		

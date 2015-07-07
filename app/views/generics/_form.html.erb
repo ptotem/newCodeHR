@@ -1,17 +1,4 @@
-<%= form_for(@generic) do |f| %>
-  <% if @generic.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@generic.errors.count, "error") %> prohibited this generic from being saved:</h2>
-
-      <ul>
-      <% @generic.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <input type="file" name="test">
+<%= form_for @generic, :html => { :multipart => true } do |f| %>
 
   <div class="row">
     <div class="col-md-12">
@@ -34,61 +21,7 @@
 <% end %>
 
 <script>
-  var form = [
-    {type: "<div />", attributes: {class: "row"}, children:[
-      {type: "<div />", attributes: {class: "col-md-12"}, children: [
-
-        {type: "<div />", attributes: {class: "row"}, children: [
-          {type: "<div />", attributes: {class: "col-md-6"}, children: [
-            {type: "<div />", attributes: {class:"row"}, children: [
-              {type: "<div />", attributes: {class:"form-group"}, children: [
-                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Code"}},
-                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Code", name: "form[code]"}}
-              ]}
-            ]}
-          ]},
-          {type: "<div />", attributes: {class: "col-md-6"}, children: [
-            {type: "<div />", attributes: {class:"row"}, children: [
-              {type: "<div />", attributes: {class:"form-group"}, children: [
-                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Name"}},
-                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Name", name: "form[name]"}}
-              ]}
-            ]}
-          ]}
-        ]},
-
-        {type: "<div />", attributes: {class: "space-12"}},
-
-        {type: "<div />", attributes: {class: "row"}, children: [
-          {type: "<div />", attributes: {class: "col-md-6"}, children: [
-            {type: "<div />", attributes: {class:"row"}, children: [
-              {type: "<div />", attributes: {class:"form-group"}, children: [
-                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document"}},
-                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
-                  {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "form[file]"}}
-                ]}
-              ]}
-            ]}
-          ]},
-          {type: "<div />", attributes: {class: "col-md-6"}, children: [
-            {type: "<div />", attributes: {class:"row"}, children: [
-              {type: "<div />", attributes: {class:"form-group"}, children: [
-                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Version Controlled ?"}},
-                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
-                  {type: "<label />", attributes: {}, children: [
-                    {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form[version_controlled]"}},
-                    {type: "<span />", attributes: {class: "lbl"}}
-                  ]}
-                ]}
-              ]}
-            ]}
-          ]}
-        ]}
-
-      ]}
-    ]}
-        
-  ]
+  var form = gon.form.html;
 
   initHTMLAppender($("#form-holder"), form)
 
