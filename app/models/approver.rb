@@ -9,4 +9,13 @@ class Approver
 
 
   belongs_to :approval
+
+  after_save :update_approval
+
+
+  def update_approval
+  	self.approval.check_completion
+  end
+
+
 end

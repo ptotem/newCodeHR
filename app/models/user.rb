@@ -44,18 +44,20 @@ class User
   belongs_to :employee
 
 
-  def notify(obj)
-    obj['user_id'] = self._id
-    self.send_notification(obj)
-  end
+  # def notify(obj)
+  #   obj['user_id'] = self._id
+  #   self.send_notification(obj)
+  # end
 
   def send_notification(notification_obj)
-    notification = Notification.create!(notification_obj)
-    self.notifications.push(notification)
+    notification_obj['user_id'] = self._id
+    self.notifications.push(Notification.create!(notification_obj))
     self.save!
   end
 
-  def send_task
-    
+  def send_task(task_obj)
+    task_obj['user_id'] = self._id
+    self.tasks.push(Task.create!(task_obj))
+    self.save!
   end
 end
