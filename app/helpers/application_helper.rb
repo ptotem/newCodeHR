@@ -47,8 +47,7 @@ module ApplicationHelper
 		end
 
 		approval.save!
-
-
+		approval.send_tasks
 
 
 		# step_instance.end_processing_step
@@ -63,7 +62,7 @@ module ApplicationHelper
 		title = step_instance['action_obj']['title']
 		description = step_instance['action_obj']['']
 		step_instance['action_obj']['agents']['users'].each do |user_id|
-			User.find(user_id).notify({title: title, description: description})
+			User.find(user_id).send_notification({title: title, description: description})
 		end
 		step_instance.end_processing_step
 	end

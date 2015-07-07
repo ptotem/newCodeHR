@@ -18,6 +18,7 @@ class Approval
 
 
   after_create :complete_obj
+  # after_save :check_completion
 
 
   def complete_obj
@@ -30,7 +31,34 @@ class Approval
     self.escalation = self.step_instance['action_obj']['escalation']
     self.repeat_escalation = self.step_instance['action_obj']['repeat_escalation']
     self.save!
+
+  end
+
+  def send_tasks
+    # task task creation function
+    task = {title: self.title, description: self.description, link: self.link}  
+    self.approvers.each do |approver|
+      User.find(approver.user_id).send_task(task)
+    end
+  end
+
+  def check_completion
+    check_flag = true
+    self.approvers.each do |approver|
+      if approver.status != 'Approved'
+        check_flag = false
+      end
+    end
     
+    if check_flag
+      self.end_step_instance
+    end
+  end
+
+  def end_step_instance
+    self.status = 'Completed'
+    self.save!
+    self.step_instance.end_processing_step    
   end
 
 end
