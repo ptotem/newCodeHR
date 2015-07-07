@@ -18,7 +18,14 @@ class GenericsController < InheritedResources::Base
 		# return
 
 		step_instance = StepInstance.find(params['step'])
-		step_instance['action_obj'] = {obj: params['form'].to_s}
+
+		params['files'].each do |key, obj|
+			fs = FileStorage.create!(file: obj);
+			fs.save!
+			params['form'][key] = fs.file.path
+		end
+
+		step_instance['action_obj'] = {obj: params['form']}
 		# render :text => params['form']
 		# return
 		step_instance.save!
@@ -29,6 +36,11 @@ class GenericsController < InheritedResources::Base
 	end
 
   private
+
+  	def bsonKeysToString(hash)
+  		hash
+  		
+  	end
 
     # def generic_params
     #   params.require(:generic).permit()

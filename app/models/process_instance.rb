@@ -75,7 +75,7 @@ class ProcessInstance
     puts "step is processing.."
     puts "Step is preparing for finish processing"
     # self.end_processing
-    self.step_instances.first.load_step
+    self.step_instances.where(sequence: 0).first.load_step
     # self.finish_process
   end
 
@@ -96,8 +96,8 @@ class ProcessInstance
     self.end_processing
   end
 
-  def load_next_step(counter)
-    puts "Loading next steps of process (counter: #{counter})..."
-    self.step_instances[counter].load_step
+  def load_next_step(sequence)
+    puts "Loading next steps of process (sequence: #{sequence})..."
+    self.step_instances.where(sequence: sequence).first.load_step
   end
 end

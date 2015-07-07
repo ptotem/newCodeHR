@@ -96,12 +96,12 @@ class StepInstance
     self.finished_at = DateTime.now
     self.save
     puts "Calling Next step action or ending process to be done...."
-    if self==self.process_instance.step_instances.last
+    if self.sequence==self.process_instance.step_instances.length-1
       puts "Last step going to end process"
       self.process_instance.finish_process
     else
       puts "Initialising next steps"
-      self.process_instance.load_next_step(self.process_instance.step_instances.index(self)+1)
+      self.process_instance.load_next_step(self.sequence+1)
     end
   end
 
