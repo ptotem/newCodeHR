@@ -2,9 +2,6 @@ class GenericsController < InheritedResources::Base
 
 	def new
 		@generic = Generic.new
-		@d = []
-
-		gon.d = @d
 		@form_title = "Fill Form - Document Creation"
 		
 	end
