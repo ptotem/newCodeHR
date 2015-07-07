@@ -1,4 +1,4 @@
-<%= form_for(@process_master) do |f| %>
+<%= form_for(@process_master, multipart: true) do |f| %>
   <% if @process_master.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@process_master.errors.count, "error") %> prohibited this process_master from being saved:</h2>
