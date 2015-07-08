@@ -15,7 +15,7 @@
   <%= csrf_meta_tags %>
   <%= include_gon %>
   <%# session[:notice] %>
-  <%= hidden_field_tag 'notice', session[:notice].to_s %>
+  <%# hidden_field_tag 'notice', session[:notice].to_s %>
   <%# f.hidden_field 'notice',session[:notice] %>
 
   <!-- toaster -->
@@ -71,7 +71,7 @@
           <li class="grey">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <i class="ace-icon fa fa-tasks"></i>
-              <span class="badge badge-grey"><%= current_user.tasks.where(read: false).count %></span>
+              <span class="badge badge-grey"><%= current_user.tasks.where(read: false).count.to_i %></span>
             </a>
 
             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
@@ -103,7 +103,7 @@
           <li class="purple">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-              <span class="badge badge-important"><%= current_user.notifications.where(read: false).count %></span>
+              <span class="badge badge-important"><%= current_user.notifications.where(read: false).count.to_i %></span>
             </a>
 
             <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
@@ -208,13 +208,13 @@
 
         <ul class="nav nav-list">
 
-        <li class="">
-          <a href="<%= new_process_master_path %>">
-            <i class="menu-icon fa fa-tag pull-left"></i>
-            <span class="menu-text pull-left"> New Process Masters </span>
-          </a>
-          <b class="arrow"></b>
-        </li>
+          <li class="">
+            <a href="<%= new_process_master_path %>">
+              <i class="menu-icon fa fa-angle-down pull-left"></i>
+              <span class="menu-text pull-left"> New Process Masters </span>
+            </a>
+            <b class="arrow"></b>
+          </li>
 
           <li class="">
             <a href="#" class="dropdown-toggle">
@@ -243,29 +243,6 @@
                 <b class="arrow"></b>
               </li>
               <% end %>
-              
-            </ul>
-          </li>
-
-          <li class="">
-            <a href="#" class="dropdown-toggle">
-              <i class="menu-icon fa fa-tag pull-left"></i>
-              <span class="menu-text pull-left"> More Pages </span>
-
-              <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-              <li class="">
-                <a href="profile.html" style="text-align: left">
-                  <i class="menu-icon fa fa-caret-right pull-left"></i>
-                  User Profile
-                </a>
-
-                <b class="arrow"></b>
-              </li>
               
             </ul>
           </li>

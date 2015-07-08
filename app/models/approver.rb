@@ -10,6 +10,17 @@ class Approver
 
   belongs_to :approval
 
-
+  def change_status(status, comments)
+		if self.status != 'Accepted' || self.status != 'Rejected'
+			self.status = status
+			self.save!
+			if status == 'Rejected'
+				User.find(self.user_id).send_notification({title: "Rejection", description: comments})
+			end
+			self.approval.check_completion
+		else
+			#toastr of already accepted or rejected status
+		end
+  end
 
 end

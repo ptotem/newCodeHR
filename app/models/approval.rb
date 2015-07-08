@@ -46,15 +46,25 @@ class Approval
 
   def check_completion
     check_flag = true
+    reject_flag = false
+
     self.approvers.each do |approver|
-      if approver.status != 'Approved'
+      if approver.status != 'Accepted' || approver.status != 'Rejected'
         check_flag = false
+        if  approver.status != 'Rejected'
+          reject_flag = true
+        end
       end
     end
     
     if check_flag
-      self.end_step_instance
+      if reject_flag
+        self.step_instance.process_instance.finish_process
+      else
+        self.step_instance.end_step_instance  
+      end
     end
+    
   end
 
   def end_step_instance
