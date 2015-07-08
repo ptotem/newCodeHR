@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Manpower Plannings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manpower_plannings.each do |manpower_planning| %>
+      <tr>
+        <td><%= link_to 'Show', manpower_planning %></td>
+        <td><%= link_to 'Edit', edit_manpower_planning_path(manpower_planning) %></td>
+        <td><%= link_to 'Destroy', manpower_planning, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manpower planning', new_manpower_planning_path %>
