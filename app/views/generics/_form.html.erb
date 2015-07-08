@@ -24,8 +24,8 @@
 
   function buildForm() {
     var form = gon.form.html;
-
     initHTMLAppender($("#form-holder"), form)
+    addFormLabels();
 
     $('.ace-file-input').ace_file_input({
       no_file:'No File ...',
@@ -42,13 +42,12 @@
     
     $('.chosen-select').chosen(); 
     $('.chosen-container').css('width','99.5%');
-    addFormLabels(form);
   }
 
   function addFormLabels(form) {
-    var labels = form['labels']
+    var labels = gon.form.labels
     for(var key in labels) {
-      $("[name='"+key+"']").siblings('label').html(labels[key])
+      $("[name='labels["+key+"]']").html(labels[key]);
     }
   }
 
