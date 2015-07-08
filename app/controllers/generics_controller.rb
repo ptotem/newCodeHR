@@ -4,17 +4,17 @@ class GenericsController < InheritedResources::Base
 		@generic = Generic.new
 		@step_instance = StepInstance.find(params[:step_id])
 		@model = @step_instance[:action_class]
-		@form = Generic.find_by(model: @step_instance[:action_class])
 
+		@form = Generic.find_by(model: @step_instance[:action_class])
 		gon.notice = session[:notice]
 		gon.form = @form
+		gon.roles = Role.all
 		
 	end
 
 	def create
-		# render :text => params
+		# render :json => params
 		# return
-
 		step_instance = StepInstance.find(params['step'])
 
 		params['files'].each do |key, obj|

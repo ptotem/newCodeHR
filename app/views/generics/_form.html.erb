@@ -24,24 +24,29 @@
 
   function buildForm() {
     // var form = gon.form.html;
-    var form = [
-      {type: "<div />", attributes: {class: "row"}, children:[
-        {type: "<div />", attributes: {class: "col-md-12"}, children: [
+    // console.log(form)
+    var form =[
+      {type: "<div />", attributes: {class:"row"}, children:[
+        {type: "<div />", attributes: {class:"col-md-12"}, children:[
 
-          {type: "<div />", attributes: {class: "row"}, children: [
-            {type: "<div />", attributes: {class: "col-md-6"}, children: [
-              {type: "<div />", attributes: {class:"row"}, children: [
-                {type: "<div />", attributes: {class:"form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", name: "labels[code]"}},
-                  {type: "<input />", attributes: {class: "col-md-7 placeholder-code", type: "text", name: "form[code]"}}
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[code]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-code", type: "text", name: "form[code]", style:"width:100%"}}
                 ]}
               ]}
             ]},
-            {type: "<div />", attributes: {class: "col-md-6"}, children: [
-              {type: "<div />", attributes: {class:"row"}, children: [
-                {type: "<div />", attributes: {class:"form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", name: "labels[name]"}},
-                  {type: "<input />", attributes: {class: "col-md-7 placeholder-name", type: "text", name: "form[name]"}}
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[name]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-name", type: "text", name: "form[name]", style:"width:100%"}}
                 ]}
               ]}
             ]}
@@ -49,38 +54,112 @@
 
           {type: "<div />", attributes: {class: "space-12"}},
 
-          {type: "<div />", attributes: {class: "row"}, children: [
-            {type: "<div />", attributes: {class: "col-md-6"}, children: [
-              {type: "<div />", attributes: {class:"row"}, children: [
-                {type: "<div />", attributes: {class:"form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", name: "labels[file]"}},
-                  {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
-                    {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "files[file]"}}
-                  ]}
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[description]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-description", type: "text", name: "form[description]", style:"width:100%"}}
                 ]}
               ]}
             ]},
-            {type: "<div />", attributes: {class: "col-md-6"}, children: [
-              {type: "<div />", attributes: {class:"row"}, children: [
-                {type: "<div />", attributes: {class:"form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", name: "labels[version_controlled]"}},
-                  {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
-                    {type: "<label />", attributes: {}, children: [
-                      {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form[version_controlled]"}},
-                      {type: "<span />", attributes: {class: "lbl"}}
-                    ]}
-                  ]}
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[vacancy]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-vacancy", type: "text", name: "form[vacancy]", style:"width:100%"}}
                 ]}
               ]}
             ]}
-          ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[location]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "labels[location]", model:"location", modelValue:"_id"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[role]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "labels[role]", model:"Role", modelValue:"_id"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[band]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "labels[band]", model:"Band", modelValue:"_id"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[nature]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "labels[nature]", model:"Nature", modelValue:"_id"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+          
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[code]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "date-picker placeholder-code", type: "text", name: "form[code]", style:"width:100%", "data-date-format":"dd-mm-yyyy"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[name]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "date-picker placeholder-name", type: "text", name: "form[name]", style:"width:100%", "data-date-format":"dd-mm-yyyy"}}
+                ]}
+              ]}
+            ]}
+          ]},
 
         ]}
       ]}
-    ];
-    initHTMLAppender($("#form-holder"), form)
-    addFormLabels();
-    addPlaceholders();
+    ]
+    var reqForm = JSON.parse(JSON.stringify(addRolesTest(form)));
+    // initHTMLAppender($("#form-holder"), form)
+    // addFormLabels();
+    // addPlaceholders();
+
 
     $('.ace-file-input').ace_file_input({
       no_file:'No File ...',
@@ -90,9 +169,36 @@
       onchange:null,
       thumbnail:false
     }); 
+    // $('.date-picker').datepicker({
+    //   autoclose: true,
+    //   todayHighlight: true
+    // })
+    // //show datepicker when clicking on the icon
+    // .next().on(ace.click_event, function(){
+    //   $(this).prev().focus();
+    // });
     
-    $('.chosen-select').chosen(); 
-    $('.chosen-container').css('width','99.5%');
+    // $('.chosen-select').chosen(); 
+    // $('.chosen-container').css('width','99.5%');
+    setTimeout(function(){
+      console.log(reqForm)
+      initHTMLAppender($("#form-holder"), reqForm)
+      addFormLabels();
+      addPlaceholders();
+
+      $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true
+      })
+      //show datepicker when clicking on the icon
+      .next().on(ace.click_event, function(){
+        $(this).prev().focus();
+      });
+
+
+      $('.chosen-select').chosen(); 
+      $('.chosen-container').css('width','99.5%');
+    },2000)
   }
 
   function addFormLabels() {
@@ -107,6 +213,47 @@
     for(var key in labels) {
       $(".placeholder-"+key).attr('placeholder', labels[key]);
     }
+  }
+
+
+  //for roles
+
+  // function addRoles(){
+  //   // console.log($('[model= Role]').siblings('.chosen-container').find('.chosen-results'));
+  //   var obj = $('[model= Role]').siblings('.chosen-container').find('.chosen-results');
+  //   $('[model= Role]').siblings('.chosen-container').trigger('click');
+  //   var optionHtml = []
+  //   for(var i = 0,len = gon.roles.length; i < len; i++){
+  //     optionHtml.push({type:"<li />", attributes:{class:"active-result", "data-option-array-index": i,html:gon.roles[i].name}})
+  //   }
+  //   optionHtml[0].attributes.class = "active-result result-selected"
+  //   console.log(optionHtml);
+  //   console.log(obj);
+
+  //   initHTMLAppender(obj, optionHtml);
+  // }
+
+  function addRolesTest (array) {
+    if(array){
+      for(var i=0,len=array.length;i<len;i++){
+      var attrObj = array[i].attributes
+      if(attrObj.model && attrObj.model == "Role")
+        array[i] = appendRode(array[i])
+      else
+        if(array[i].children)
+          array[i].children = addRolesTest(array[i].children)
+     }
+     return array
+    }
+  }
+
+  function appendRode (selectTag) {
+    console.log("selectTag");
+    selectTag.children = []
+    for(var i = 0,len = gon.roles.length; i < len; i++){
+      selectTag.children.push({type:"<option />", attributes:{value:gon.roles[i]._id.$oid, html:gon.roles[i].name}})
+    }
+    return selectTag
   }
 
   buildForm();
