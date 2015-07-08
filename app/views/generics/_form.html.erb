@@ -21,24 +21,38 @@
 <% end %>
 
 <script>
-  var form = gon.form.html;
 
-  initHTMLAppender($("#form-holder"), form)
+  function buildForm() {
+    var form = gon.form.html;
 
-  $('.ace-file-input').ace_file_input({
-    no_file:'No File ...',
-    btn_choose:'Choose',
-    btn_change:'Change',
-    droppable:false,
-    onchange:null,
-    thumbnail:false //| true | large
-    //whitelist:'gif|png|jpg|jpeg'
-    //blacklist:'exe|php'
-    //onchange:''
-    //
-  });
-  
-  $('.chosen-select').chosen(); 
-  $('.chosen-container').css('width','99.5%');
+    initHTMLAppender($("#form-holder"), form)
+
+    $('.ace-file-input').ace_file_input({
+      no_file:'No File ...',
+      btn_choose:'Choose',
+      btn_change:'Change',
+      droppable:false,
+      onchange:null,
+      thumbnail:false //| true | large
+      //whitelist:'gif|png|jpg|jpeg'
+      //blacklist:'exe|php'
+      //onchange:''
+      //
+    });
+    
+    $('.chosen-select').chosen(); 
+    $('.chosen-container').css('width','99.5%');
+    addFormLabels(form);
+  }
+
+  function addFormLabels(form) {
+    var labels = form['labels']
+    for(var key in labels) {
+      $("[name='"+key+"']").siblings('label').html(labels[key])
+    }
+  }
+
+  buildForm();
+    
 
 </script>

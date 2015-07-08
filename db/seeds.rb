@@ -269,7 +269,7 @@ admin.save!
 	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
 	            {type: "<div />", attributes: {class:"row"}, children: [
 	              {type: "<div />", attributes: {class:"form-group"}, children: [
-	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Code"}},
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: ""}},
 	                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Code", name: "form[code]"}}
 	              ]}
 	            ]}
@@ -277,7 +277,7 @@ admin.save!
 	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
 	            {type: "<div />", attributes: {class:"row"}, children: [
 	              {type: "<div />", attributes: {class:"form-group"}, children: [
-	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document Name"}},
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: ""}},
 	                {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Document Name", name: "form[name]"}}
 	              ]}
 	            ]}
@@ -290,7 +290,7 @@ admin.save!
 	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
 	            {type: "<div />", attributes: {class:"row"}, children: [
 	              {type: "<div />", attributes: {class:"form-group"}, children: [
-	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Document"}},
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: ""}},
 	                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
 	                  {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "files[file]"}}
 	                ]}
@@ -300,7 +300,7 @@ admin.save!
 	          {type: "<div />", attributes: {class: "col-md-6"}, children: [
 	            {type: "<div />", attributes: {class:"row"}, children: [
 	              {type: "<div />", attributes: {class:"form-group"}, children: [
-	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: "Version Controlled ?"}},
+	                {type: "<label />", attributes: {class: "col-md-3 control-label no-padding-right", html: ""}},
 	                {type: "<div />", attributes: {class: "col-md-7 no-padding-right no-padding-left"}, children: [
 	                  {type: "<label />", attributes: {}, children: [
 	                    {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form[version_controlled]"}},
