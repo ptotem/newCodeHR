@@ -14,7 +14,9 @@
   <%# stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
   <%= include_gon %>
-  <%# gon.notice = session[:notice]%>
+  <%# session[:notice] %>
+  <%= hidden_field_tag 'notice', session[:notice].to_s %>
+  <%# f.hidden_field 'notice',session[:notice] %>
 
   <!-- toaster -->
   <link rel="stylesheet" href="/assets/toastr.css" />
@@ -299,10 +301,13 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
       }
-
-      for(var i = 0,len = gon.notice.length; i < len ;i++ ){
-        toastr.success(gon.notice[i].title)
-      }
+      // var notice = JSON.parse($('#notice').val().split("=>").join(":")); 
+      // for(var i = 0,len = notice.length; i < len ;i++ ){
+      //   if(notice[i].title)
+      //     toastr[notice[i].type](notice[i].title, notice[i].description)
+      //   else
+      //     toastr[notice[i].type](notice[i].description)
+      // }
 
 
       

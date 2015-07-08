@@ -26,27 +26,6 @@ module ApplicationHelper
 		puts "Approve Step"
 		puts "############################################################"
 		puts step_instance.to_json
-		
-		# approval = {}
-		# approvers = []
-
-		# approval['title'] = 'Approval Request'
-		# approval['description'] = ''
-		# approval['link'] = ''
-		# approval['reminder'] = step_instance['action_obj']['reminder']
-		# approval['repeat_reminder'] = step_instance['action_obj']['repeat_reminder']
-		# approval['escalation'] = step_instance['action_obj']['escalation']
-		# approval['repeat_escalation'] = step_instance['action_obj']['repeat_escalation']
-		# # approval['step_instance'] = step_instance
-
-		# step_instance['action_obj']['agents']['users'].each do |approver|
-		# 	approvers.push(Approver.create!(:user_id => approver))
-		# end
-
-		# approval_obj = Approval.create(approval)
-		# approval_obj.approvers = approvers
-
-		# approval_obj.save!
 
 		approval_obj = {step_instance: step_instance}
 		approval = Approval.create!(approval_obj)

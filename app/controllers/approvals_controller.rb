@@ -1,5 +1,5 @@
 class ApprovalsController < InheritedResources::Base
-
+	
   private
 
     def approval_params

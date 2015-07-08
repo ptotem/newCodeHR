@@ -1,6 +1,7 @@
 class GenericsController < InheritedResources::Base
 
 	def new
+		gon.notice = session[:notice]
 		@generic = Generic.new
 		@step_instance = StepInstance.find(params[:step_id])
 		@model = @step_instance[:action_class]
