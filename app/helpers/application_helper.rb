@@ -15,7 +15,7 @@ module ApplicationHelper
 
 		initiator = User.find(step_instance.process_instance.initiator)
 		title = step_instance['action_class']+" Creation"
-		description = "Click here Fill the Form"
+		description = "Click here to Fill the Form"
 		link = urlHelpers.new_generic_form_path(step_instance._id)
 		initiator.send_task({title: title, description: description, link: link})
 		# step_instance.end_processing_step
