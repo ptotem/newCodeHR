@@ -39,7 +39,8 @@ Rails.application.routes.draw do
 
   match '/delete_notification' => 'notification#delete_notification', :as => :delete_notification, :via => [:get, :post]
 
-  match '/approval/(:approvalId)' => 'approvals#approval', :as => :approval, :via => [:get, :post]
+  match '/approve_step/:stepId' => 'step_instances#approve_step', :as => :approve_step, :via => [:get, :post]
+  match '/approve/:approverId/(:status)' => 'approvers#change_status', :as => :change_approver_status, :via => [:get, :post]
 
   root :to => 'welcomes#index'
   mount RailsAdmin::Engine => '/power_admin', as: 'rails_admin'

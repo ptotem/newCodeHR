@@ -38,7 +38,7 @@ class Approval
     # task task creation function
     # 
     urlHelpers = Rails.application.routes.url_helpers
-    task = {title: self.title, description: self.description, link: url_helpers.approval_path(self._id)}  
+    task = {title: self.title, description: self.description, link: urlHelpers.approve_step_path(self.step_instance._id)}  
     self.approvers.each do |approver|
       User.find(approver.user_id).send_task(task)
     end
