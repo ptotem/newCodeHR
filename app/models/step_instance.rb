@@ -23,7 +23,7 @@ class StepInstance
   belongs_to :process_instance
   has_one :approval
 
-
+  # DON'T DELETE...THIS IS TO UNDERSTAND THE FLOW OF CHANGE OF STATES
   # aasm do
   #   state :Created, :initial => true
   #   state :Initiated
