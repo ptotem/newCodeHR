@@ -11,7 +11,7 @@ class GenericsController < InheritedResources::Base
 		gon.model = {}
 		gon.model['Role'] = Role.all
 		gon.model['Band'] = Band.all
-		gon.model['Deparment'] = Deparment.all
+		gon.model['Department'] = Department.all
 		
 	end
 
