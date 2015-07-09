@@ -59,6 +59,12 @@ class ProcessInstance
     self.post_finish_process
   end
 
+  def terminate_processing
+    self.state = "Terminated"
+    self.save!
+    self.post_terminate_process
+  end
+
   def load_process
     puts "Step is loading....."
     self.initialise_process
@@ -74,9 +80,7 @@ class ProcessInstance
   def post_operating_process
     puts "step is processing.."
     puts "Step is preparing for finish processing"
-    # self.end_processing
     self.step_instances.where(sequence: 0).first.load_step
-    # self.finish_process
   end
 
   def post_finish_process
@@ -85,8 +89,20 @@ class ProcessInstance
     if self.spawn
       if self.dependent
         parent_process = ProcessInstance.find(self.parent_process)
-        puts "Child Process has ended now resuming back to parent process"
+        puts "Child Process has ended, now resuming back to parent process"
         parent_process.step_instances[self.parent_stepno].end_processing_step
+      end
+    end
+  end
+
+  def post_terminate_process
+    puts "Process is terminated"
+    puts "Notification Sent to everyone...."
+    if self.spawn
+      if self.dependent
+        parent_process = ProcessInstance.find(self.parent_process)
+        puts "Child Process has terminated, now terminating parent process"
+        parent_process.terminate_process
       end
     end
   end
@@ -94,6 +110,11 @@ class ProcessInstance
   def finish_process
     puts "###################################################"
     self.end_processing
+  end
+
+  def terminate_process
+    puts "###################################################"
+    self.terminate_processing
   end
 
   def load_next_step(sequence)
