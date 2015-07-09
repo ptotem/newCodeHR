@@ -57,24 +57,25 @@ class Approval
 
     if check_flag
       if reject_flag
-        self.terminate_step_instance
+        self.terminate_approval
       else
-        self.end_step_instance  
+        self.end_approval  
       end
     end
     
   end
 
-  def end_step_instance
+  def end_approval
     self.state = 'Completed'
     self.save!
     self.step_instance.end_processing_step    
   end
 
-  def terminate_step_instance
+  def terminate_approval
     self.state = 'Terminated'
     self.save!
-    self.step_instance.process_instance.terminate_processing    
+    self.step_instance.terminate_processing_step    
+    # self.step_instance.process_instance.terminate_processing    
   end
 
 end

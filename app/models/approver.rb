@@ -18,8 +18,9 @@ class Approver
 			puts self.to_json
 			if state == 'Rejected'
 				user = User.find(self.user_id)
-				description = "Your approval for '" + self.approval.title + "' has been rejected by "+user.name
-				user.send_notification({title: "Approval Rejected for "+self.approval.title, description: description})
+				process_name = self.approval.step_instance.process_instance.name
+				description = "Your approval for '" + process_name + "' has been rejected by "+user.name
+				user.send_notification({title: "Approval Rejected!", description: description})
 			end
 			self.approval.check_completion
 		else

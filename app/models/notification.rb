@@ -5,6 +5,7 @@ class Notification
   field :user_id, type: String
   field :title, type: String
   field :description, type: String
+  field :comments, type: String
   field :read, type: Boolean, :default => false
 
   has_and_belongs_to_many :user

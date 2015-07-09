@@ -104,6 +104,10 @@ class ProcessInstance
         puts "Child Process has terminated, now terminating parent process"
         parent_process.terminate_process
       end
+    else
+      title = "Process Termination"
+      description = "Process "+ "'" +self.name + "'" + " has been Terminated.."
+      User.find(self.initiator).send_notification({title: title, description: description})
     end
   end
 
@@ -120,5 +124,10 @@ class ProcessInstance
   def load_next_step(sequence)
     puts "Loading next steps of process (sequence: #{sequence})..."
     self.step_instances.where(sequence: sequence).first.load_step
+  end
+
+  def terminate_next_step(sequence)
+    puts "Terminating next steps of process (sequence: #{sequence})..."
+    self.step_instances.where(sequence: sequence).first.terminate_step
   end
 end

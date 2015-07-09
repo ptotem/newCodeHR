@@ -65,10 +65,22 @@ class StepInstance
     self.post_finish_step
   end
 
+  def terminate_processing_step
+    self.state = "Terminated"
+    self.save!
+    self.post_terminate_step
+  end
+
   def load_step
     puts "#{self.action} is loading....."
     self.initiated_at = DateTime.now
     self.initialise_step
+  end
+
+  def terminate_step
+    puts "#{self.action} is terminating....."
+    self.finished_at = DateTime.now
+    self.terminate_processing_step
   end
 
   def init_step
@@ -102,6 +114,20 @@ class StepInstance
     else
       puts "Initialising next steps"
       self.process_instance.load_next_step(self.sequence+1)
+    end
+  end
+
+   def post_terminate_step
+    puts "#{self.action} is terminated"
+    self.finished_at = DateTime.now
+    self.save
+    puts "Terminating Next step action or ending process to be done...."
+    if self.sequence==self.process_instance.step_instances.length-1
+      puts "Last step going to terminate process"
+      self.process_instance.terminate_process
+    else
+      puts "Terminating next steps"
+      self.process_instance.terminate_next_step(self.sequence+1)
     end
   end
 
