@@ -6,4 +6,5 @@ class Document
   field :name, type: String
   field :file, type: String
   field :version_controlled, type: String
+  field :versions, type: Array
 end
