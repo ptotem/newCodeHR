@@ -1,25 +1,57 @@
+<style>
+  .hover-div:hover{
+    background-color: rgba(0,0,0,0.1);
+  }
+</style>
 <p id="notice"><%= notice %></p>
-
 <h1>Listing Tasks</h1>
+<% colorClassArr = ["item-orange", "item-red", "item-default", "item-blue", "item-grey", "item-green"] %>
+<% i = -1 %>
+<ul id="tasks" class="item-list">
+  <% current_user.tasks.desc(:created_at).each do |task| %>
+    <%i = (i+1) % 5 %>
+    <li class="<%= colorClassArr[i]%> hover-div">
+      <%= hidden_field_tag 'taskId', task._id.to_s %>
+      <label class="inline">
+        <span class="" onclick="showTask($(this))" style="margin-left:5px;cursor:pointer;width:20%"> <%= task.title %> </span>
+        <span class="grey" onclick="showTask($(this))" style="margin-left:20px;cursor:pointer"> <%= task.description.truncate(50) %>  </span>
+      </label>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <div class="pull-right action-buttons">
+        <%= link_to task, :class => "blue show-task" do %>
+           <i class='fa fa-eye bigger-130'></i>
+        <% end %>
+      </div>
+    </li>
 
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% end %>
+</ul>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<script>
+$(function() {
+   function deleteTask(_this){
+    console.log($('#taskId').val())
+  }
+});
+  function showTask(_this){
+    window.location = _this.closest('.hover-div').find('.show-task')[0].href
+  }
+
+  function deleteTask(_this){
+    console.log($('#taskId').val())
+    // test();
+    // console.log(Notification.find(#notificationId).val()))
+    // _this.closest('.hover-div').remove();
+     // 
+
+  }
+
+
+  // for bootbox custom message with call back, needs ajax excution
+  // :onclick=>"showDeleteAlertBox(deleteTask,$(this), event)"
+</script>
+
+
+

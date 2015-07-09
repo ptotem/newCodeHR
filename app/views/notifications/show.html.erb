@@ -1,25 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <%# @notification.to_json %>
+
 <div class="row">
-	<div class="col-md-6">
-		<div class="widget-box">
-			<div class="widget-header widget-header-flat">
-				<h4 class="widget-title smaller grey">Notification</h4>
-				<div class="widget-body">
-					<div class="widget-main">
-						<dl id="dt-list-1" class="dl-horizontal">
-							<dt class="grey">Title</dt>
-							<dd><%= @notification.title %></dd>
-							<dt class="grey">Description</dt>
-							<dd><%= @notification.description %></dd>
-						</dl>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="col-md-6">
+    <div class="table-header">
+      Notification Details :-
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+      <tbody>
+          <tr>
+            <th style="width:20%">Title</th>
+            <td><%= @notification.title %></td>
+          </tr>
+          <tr>
+            <th style="width:20%">Description</th>
+            <td><%= raw @notification.description %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
 <div class="row">
 	<div class="col-md-12">
 		<%= link_to 'Back', notifications_path, :class =>"btn btn-primary" %>

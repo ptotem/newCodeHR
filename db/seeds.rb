@@ -315,8 +315,191 @@ admin.save!
         ]}
       ]}
     ]
+	},
+	{
+		model: "ManpowerPlanning",
+		title: "Fill Form - ManpowerPlanning Creation",
+		labels: {
+			code: "Code",
+			name: "Name",
+			description: "Description",
+			vacancy: "No. of Vacancy",
+			location: "Location",
+			role: "Role",
+			band: "Band",
+			department: "Department",
+			nature: "Nature of Position",
+			start_date: "Start Date",
+			end_date: "End Date"
+		},
+		html: [
+		 {type: "<div />", attributes: {class:"row"}, children:[
+        {type: "<div />", attributes: {class:"col-md-12"}, children:[
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[code]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-code", type: "text", name: "form[code]", style:"width:100%"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[name]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-name", type: "text", name: "form[name]", style:"width:100%"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[description]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-description", type: "text", name: "form[description]", style:"width:100%"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[vacancy]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<input />", attributes: {class: "placeholder-vacancy", type: "text", name: "form[vacancy]", style:"width:100%"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+          
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[start_date]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<div />", attributes: {class:"input-group"}, children: [
+                    {type: "<input />", attributes: {class: "date-picker placeholder-start_date", type: "text", name: "form[start_date]", style:"width:100%"}},
+                    {type: "<span />", attributes: {class:"input-group-addon"}, children:[
+                      {type: "<i />", attributes: {class:"fa fa-calendar bigger-110"}}
+                    ]}
+
+                  ]}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[end_date]"}}
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<div />", attributes: {class:"input-group"}, children: [
+                    {type: "<input />", attributes: {class: "date-picker placeholder-end_date", type: "text", name: "form[end_date]", style:"width:100%"}},
+                    {type: "<span />", attributes: {class:"input-group-addon"}, children:[
+                      {type: "<i />", attributes: {class:"fa fa-calendar bigger-110"}}
+                    ]}
+
+                  ]}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[role]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "form[role]", model:"Role", modelValue:"_id"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[department]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "form[department]", model:"Department", modelValue:"_id"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class:"row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"}, children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[band]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "form[band]", model:"Band", modelValue:"_id"}}
+                ]}
+              ]}
+            ]},
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[location]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "form[location]", model:"Location", modelValue:"_id"}}
+                ]}
+              ]}
+            ]}
+          ]},
+
+
+          {type: "<div />", attributes: {class: "space-12"}},
+
+          {type: "<div />", attributes: {class: "row"}, children:[
+            {type: "<div />", attributes: {class:"col-md-6"},children:[
+              {type: "<div />", attributes: {class:"row"}, children:[
+                {type: "<div />", attributes: {class:"col-md-2"}, children:[
+                  {type: "<label />", attributes: {class: "control-label no-padding-right", name: "labels[nature]"}},
+                ]},
+                {type: "<div />", attributes: {class:"col-md-9"}, children:[
+                  {type: "<select />", attributes: {class: "chosen-select", name: "form[nature]"}, children:[
+                    {type: "<option />", attributes: {value:"Hiring", html: "Hiring"}},
+                    {type: "<option />", attributes: {value:"Internal Transfer", html: "Internal Transfer"}},
+                    {type: "<option />", attributes: {value:"Promotion", html: "Promotion"}},
+                    {type: "<option />", attributes: {value:"Job Portal", html: "Job Portal"}},
+                    {type: "<option />", attributes: {value:"Recruiters", html: "Recruiters"}},
+                    {type: "<option />", attributes: {value:"Intranet", html: "Intranet"}},
+                  ]}
+                ]}
+              ]}
+            ]}
+          ]},
+
+        ]}
+     ]}
+		]
 	}
 ]
+
 
 # ---------------------------------------------------------------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 function showDeleteAlertBox (callback, _this, e) {
-  e.preventDefault();
+  // e.preventDefault();
   bootbox.dialog({
     message: "Are you sure?",
     title: "Alert!!",

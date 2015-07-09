@@ -8,27 +8,23 @@
 
 			<div class="widget-body">
 				<div class="widget-main">
-					<p class="alert alert-info">
-						Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur. Nulla fringilla eleifend consectetur.
-					</p>
-					<p class="alert alert-success">
-						Raw denim you probably haven't heard of them jean shorts Austin.
-					</p>
+					<div class="row">
+						<div class="col-md-12">
+							<!-- <iframe src="<%= @path %>"></iframe> -->
+						</div>
+					</div>
 				</div>
 
 				<div class="widget-toolbox padding-8 clearfix">
-				<%= link_to 'Reject', change_approver_status_path(:approverId => @approver._id.to_s,:status => '0'), :class => 'btn btn-sm btn-danger pull-left'  do%>
-				<i class="ace-icon fa fa-times"></i>
-				<% end %>
-					<button class="btn btn-sm btn-danger pull-left">
+					<%= link_to change_approver_status_path(approverId: @approver._id.to_s, status: '0') , :class => 'btn btn-sm btn-danger pull-left' do%>
 						<i class="ace-icon fa fa-times"></i>
 						<span class="bigger-110">Reject</span>
-					</button>
+					<% end %>
 
-					<button class="btn btn-sm btn-success pull-right">
+					<%= link_to change_approver_status_path(approverId: @approver._id.to_s, status: '1') , :class => 'btn btn-sm btn-success pull-right' do%>
 						<span class="bigger-110">Accept</span>
-
 						<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+					<% end %>
 					</button>
 				</div>
 			</div>
