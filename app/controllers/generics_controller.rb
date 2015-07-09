@@ -20,10 +20,12 @@ class GenericsController < InheritedResources::Base
 		# return
 		step_instance = StepInstance.find(params['step'])
 
-		params['files'].each do |key, obj|
-			fs = FileStorage.create!(file: obj);
-			fs.save!
-			params['form'][key] = fs.file.path
+		if params['files']
+			params['files'].each do |key, obj|
+				fs = FileStorage.create!(file: obj);
+				fs.save!
+				params['form'][key] = fs.file.path
+			end
 		end
 
 		step_instance['action_obj'] = {obj: params['form']}

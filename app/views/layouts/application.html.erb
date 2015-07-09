@@ -77,7 +77,7 @@
             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
               <li class="dropdown-header" id="remain_task">
                 <i class="ace-icon fa fa-check"></i>
-                <%= current_user.tasks.where(read: false).count %> Tasks to complete
+                <%= current_user.tasks.where(read: false).count.to_i %> Tasks to complete
               </li>
 
               <% current_user.tasks.where(read: false).limit(5).desc(:created_at).each do |task| %>
@@ -109,7 +109,7 @@
             <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
               <li class="dropdown-header" id="nott">
                 <i class="ace-icon fa fa-exclamation-triangle"></i>
-                <%= current_user.notifications.where(read: false).count %> Notifications
+                <%= current_user.notifications.where(read: false).count.to_i %> Notifications
               </li>
 
               <% current_user.notifications.where(read: false).limit(5).desc(:created_at).each do |notification| %>
