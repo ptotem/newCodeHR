@@ -16,7 +16,7 @@
       <%= hidden_field_tag 'notificationId', notification._id.to_s %>
       <label class="inline">
         <span class="" onclick="showNotification($(this))" style="margin-left:5px;cursor:pointer"> <%= notification.title %> </span>
-        <span class="grey" onclick="showNotification($(this))" style="margin-left:20px;cursor:pointer"> <%= notification.description.truncate(50) %>  </span>
+        <span class="grey" onclick="showNotification($(this))" style="margin-left:20px;cursor:pointer"> <%= if notification.description then notification.description.truncate(50) end %> </span>
       </label>
 
       <div class="pull-right action-buttons">

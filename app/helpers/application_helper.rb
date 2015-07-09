@@ -62,7 +62,7 @@ module ApplicationHelper
 		fillStep = step_instance.get_previous_step({action: "Fill"})
 		puts fillStep.to_json
 		eval(fillStep['action_class']).create!(fillStep['action_obj']['obj'])
-		# step_instance.end_processing_step
+		step_instance.end_processing_step
 	end
 
 	def process_step_SpawnD(step_instance)

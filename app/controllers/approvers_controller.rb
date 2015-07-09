@@ -1,14 +1,14 @@
 class ApproversController < InheritedResources::Base
 
-	def change_status
+	def change_state
 		approver = Approver.find(params[:approverId])
 		# comments in params
 		comments = '' 
-		status = if params[:status] == '0' then 'Rejected' elsif params[:status] == '1' then 'Accepted' else 'Pending' end
-		approver.change_status(status, comments)
+		state = if params[:state] == '0' then 'Rejected' elsif params[:state] == '1' then 'Accepted' else 'Pending' end
+		approver.change_state(state, comments)
 		redirect_to root_path
-		render :json => Approver.find(params[:approverId])
-		return
+		# render :json => Approver.find(params[:approverId])
+		# return
 	end
 
 

@@ -10,7 +10,7 @@ class Approval
   field :escalation, type: String
   field :repeat_escalation, type: String
   
-  field :status, type: String, :default => "Pending"
+  field :state, type: String, :default => "Pending"
   field :erased, type: Boolean, :default => false
 
   belongs_to :step_instance
@@ -47,16 +47,16 @@ class Approval
   def check_completion
     check_flag = true
     reject_flag = false
-
     self.approvers.each do |approver|
-      if approver.status != 'Accepted' || approver.status != 'Rejected'
+      if approver.state != 'Accepted' && approver.state != 'Rejected'
         check_flag = false
-        if  approver.status != 'Rejected'
+      else
+        if  approver.state == 'Rejected'
           reject_flag = true
         end
       end
     end
-    
+
     if check_flag
       if reject_flag
         self.terminate_step_instance
@@ -68,13 +68,13 @@ class Approval
   end
 
   def end_step_instance
-    self.status = 'Completed'
+    self.state = 'Completed'
     self.save!
     self.step_instance.end_processing_step    
   end
 
   def terminate_step_instance
-    self.status = 'Terminated'
+    self.state = 'Terminated'
     self.save!
     self.step_instance.process_instance.terminate_process_instance    
   end

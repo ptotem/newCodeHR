@@ -11,180 +11,180 @@
 				<div class="widget-main padding-8">
 					<div id="tree2" class="tree">
 						<% @process_master.master_steps.each do |step| %>
-						<div class="tree-folder">
-							<%if step.action == "Approve" || step.action == "Notify" %>
-							<div class="tree-folder-header">
-								<i class="red ace-icon fa fa-minus"></i>
-								<div class="tree-folder-name"><%= step.action %> [<%= step.action_class %>]</div>
-							</div>
-
-							<% else %>
-							<div class="tree-item">
-								<div class="tree-item-name">
-									<i class="red ace-icon fa fa-chevron-right"></i>
-										<%= step.action %> [<%= step.action_class %>]
-								</div>
-							</div>
-
-							<% end %>
-
-							<%if step.action == "Approve" %>
-							<div class="tree-folder-content">
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Reminder: <%= step.action_obj['reminder'] %>
-									</div>
-								</div>
-								
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Repeat Reminder: <%= step.action_obj['repeat_reminder'] %>
-									</div>
-								</div>
-
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Escalation: <%= step.action_obj['escalation'] %>
-									</div>
-								</div>
-
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Manager's Approval?: <%= step.action_obj['manager'] %>
-									</div>
-								</div>
-
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Repeat Escalation: <%= step.action_obj['repeat_escalation'] %>
-									</div>
-								</div>
-
-								<div class="tree-folder">
+							<div class="tree-folder">
+								<%if step.action == "Approve" || step.action == "Notify" %>
 									<div class="tree-folder-header">
 										<i class="red ace-icon fa fa-minus"></i>
-										<div class="tree-folder-name">
-											Agents
+										<div class="tree-folder-name"><%= step.action %> [<%= step.action_class %>]</div>
+									</div>
+
+								<% else %>
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												<%= step.action %> [<%= step.action_class %>]
 										</div>
 									</div>
-									<div class="tree-folder-content">
-										<div class="tree-folder">
-											<div class="tree-item">
-												<div class="tree-item-name">
-													<i class="red ace-icon fa fa-chevron-right"></i>
-														Model: <%= step.action_obj['agents']['model'] %>
-												</div>
+
+								<% end %>
+
+								<%if step.action == "Approve" %>
+								<div class="tree-folder-content">
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Reminder: <%= step.action_obj['reminder'] %>
+										</div>
+									</div>
+									
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Repeat Reminder: <%= step.action_obj['repeat_reminder'] %>
+										</div>
+									</div>
+
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Escalation: <%= step.action_obj['escalation'] %>
+										</div>
+									</div>
+
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Manager's Approval?: <%= step.action_obj['manager'] %>
+										</div>
+									</div>
+
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Repeat Escalation: <%= step.action_obj['repeat_escalation'] %>
+										</div>
+									</div>
+
+									<div class="tree-folder">
+										<div class="tree-folder-header">
+											<i class="red ace-icon fa fa-minus"></i>
+											<div class="tree-folder-name">
+												Agents
 											</div>
 										</div>
-
-										<div class="tree-folder">
-											<div class="tree-folder-header">
-												<i class="red ace-icon fa fa-minus"></i>
-												<div class="tree-folder-name">
-													Ids
-												</div>
-											</div>
-											<div class="tree-folder-content">
-
-												<% step.action_obj['agents']['ids'].each do |id| %>
+										<div class="tree-folder-content">
+											<div class="tree-folder">
 												<div class="tree-item">
 													<div class="tree-item-name">
 														<i class="red ace-icon fa fa-chevron-right"></i>
-														<%= id %>
+															Model: <%= step.action_obj['agents']['model'] %>
 													</div>
 												</div>
-												<% end %>
-
 											</div>
-										</div>
 
-									</div>
-								</div>
+											<div class="tree-folder">
+												<div class="tree-folder-header">
+													<i class="red ace-icon fa fa-minus"></i>
+													<div class="tree-folder-name">
+														Ids
+													</div>
+												</div>
+												<div class="tree-folder-content">
 
-							</div>
-							<% end %>
+													<% step.action_obj['agents']['ids'].each do |id| %>
+													<div class="tree-item">
+														<div class="tree-item-name">
+															<i class="red ace-icon fa fa-chevron-right"></i>
+															<%= id %>
+														</div>
+													</div>
+													<% end %>
 
-							<%if step.action == "Notify" %>
-							<div class="tree-folder-content">
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Title: <%= step.action_obj['title'] %>
-									</div>
-								</div>
-								
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Description: <%= step.action_obj['description'] %>
-									</div>
-								</div>
-
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Notify Initiator?: <%= step.action_obj['initiator'] %>
-									</div>
-								</div>
-
-								<div class="tree-item">
-									<div class="tree-item-name">
-										<i class="red ace-icon fa fa-chevron-right"></i>
-											Include File?: <%= step.action_obj['file'] %>
-									</div>
-								</div>
-
-								<div class="tree-folder">
-									<div class="tree-folder-header">
-										<i class="red ace-icon fa fa-minus"></i>
-										<div class="tree-folder-name">
-											Agents
-										</div>
-									</div>
-									<div class="tree-folder-content">
-										<div class="tree-folder">
-											<div class="tree-item">
-												<div class="tree-item-name">
-													<i class="red ace-icon fa fa-chevron-right"></i>
-														Model: <%= step.action_obj['agents']['model'] %>
 												</div>
 											</div>
+
 										</div>
+									</div>
 
-										<div class="tree-folder">
-											<div class="tree-folder-header">
-												<i class="red ace-icon fa fa-minus"></i>
-												<div class="tree-folder-name">
-													Ids
-												</div>
+								</div>
+								<% end %>
+
+								<%if step.action == "Notify" %>
+								<div class="tree-folder-content">
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Title: <%= step.action_obj['title'] %>
+										</div>
+									</div>
+									
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Description: <%= step.action_obj['description'] %>
+										</div>
+									</div>
+
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Notify Initiator?: <%= step.action_obj['initiator'] %>
+										</div>
+									</div>
+
+									<div class="tree-item">
+										<div class="tree-item-name">
+											<i class="red ace-icon fa fa-chevron-right"></i>
+												Include File?: <%= step.action_obj['file'] %>
+										</div>
+									</div>
+
+									<div class="tree-folder">
+										<div class="tree-folder-header">
+											<i class="red ace-icon fa fa-minus"></i>
+											<div class="tree-folder-name">
+												Agents
 											</div>
-											<div class="tree-folder-content">
-
-												<% step.action_obj['agents']['ids'].each do |id| %>
+										</div>
+										<div class="tree-folder-content">
+											<div class="tree-folder">
 												<div class="tree-item">
 													<div class="tree-item-name">
 														<i class="red ace-icon fa fa-chevron-right"></i>
-														<%= id %>
+															Model: <%= step.action_obj['agents']['model'] %>
 													</div>
 												</div>
-												<% end %>
-
 											</div>
-										</div>
 
+											<div class="tree-folder">
+												<div class="tree-folder-header">
+													<i class="red ace-icon fa fa-minus"></i>
+													<div class="tree-folder-name">
+														Ids
+													</div>
+												</div>
+												<div class="tree-folder-content">
+
+													<% step.action_obj['agents']['ids'].each do |id| %>
+													<div class="tree-item">
+														<div class="tree-item-name">
+															<i class="red ace-icon fa fa-chevron-right"></i>
+															<%= id %>
+														</div>
+													</div>
+													<% end %>
+
+												</div>
+											</div>
+
+										</div>
 									</div>
+
 								</div>
+								<% end %>
+
 
 							</div>
-							<% end %>
-
-
-						</div>
 						<% end %>
 
 					</div>
