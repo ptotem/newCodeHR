@@ -49,6 +49,16 @@ class ProcessInstancesController < InheritedResources::Base
 		process_instance.save!
 		process_instance.load_process
 
+
+
+		
+		# process_instance = ProcessInstance.new
+		# process_instance[:process_master_id] = params[:process_master]
+		# process_instance[:initiator] = current_user._id
+		# process_instance.save!
+		# process_instance.build_process_instance
+		
+
 		redirect_to root_path
 	end
 

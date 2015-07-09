@@ -130,4 +130,54 @@ class ProcessInstance
     puts "Terminating next steps of process (sequence: #{sequence})..."
     self.step_instances.where(sequence: sequence).first.terminate_step
   end
+
+  # def build_process_instance
+  #   process_master = ProcessMaster.find(self.process_master_id)
+  #   master_steps = process_master.master_steps
+
+  #   self = duplicateModelObject(process_master)
+
+  #   stepInstances = []
+  #   master_steps.each do |step|
+  #     _step = duplicateModelObject(step)
+  #     if _step['action_obj']
+  #       _step['action_obj']['agents']['users'] = getUsersFromAgents(_step['action_obj']['agents']['model'], _step['action_obj']['agents']['ids'])
+        
+  #       if _step['action_obj']['manager'] 
+  #         current_emp = current_user.employee
+  #         if current_emp
+  #           current_emp['managers'].each do |manager|
+  #             _step['action_obj']['agents']['users'] << manager.user._id unless _step['action_obj']['agents']['users'].include?(manager.user._id)
+  #           end
+  #         end
+  #       end
+
+  #       if _step['action_obj']['initiator'] 
+  #         _step['action_obj']['agents']['users'] << current_user._id unless _step['action_obj']['agents']['users'].include?(current_user._id)
+  #       end
+  #     end
+      
+  #     # stepInstances.push(_step)
+  #     stepInstances.push(StepInstance.create!(_step))
+  #   end
+
+  #   process_instance = ProcessInstance.create!(processInstance)
+  #   process_instance.step_instances = stepInstances
+
+  #   # render :json => stepInstances
+  #   # render :json => process_instance.step_instances
+  #   # return
+    
+  #   process_instance.save!
+  #   process_instance.load_process
+  # end
+
+  # def duplicateModelObject(modelObj)
+  #     modelObj.attributes.each do |key, value|
+  #       if key != '_id' && key != 'created_at' && key != 'updated_at' && key != 'process_master_id'
+  #         self[key] = value
+  #       end
+  #     end
+  #   end
+
 end
