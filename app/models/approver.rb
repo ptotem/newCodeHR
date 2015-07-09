@@ -17,7 +17,9 @@ class Approver
 			self.save!
 			puts self.to_json
 			if state == 'Rejected'
-				User.find(self.user_id).send_notification({title: "Rejection", description: comments})
+				user = User.find(self.user_id)
+				description = "Your approval for '" + self.approval.title + "' has been rejected by "+user.name
+				user.send_notification({title: "Approval Rejected for "+self.approval.title, description: description})
 			end
 			self.approval.check_completion
 		else

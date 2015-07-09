@@ -35,8 +35,6 @@ class Approval
   end
 
   def send_tasks
-    # task task creation function
-    # 
     urlHelpers = Rails.application.routes.url_helpers
     task = {title: self.title, description: self.description, link: urlHelpers.approve_step_path(self.step_instance._id)}  
     self.approvers.each do |approver|
@@ -76,7 +74,7 @@ class Approval
   def terminate_step_instance
     self.state = 'Terminated'
     self.save!
-    self.step_instance.process_instance.terminate_process_instance    
+    self.step_instance.process_instance.terminate_processing    
   end
 
 end
