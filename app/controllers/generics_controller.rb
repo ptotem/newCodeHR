@@ -8,7 +8,10 @@ class GenericsController < InheritedResources::Base
 		@form = Generic.find_by(model: @step_instance[:action_class])
 		gon.notice = session[:notice]
 		gon.form = @form
-		gon.roles = Role.all
+		gon.model = {}
+		gon.model['Role'] = Role.all
+		gon.model['Band'] = Band.all
+		gon.model['Deparment'] = Deparment.all
 		
 	end
 
