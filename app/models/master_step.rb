@@ -6,6 +6,7 @@ class MasterStep
   field :action, type: String
   field :action_class, type: String
   field :action_obj, type: Hash
+  field :spwan_process, type: String
   # field :auto, type: Boolean
   # field :action_parameter, type: Array
   # field :params_mapping, type: Hash
