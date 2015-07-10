@@ -1,4 +1,10 @@
 class GenericsController < InheritedResources::Base
+	require 'yaml'
+
+	def index
+		@generics = Generic.all
+		@form_config = YAML::load_file("#{Rails.root}/config/forms/Document.yml").to_json
+	end
 
 	def new
 		@generic = Generic.new
