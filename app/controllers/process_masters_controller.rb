@@ -52,8 +52,8 @@ class ProcessMastersController < ApplicationController
 			process_master.master_steps.push(MasterStep.create!(value))
 		end
 
-		# render :json => process_master.master_steps
-		# return
+		render :json => process_master.master_steps
+		return
 
 		respond_to do |format|
       if process_master.save
