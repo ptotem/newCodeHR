@@ -54,7 +54,9 @@ class Approval
         end
       end
     end
-
+    puts '/********************* check_completion *********************/'
+    puts check_flag
+    puts '/********************* check_completion *********************/'
     if check_flag
       if reject_flag
         self.terminate_approval

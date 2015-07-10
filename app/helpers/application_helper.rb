@@ -70,7 +70,17 @@ module ApplicationHelper
 		puts "SpawnD Step"
 		puts "############################################################"
 		puts step_instance.to_json
-		step_instance.end_processing_step
+
+		processInstance = ProcessInstance.new
+		processInstance['process_master_id'] = step_instance.spawn_process
+    processInstance['initiator'] = step_instance.process_instance.initiator
+    processInstance['parent_process'] = step_instance.process_instance._id
+    processInstance['parent_stepno'] = step_instance.sequence
+    processInstance['spawn'] = true
+    processInstance['dependent'] = true
+    processInstance.build_process_instance 
+		# step_instances.pawn_process
+		# step_instance.end_processing_step
 	end
 
 	def process_step_SpawnI(step_instance)
@@ -78,6 +88,15 @@ module ApplicationHelper
 		puts "SpawnI Step"
 		puts "############################################################"
 		puts step_instance.to_json
+
+		processInstance = ProcessInstance.new
+		processInstance['process_master_id'] = step_instance.spawn_process
+    processInstance['initiator'] = step_instance.process_instance.initiator
+    processInstance['parent_process'] = step_instance.process_instance._id
+    processInstance['parent_stepno'] = step_instance.sequence
+    processInstance['spawn'] = true
+    processInstance.build_process_instance 
+
 		step_instance.end_processing_step
 	end
 end

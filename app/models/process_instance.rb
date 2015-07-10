@@ -86,6 +86,7 @@ class ProcessInstance
   def post_finish_process
     puts "Process is finished"
     puts "Notification Sent to everyone...."
+    puts self.to_json
     if self.spawn
       if self.dependent
         parent_process = ProcessInstance.find(self.parent_process)

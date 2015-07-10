@@ -7,8 +7,6 @@ class ApproversController < InheritedResources::Base
 		state = if params[:state] == '0' then 'Rejected' elsif params[:state] == '1' then 'Accepted' else 'Pending' end
 		approver.change_state(state, comments)
 		redirect_to root_path
-		# render :json => Approver.find(params[:approverId])
-		# return
 	end
 
 
