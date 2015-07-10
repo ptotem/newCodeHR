@@ -18,8 +18,8 @@ class GenericsController < InheritedResources::Base
 	end
 
 	def create
-		# render :json => params
-		# return
+		render :json => params
+		return
 		step_instance = StepInstance.find(params['step'])
 
 		if params['files']

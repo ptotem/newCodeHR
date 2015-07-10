@@ -1,0 +1,101 @@
+model: "ManpowerPlanning"
+title: "Fill Form - Manpower Plan Creation"
+labels: 
+  code: "Code"
+  name: "Name"
+  description: "Description"
+  vacancy: "No. of Vacancy"
+  location: "Location"
+  role: "Role"
+  band: "Band"
+  department: "Department"
+  nature: "Nature of Position"
+  start_date: "Start Date"
+  end_date: "End Date"
+fields:
+  column1:
+    code:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    description:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    start_date:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "date"
+    role:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "select"
+        type: "single"
+        model: "Role"
+        modelValue: "name"
+    band:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "select"
+        type: "single"
+        model: "Band"
+        modelValue: "name"
+    nature:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "select"
+        type: "single"
+        array: ["Hiring", "Internal Transfer", "Promotion", "Job Portal", "Recruiters", "Intranet"]
+  column2:
+    name:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    vacancy:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    end_date:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "date"
+    department:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "select"
+        type: "single"
+        model: "Department"
+        modelValue: "name"
+    location:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "area"
