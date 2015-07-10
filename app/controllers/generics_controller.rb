@@ -1,19 +1,15 @@
 class GenericsController < InheritedResources::Base
 	require 'yaml'
 
-	def index
-		@generics = Generic.all
-		@form_config = YAML::load_file("#{Rails.root}/config/forms/Document.yml").to_json
-	end
-
 	def new
 		@generic = Generic.new
 		@step_instance = StepInstance.find(params[:step_id])
 		@model = @step_instance[:action_class]
 
-		@form = Generic.find_by(model: @step_instance[:action_class])
+		@form_config = YAML::load_file("#{Rails.root}/config/forms/#{@model}.yml")
+		@form_title = @form_config['title']
 		gon.notice = session[:notice]
-		gon.form = @form
+		gon.form_config = @form_config
 		gon.model = {}
 		gon.model['Role'] = Role.all
 		gon.model['Band'] = Band.all

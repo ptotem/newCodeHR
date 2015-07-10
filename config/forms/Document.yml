@@ -5,89 +5,34 @@ labels:
   name: "Document Name"
   file: "Document"
   version_controlled: "Version Controlled?"
-html:
-- type: "div"
-  attributes:
-    class: "row"
-  children:
-  - type: "div"
-    attributes:
-      class: "col-md-6"
-    children:
-    - type: "div"
-      attributes:
-        class: "form-group"
-      children: 
-      - type: "label"
-        attributes:
-          class: "col-md-3 control-label no-padding-right"
-          name: "labels[code]"
-      - type: "input"
-        attributes:
-          class: "col-md-7 placeholder-code"
-          type: "text"
-          name: "form[code]"
-  - type: "div"
-    attributes:
-      class: "col-md-6"
-    children:
-    - type: "div"
-      attributes:
-        class: "form-group"
-      children: 
-      - type: "label"
-        attributes:
-          class: "col-md-3 control-label no-padding-right"
-          name: "labels[name]"
-      - type: "input"
-        attributes:
-          class: "col-md-7 placeholder-name"
-          type: "text"
-          name: "form[name]"
-
-- type: "div"
-  attributes:
-    class: "space-12"
-
-- type: "div"
-  attributes:
-    class: "row"
-  children:
-  - type: "div"
-    attributes:
-      class: "col-md-6"
-    children:
-    - type: "div"
-      attributes:
-        class: "form-group"
-      children: 
-      - type: "label"
-        attributes:
-          class: "col-md-3 control-label no-padding-right"
-          name: "labels[file]"
-      - type: "div"
-        attributes:
-          class: "col-md-7 no-padding-right no-padding-left"
-        children:
-        - type: "input"
-          attributes:
-            class: "ace-file-input"
-            type: "file"
-            name: "files[file]"
-  - type: "div"
-    attributes:
-      class: "col-md-6"
-    children:
-    - type: "div"
-      attributes:
-        class: "form-group"
-      children: 
-      - type: "label"
-        attributes:
-          class: "col-md-3 control-label no-padding-right"
-          name: "labels[name]"
-      - type: "input"
-        attributes:
-          class: "col-md-7 placeholder-name"
-          type: "text"
-          name: "form[name]"
+fields:
+  column1:
+    code:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    file:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "file"
+  column2:
+    name:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    version_controlled:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "checkbox"
