@@ -69,7 +69,7 @@
       'input_text': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "text", name: "form["+modelKey+"]"}}
           ]}
         ]}
@@ -78,7 +78,7 @@
       'input_password': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "password", name: "form["+modelKey+"]"}}
           ]}
         ]}
@@ -87,7 +87,7 @@
       'input_date': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" input-group"}, children: [
               {type: "<input />", attributes: {class: "date-picker", placeholder: label, type: "text", name: "form["+modelKey+"]", style:"width:100%"}},
               {type: "<span />", attributes: {class:"input-group-addon"}, children:[
@@ -101,7 +101,7 @@
       'input_file': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
               {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "files["+modelKey+"]"}}
             ]}
@@ -112,7 +112,7 @@
       'input_checkbox': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
               {type: "<label />", attributes: {}, children: [
                 {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form["+modelKey+"]"}},
@@ -126,7 +126,7 @@
       'select_single': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
               {type: "<select />", attributes: {class: "chosen-select", name: "form["+modelKey+"]"}, children: selectOptions}
             ]}
@@ -137,7 +137,7 @@
       'select_multiple': [
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
-            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-right", html: label}},
+            {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
               {type: "<select />", attributes: {class: "chosen-select", multiple: "", name: "form["+modelKey+"]"}, children: selectOptions}
             ]}
