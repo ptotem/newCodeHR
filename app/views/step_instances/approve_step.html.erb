@@ -17,16 +17,19 @@
 				</div>
 
 				<div class="widget-toolbox padding-8 clearfix">
-					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '0') , :class => 'btn btn-sm btn-danger pull-left' do%>
+					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '0') , :class => 'btn btn-sm btn-danger col-md-1' do%>
 						<i class="ace-icon fa fa-times"></i>
 						<span class="bigger-110">Reject</span>
 					<% end %>
 
-					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '1') , :class => 'btn btn-sm btn-success pull-right' do%>
+					<div class="col-md-10">
+						<input class="col-md-12" name="comments" type="text" placeholder='Comments' />
+					</div>
+
+					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '1') , :class => 'btn btn-sm btn-success col-md-1' do%>
 						<span class="bigger-110">Accept</span>
 						<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 					<% end %>
-					</button>
 				</div>
 			</div>
 		</div>
@@ -34,7 +37,7 @@
 </div>
 
 <script>
-$('.actions').closest('.row').css('display', "none")
+	$('.actions').closest('.row').css('display', "none")
 
 	function fillFormDetails(){
 		console.log(gon.form_config)
