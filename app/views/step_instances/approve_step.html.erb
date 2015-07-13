@@ -11,6 +11,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<!-- <iframe src="<%= @path %>"></iframe> -->
+							<%= render :partial => 'generics/form' %>
 						</div>
 					</div>
 				</div>
@@ -31,3 +32,9 @@
 		</div>
 	</div>
 </div>
+
+<script>
+$('.actions').closest('.row').css('display', "none")
+
+	function fillFormDetails(){}
+</script>

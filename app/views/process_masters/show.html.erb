@@ -202,7 +202,7 @@
 			<%= hidden_field_tag 'process_master', @process_master._id.to_s %>
 	    <%= f.submit 'Initiate Process', :class => 'btn btn-success' %>
 			<%= link_to 'Edit', edit_process_master_path(@process_master), :class => 'btn btn-warning'%>
-			<%= link_to 'Back', process_masters_path, :class => 'btn btn-primary' %>
+			<%= link_to 'Back', process_masters_path, :class => 'btn btn-default' %>
 			<%= link_to 'Delete', @process_master, :class => "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
 		<% end %>
 	</div>
