@@ -6,5 +6,5 @@ class LeftPanel
   field :display_name, type: String
 
   has_and_belongs_to_many :process_masters
-  has_and_belongs_to_many :ability_matrixs
+  belongs_to :ability_matrices
 end

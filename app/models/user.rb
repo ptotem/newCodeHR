@@ -43,8 +43,6 @@ class User
 
   belongs_to :employee
 
-  has_and_belongs_to_many :ability_matrixs
-
 
   # def notify(obj)
   #   obj['user_id'] = self._id

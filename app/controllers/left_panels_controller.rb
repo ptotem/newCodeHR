@@ -21,8 +21,8 @@ class LeftPanelsController < InheritedResources::Base
 
 		left_panel = LeftPanel.create!(newPanel)
 		
-		left_panel do |format|
-      if newPanel.save
+		respond_to do |format|
+      if left_panel.save
         format.html { redirect_to left_panel, notice: 'Left Panel was successfully created.' }
         format.json { render json: left_panel, status: :created, location: left_panel }
       else

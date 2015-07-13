@@ -11,7 +11,79 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Name</label>
+        <input type="text" name="name" class="col-md-4" placeholder="Name">
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Left Panels</label>
+        <div class="col-md-4 no-padding-right no-padding-left">
+          <select multiple data-placeholder="Left Panels" name="left_panel_ids[]" class="chosen-select" >
+            <% @left_panels.each do |left_panel| %>
+              <option value="<%= left_panel._id %>"><%= left_panel.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Roles</label>
+        <div class="col-md-4 no-padding-right no-padding-left">
+          <select multiple data-placeholder="Left Panels" name="role_ids[]" class="chosen-select" >
+            <% @roles.each do |role| %>
+              <option value="<%= role._id %>"><%= role.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">All Roles?</label>
+        <div class="col-md-4 no-padding-right no-padding-left">
+          <label>
+            <input type="checkbox" class="ace ace-switch ace-switch-6" name="allRoles">
+            <span class="lbl"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="actions">
+        <%= f.submit 'Create Ability Matrix', :class => 'btn btn-primary' %>
+        <%= link_to 'Back', ability_matrices_path, :class => 'btn btn-default' %>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<script>
+  $('.chosen-select').chosen(); 
+  $('.chosen-container').css('width','99.5%');
+</script>

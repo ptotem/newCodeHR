@@ -208,44 +208,87 @@
 
         <ul class="nav nav-list">
 
-          <li class="">
-            <a href="<%= new_process_master_path %>">
-              <i class="menu-icon fa fa-angle-down pull-left"></i>
-              <span class="menu-text pull-left"> New Process Masters </span>
-            </a>
-            <b class="arrow"></b>
-          </li>
+          <% if current_user.email == 'admin@codehr.com' %>
+            <li class="">
+              <a href="<%= new_process_master_path %>">
+                <i class="menu-icon fa fa-angle-right pull-left"></i>
+                <span class="menu-text pull-left"> New Process Master </span>
+              </a>
+              <b class="arrow"></b>
+            </li>
 
-          <li class="">
-            <a href="#" class="dropdown-toggle">
-              <i class="menu-icon fa fa-tag pull-left"></i>
-              <span class="menu-text pull-left"> Process Masters </span>
+            <li class="">
+              <a href="<%= new_left_panel_path %>">
+                <i class="menu-icon fa fa-angle-right pull-left"></i>
+                <span class="menu-text pull-left"> New Left Panel </span>
+              </a>
+              <b class="arrow"></b>
+            </li>
 
-              <b class="arrow fa fa-angle-down"></b>
-            </a>
+            <li class="">
+              <a href="<%= new_ability_matrix_path %>">
+                <i class="menu-icon fa fa-angle-right pull-left"></i>
+                <span class="menu-text pull-left"> New Ability Matrix </span>
+              </a>
+              <b class="arrow"></b>
+            </li>
 
-            <b class="arrow"></b>
+            <li class="">
+              <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-tag pull-left"></i>
+                <span class="menu-text pull-left"> Process Masters </span>
 
-            <% @process_masters = ProcessMaster.all %>
+                <b class="arrow fa fa-angle-down"></b>
+              </a>
 
-            <ul class="submenu">
-              <% @process_masters.each do |process_master| %>
-              <li class="">
-                <%= link_to process_master, :style => "text-align: left" do %>
-                  <i class="menu-icon fa fa-caret-right pull-left"></i>
-                  <%= process_master.name %>
+              <b class="arrow"></b>
+
+              <% @process_masters = ProcessMaster.all %>
+
+              <ul class="submenu">
+                <% @process_masters.each do |process_master| %>
+                <li class="">
+                  <%= link_to process_master, :style => "text-align: left" do %>
+                    <i class="menu-icon fa fa-caret-right pull-left"></i>
+                    <%= process_master.name %>
+                  <% end %>
+                  <b class="arrow"></b>
+                </li>
                 <% end %>
-                <!-- <a href="" style="text-align: left">
-                  <i class="menu-icon fa fa-caret-right pull-left"></i>
-                  <%= process_master.name %>
-                </a> -->
+                
+              </ul>
+            </li>
+          <% end %>
 
-                <b class="arrow"></b>
-              </li>
+          <% if current_user.employee %>
+            <% current_user.employee.role[0].ability_matrices.each do |ability_matrix| %>
+              <% ability_matrix.left_panels.each do |left_panel| %>
+                <li class="">
+                  <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-tag pull-left"></i>
+                    <span class="menu-text pull-left"> <%= left_panel.display_name %> </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                  </a>
+
+                  <b class="arrow"></b>
+
+                  <ul class="submenu">
+                    <% left_panel.process_masters.each do |process_master| %>
+                      <li class="">
+                        <%= link_to process_master, :style => "text-align: left" do %>
+                          <i class="menu-icon fa fa-caret-right pull-left"></i>
+                          <%= process_master.name %>
+                        <% end %>
+                        <b class="arrow"></b>
+                      </li>
+                    <% end %>
+                    
+                  </ul>
+                </li>
               <% end %>
-              
-            </ul>
-          </li>
+            <% end %>
+          <% end %>
 
         </ul>
 
