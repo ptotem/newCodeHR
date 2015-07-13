@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :ability_matrices
+
+  resources :left_panels
+
   resources :manpower_plannings
 
   resources :documents
