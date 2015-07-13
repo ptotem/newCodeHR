@@ -4,8 +4,9 @@ class StepInstancesController < InheritedResources::Base
   	step = StepInstance.find(params[:stepId])
   	@approver = step.approval.approvers.where(:user_id => current_user._id.to_s).first
   	fill_step = step.get_previous_step({action: "Fill"})
-  	@path = new_generic_form_path(fill_step._id)
-
+  	@path = change_approver_state_path
+    # render :json => @path
+    # return
 
     @generic = Generic.new
     @step_instance = StepInstance.find(fill_step._id)
@@ -18,9 +19,8 @@ class StepInstancesController < InheritedResources::Base
     gon.model = {}
     gon.model['Role'] = Role.all
     gon.model['Band'] = Band.all
+    gon.model['Department'] = Department.all
     gon.fill_step = fill_step
-  	# render :json => path
-  	# return
   end
 
 
