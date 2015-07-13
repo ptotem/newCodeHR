@@ -14,7 +14,7 @@ class ProcessInstance
   field :state, type: String, :default => "Created"
   field :erased, type: Boolean, :default => false
 
-  has_many :step_instances
+  has_many :step_instances, dependent: :destroy
   accepts_nested_attributes_for :step_instances
   
   # DON'T DELETE...THIS IS TO UNDERSTAND THE FLOW OF CHANGE OF STATES
@@ -158,7 +158,20 @@ class ProcessInstance
           _step['action_obj']['agents']['users'] << current_user._id unless _step['action_obj']['agents']['users'].include?(current_user._id)
         end
       end
-      self.step_instances.push(StepInstance.create!(_step))
+
+      stepInstance = StepInstance.create!(_step)
+
+      if _step['action'] == "Approve"
+        approval_obj = {step_instance: stepInstance}
+        approval = Approval.create!(approval_obj)
+        _step['action_obj']['agents']['users'].each do |approver|
+          approval.approvers.push(Approver.create!(:user_id => approver))
+        end
+
+        approval.save!
+      end
+
+      self.step_instances.push(stepInstance)
     end
 
     self.save!

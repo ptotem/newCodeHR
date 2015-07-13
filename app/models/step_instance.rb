@@ -22,7 +22,7 @@ class StepInstance
   # field :reporting_officer, type: Boolean
 
   belongs_to :process_instance
-  has_one :approval
+  has_one :approval, dependent: :destroy
 
   # DON'T DELETE...THIS IS TO UNDERSTAND THE FLOW OF CHANGE OF STATES
   # aasm do

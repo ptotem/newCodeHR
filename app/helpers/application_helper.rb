@@ -27,17 +27,9 @@ module ApplicationHelper
 		puts "############################################################"
 		puts step_instance.to_json
 
-		approval_obj = {step_instance: step_instance}
-		approval = Approval.create!(approval_obj)
-		step_instance['action_obj']['agents']['users'].each do |approver|
-			approval.approvers.push(Approver.create!(:user_id => approver))
-		end
 
-		approval.save!
-		approval.send_tasks
+		step_instance.approval.send_tasks
 
-
-		# step_instance.end_processing_step
 	end
 
 	def process_step_Notify(step_instance)

@@ -14,7 +14,7 @@ class Approval
   field :erased, type: Boolean, :default => false
 
   belongs_to :step_instance
-  has_many :approvers
+  has_many :approvers, dependent: :destroy
 
 
   after_create :complete_obj
