@@ -1,15 +1,4 @@
 <%= form_for(@ability_matrix) do |f| %>
-  <% if @ability_matrix.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ability_matrix.errors.count, "error") %> prohibited this ability_matrix from being saved:</h2>
-
-      <ul>
-      <% @ability_matrix.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="space-12"></div>
 
@@ -22,7 +11,7 @@
     </div>
   </div>
 
-  <div class="space-12"></div>
+  <div class="space-6"></div>
 
   <div class="row">
     <div class="col-md-12">
@@ -39,7 +28,7 @@
     </div>
   </div>
 
-  <div class="space-12"></div>
+  <div class="space-6"></div>
 
   <div class="row">
     <div class="col-md-12">
@@ -56,7 +45,7 @@
     </div>
   </div>
 
-  <div class="space-12"></div>
+  <div class="space-6"></div>
 
   <div class="row">
     <div class="col-md-12">
