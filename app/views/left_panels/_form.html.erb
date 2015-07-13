@@ -11,7 +11,54 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Name</label>
+        <input type="text" name="name" class="col-md-4" placeholder="Name">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Display Name</label>
+        <input type="text" name="display_name" class="col-md-4" placeholder="Display Name">
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="col-md-2 control-label no-padding-left">Process Masters</label>
+        <div class="col-md-4 no-padding-right no-padding-left">
+          <select multiple id="test" data-placeholder="Process Masters" name="process_masters_ids[]" class="chosen-select" >
+            <% @process_masters.each do |process_master| %>
+              <option value="<%= process_master._id %>"><%= process_master.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-12"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="actions">
+        <%= f.submit 'Create Left Panel', :class => 'btn btn-primary' %>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<script>
+  $('.chosen-select').chosen(); 
+  $('.chosen-container').css('width','99.5%');
+</script>
