@@ -27,7 +27,7 @@ fields:
       html:
         size: 7 #between 1-12
         tag: "input"
-        type: "text"
+        type: "area"
     start_date:
       label:
         size: 3 #between 1-12
@@ -97,5 +97,5 @@ fields:
         size: 3 #between 1-12
       html:
         size: 7 #between 1-12
-        tag: "input"
-        type: "area"
+        tag: "select"
+        type: "single"

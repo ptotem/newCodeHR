@@ -30,7 +30,7 @@ class GenericsController < InheritedResources::Base
 			end
 		end
 
-		step_instance['action_obj'] = {obj: params['form']}
+		step_instance['action_obj'] = params['form']
 		step_instance.save!
 		step_instance.end_processing_step
 		redirect_to root_path

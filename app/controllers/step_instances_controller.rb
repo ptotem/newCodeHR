@@ -18,6 +18,7 @@ class StepInstancesController < InheritedResources::Base
     gon.model = {}
     gon.model['Role'] = Role.all
     gon.model['Band'] = Band.all
+    gon.fill_step = fill_step
   	# render :json => path
   	# return
   end
