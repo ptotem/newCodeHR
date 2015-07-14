@@ -29,7 +29,7 @@ class ProcessInstance
   #   end
 
   #   event :start_processing, :after => :post_operating_process do
-  #     transitions :from => :Initiated, :to => :proce
+  #     transitions :from => :Initiated, :to => :Processing
   #   end
 
   #   event :end_processing, :after => :post_finish_process  do

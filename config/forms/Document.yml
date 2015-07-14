@@ -36,3 +36,12 @@ fields:
         size: 7 #between 1-12
         tag: "input"
         type: "checkbox"
+
+'sub-forms':
+  - model: "ManpowerPlanning"
+    key: "manpower_planning"
+    type: "hash" # ['hash', 'array']
+
+  - model: "ManpowerPlanning"
+    key: "manpower_planning"
+    type: "hash" # ['hash', 'array']

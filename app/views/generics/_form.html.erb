@@ -1,4 +1,6 @@
 <%= form_for @generic, :html => { :multipart => true } do |f| %>
+
+  <%= @subForms.to_json %>
   <input type="hidden" name="step" value="<%= @step_instance[:id] %>">
   <div class="row">
     <div class="col-md-12">
