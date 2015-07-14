@@ -1,5 +1,7 @@
 model: "ManpowerPlanning"
 title: "Fill Form - Manpower Plan Creation"
+type:"main"
+subForm: "model name"
 labels: 
   code: "Code"
   name: "Name"
