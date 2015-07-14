@@ -17,19 +17,33 @@
 				</div>
 
 				<div class="widget-toolbox padding-8 clearfix">
-					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '0') , :class => 'btn btn-sm btn-danger col-md-1' do%>
-						<i class="ace-icon fa fa-times"></i>
-						<span class="bigger-110">Reject</span>
-					<% end %>
+					<form action="<%= @path%>" method="change_state">
+						<%= hidden_field_tag 'state', ''%>
+						<%= hidden_field_tag 'comments', ''%>
+						<%= hidden_field_tag 'approverId', @approver._id%>
 
-					<div class="col-md-10">
-						<input class="col-md-12" name="comments" type="text" placeholder='Comments' />
-					</div>
+						<%= link_to '#', :class => 'btn btn-sm btn-danger col-md-1', :onclick => 'setParams("0")' do%>
+							<i class="ace-icon fa fa-times"></i>
+							<span class="bigger-110">Reject</span>
+						<% end %>
 
-					<%= link_to change_approver_state_path(approverId: @approver._id.to_s, state: '1') , :class => 'btn btn-sm btn-success col-md-1' do%>
-						<span class="bigger-110">Accept</span>
-						<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-					<% end %>
+						<div class="col-md-10">
+							<input id="comments-holder" class="col-md-12" type="text" placeholder='Comments' />
+						</div>
+
+						<%= link_to '#', :class => 'btn btn-sm btn-success col-md-1', :onclick => 'setParams("1")' do%>
+							<span class="bigger-110">Accept</span>
+							<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+						<% end %>
+
+						<div class="row" style="display:none">
+					    <div class="col-md-12">
+					      <div class="action">
+					       <input type="submit">Submit</input> 
+					      </div>
+					    </div>
+					  </div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -37,12 +51,91 @@
 </div>
 
 <script>
-	$('.actions').closest('.row').css('display', "none")
+	$('.actions').closest('.row').remove()
 
 	function fillFormDetails(){
-		console.log(gon.form_config)
-		console.log(gon.fill_step)
+		var fromObj = gon.fill_step.action_obj
+		var fieldObj = gon.form_config.fields;
+		for(var i in fieldObj){
+			var keyIndex = 0;
+			var innerObj = fieldObj[i];
+			var keys = Object.keys(innerObj);
+			for(var j in innerObj){
+				if(innerObj[j].html.tag =='input' && innerObj[j].html.type !='file')
+					setValueOfInput(keys[keyIndex], fromObj[keys[keyIndex]])
+				else if(innerObj[j].html.tag =='select')				
+					setValueOfSelectTags(keys[keyIndex], fromObj[keys[keyIndex]], innerObj[j].html.type)
+				else
+					setValueOfFile(keys[keyIndex], fromObj[keys[keyIndex]])
+
+				
+
+				keyIndex++
+			}
+		}
+		addAceFormEffects();
+	}
+	function setValueOfInput (key, value) {
+		var jqueryObj = $('[name ="form['+ key + ']"]')
+		jqueryObj.val(value)
+		console.log(jqueryObj)
+
+		if(jqueryObj.attr('type') == 'checkbox')
+			jqueryObj.trigger('click')
+
+		jqueryObj.attr('disabled', true)
 	}
 
+	function setValueOfFile (key, value) {
+		console.log("setValueOfFile");
+		var parent = $('[name ="files['+ key + ']"]').closest('div');
+		parent.children('label').remove();
+		parent.append($('<a />', {class:'btn btn-primary btn-block', href:value.split('/public')[1], html:"Download"}));
+	}
+
+	function setValueOfSelectTags (key, value, type){
+		var jqueryObj = type == 'single'? $('[name ="form['+ key + ']"]') : $('[name ="form['+ key + '][]"]') 
+		if(type == 'single') {
+			$(jqueryObj.find('option[value="'+value+'"]')).attr('selected', 'selected')
+		} else {
+			for(var i = 0, length = value.length; i < length; i++) {
+				$(jqueryObj.find('option[value="'+value[i]+'"]')).attr('selected', 'selected')
+			}
+		}
+		jqueryObj.attr('disabled', true)
+	}
+
+	function addAceFormEffects() {
+	  $('.ace-file-input').ace_file_input({
+	    no_file:'No File ...',
+	    btn_choose:'Choose',
+	    btn_change:'Change',
+	    droppable:false,
+	    onchange:null,
+	    thumbnail:false
+	  }); 
+	  
+	  $('.chosen-select').chosen(); 
+	  $('.chosen-container').css('width','99.5%');
+	  $('.date-picker').datepicker({
+	    autoclose: true,
+	    todayHighlight: true
+	  })
+	  //show datepicker when clicking on the icon
+	  .next().on(ace.click_event, function(){
+	    $(this).prev().focus();
+	  });
+	  $('textarea[class*=autosize]').autosize({append: "\n"});
+	}
+
+	
+
 	fillFormDetails();
+
+	function setParams(state){
+		$('#state').val(state)
+		$('#comments').val($('#comments-holder').val())
+		console.log($('.action input'))
+		$('.action input').trigger('click')
+	}
 </script>

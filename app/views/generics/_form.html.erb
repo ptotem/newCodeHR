@@ -50,7 +50,7 @@
       }
     }
 
-    addAceFormEffects();
+    // addAceFormEffects();
   }
 
   function buildHTMLFromYAML(modelKey, label, yamlConfig) {
@@ -172,6 +172,7 @@
   }
 
   function getOptionsFromModel(model, key) {
+    console.log(model)
     var optionHtml = [];
     for(var i = 0, length = gon.model[model].length; i < length; i++) {
       if(key == '_id')
@@ -205,28 +206,6 @@
     return optionHtml;
   }
 
-  function addAceFormEffects() {
-    $('.ace-file-input').ace_file_input({
-      no_file:'No File ...',
-      btn_choose:'Choose',
-      btn_change:'Change',
-      droppable:false,
-      onchange:null,
-      thumbnail:false
-    }); 
-    
-    $('.chosen-select').chosen(); 
-    $('.chosen-container').css('width','99.5%');
-    $('.date-picker').datepicker({
-      autoclose: true,
-      todayHighlight: true
-    })
-    //show datepicker when clicking on the icon
-    .next().on(ace.click_event, function(){
-      $(this).prev().focus();
-    });
-    $('textarea[class*=autosize]').autosize({append: "\n"});
-  }
 
   buildForm();
 
