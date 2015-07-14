@@ -29,7 +29,7 @@ class GenericsController < InheritedResources::Base
 				params['form'][key] = fs.file.path
 			end
 		end
-		
+
 		step_instance['action_obj'] = params['form']
 		step_instance.save!
 		step_instance.end_processing_step
