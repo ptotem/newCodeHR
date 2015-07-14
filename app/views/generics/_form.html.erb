@@ -1,7 +1,38 @@
 <%= form_for @generic, :html => { :multipart => true } do |f| %>
 
-  <%= @subForms.to_json %>
+  <%# @forms.to_json %>
   <input type="hidden" name="step" value="<%= @step_instance[:id] %>">
+  
+  <div class="row">
+    <div class="col--md-12">
+      <div class="widget-box">
+        <div class="widget-header">
+          <h5 class="widget-title"><%= @form_title %></h5>
+        </div>
+        <div class="widget-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-holder">
+            
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <div class="row">
     <div class="col-md-12">
       <div id="form-holder">
@@ -23,6 +54,53 @@
 <% end %>
 
 <script>
+
+  function initFormBuilder(form) {
+    var _parent = $('.form-holder').last();
+    formBuilder(form.main_form, _parent);
+    if(form['sub_forms']) {
+      for(var i = 0, length = form['sub_forms'].length; i < length; i++) {
+        subFormBuilder(form['sub_forms'][i], _parent);
+      }
+    }
+  }
+
+  function formBuilder(form, _parent) {
+
+  }
+
+  function subFormBuilder(form, _parent) {
+    console.log(form)
+    appendWidgetBox(_parent, form.main_form.title);
+    initFormBuilder(form);
+  }
+
+  initFormBuilder(gon.form);
+
+  function appendWidgetBox(_parent, title) {
+    var widget = [
+      {type: "<div />", attributes: {class: "row"}, children: [
+        {type: "<div />", attributes: {class: "col-md-12"}, children: [
+          {type: "<div />", attributes: {class: "col-md-12"}, children: [
+            {type: "<div />", attributes: {class: "widget-box"}, children: [
+              {type: "<div />", attributes: {class: "widget-header"}, children: [
+                {type: "<h5 />", attributes: {class: "widget-title", html: title}}
+              ]},
+              {type: "<div />", attributes: {class: "widget-body"}, children: [
+                {type: "<div />", attributes: {class: "row"}, children: [
+                  {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                    {type: "<div />", attributes: {class: "form-holder"}}
+                  ]}
+                ]}
+              ]}
+            ]}
+          ]}
+        ]}
+      ]}
+    ]
+
+    initHTMLAppender(_parent, widget);    
+  }
 
   function addColumns(count) {
     for(var i = 0, col = parseInt(12/count); i < count; i++) {

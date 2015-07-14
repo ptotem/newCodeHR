@@ -37,11 +37,11 @@ fields:
         tag: "input"
         type: "checkbox"
 
-'sub-forms':
+'sub_forms':
   - model: "ManpowerPlanning"
     key: "manpower_planning"
-    type: "hash" # ['hash', 'array']
+    type: "object" # ['object', 'array']
 
   - model: "ManpowerPlanning"
     key: "manpower_planning"
-    type: "hash" # ['hash', 'array']
+    type: "object" # ['object', 'array']
