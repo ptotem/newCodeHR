@@ -13,7 +13,14 @@ class ProcessMastersController < ApplicationController
 		@roles = Role.all
 		@groups = Group.all
 		@processes = ProcessMaster.all
-		@forms = Generic.all
+		# @forms = Generic.all
+		
+		@forms = []
+		all_forms = YAML::load_file("#{Rails.root}/config/forms/index.yml")
+		all_forms['forms'].each do |model|
+			@form_config = YAML::load_file("#{Rails.root}/config/forms/#{model}.yml")
+			@forms.push(title: @form_config['title'], model: @form_config['model'])
+		end
 
 		gon.modelData = {}
 		gon.modelData['Employee'] = @employees

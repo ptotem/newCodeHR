@@ -212,6 +212,7 @@
     for(var i = 0, len = gon.modelData.processes.length; i < len; i++) {
       processes.push({type: "<option />", attributes: {value: gon.modelData.processes[i]._id.$oid, html: gon.modelData.processes[i].name}})
     }
+    
     var actionForms = {
       Fill: [], 
       Approve: [
