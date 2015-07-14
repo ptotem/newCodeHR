@@ -41,7 +41,3 @@ fields:
   - model: "ManpowerPlanning"
     key: "manpower_planning"
     type: "object" # ['object', 'array']
-
-  - model: "ManpowerPlanning"
-    key: "manpower_planning"
-    type: "object" # ['object', 'array']

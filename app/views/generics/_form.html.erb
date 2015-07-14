@@ -12,7 +12,7 @@
         <div class="widget-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="form-holder">
+              <div class="col-md-12 form-holder">
             
               </div>
             </div>
@@ -55,42 +55,44 @@
 
 <script>
 
-  function initFormBuilder(form) {
+  function initFormBuilder(form, nameKey) {
     var _parent = $('.form-holder').last();
-    formBuilder(form.main_form, _parent);
+    appendSpace(_parent, 12);
+    formBuilder(form.main_form, _parent, nameKey);
     if(form['sub_forms']) {
       for(var i = 0, length = form['sub_forms'].length; i < length; i++) {
-        subFormBuilder(form['sub_forms'][i], _parent);
+        subNameKey = nameKey+"[sub_forms]["+i+"]"
+        subFormBuilder(form['sub_forms'][i], _parent, subNameKey);
       }
     }
   }
 
-  function formBuilder(form, _parent) {
-
+  function formBuilder(form, _parent, nameKey) {
+    nameKey = nameKey+"[main_form]"
+    buildForm(form, _parent, nameKey);
   }
 
-  function subFormBuilder(form, _parent) {
-    console.log(form)
-    appendWidgetBox(_parent, form.main_form.title);
-    initFormBuilder(form);
+  function subFormBuilder(form, _parent, subNameKey) {
+    appendWidgetBox(_parent, form.main_form.title, form);
+    appendSpace(_parent, 6);
+    initFormBuilder(form, subNameKey);
   }
 
-  initFormBuilder(gon.form);
+  initFormBuilder(gon.form, "form");
 
-  function appendWidgetBox(_parent, title) {
+  function appendWidgetBox(_parent, title, form) {
+    console.log(JSON.stringify(form))
     var widget = [
       {type: "<div />", attributes: {class: "row"}, children: [
         {type: "<div />", attributes: {class: "col-md-12"}, children: [
-          {type: "<div />", attributes: {class: "col-md-12"}, children: [
-            {type: "<div />", attributes: {class: "widget-box"}, children: [
-              {type: "<div />", attributes: {class: "widget-header"}, children: [
-                {type: "<h5 />", attributes: {class: "widget-title", html: title}}
-              ]},
-              {type: "<div />", attributes: {class: "widget-body"}, children: [
-                {type: "<div />", attributes: {class: "row"}, children: [
-                  {type: "<div />", attributes: {class: "col-md-12"}, children: [
-                    {type: "<div />", attributes: {class: "form-holder"}}
-                  ]}
+          {type: "<div />", attributes: {class: "widget-box"}, children: [
+            {type: "<div />", attributes: {class: "widget-header"}, children: [
+              {type: "<h5 />", attributes: {class: "widget-title", html: title}}
+            ]},
+            {type: "<div />", attributes: {class: "widget-body"}, children: [
+              {type: "<div />", attributes: {class: "row"}, children: [
+                {type: "<div />", attributes: {class: "col-md-12"}, children: [
+                  {type: "<div />", attributes: {class: "col-md-12 form-holder", form_config: JSON.stringify(form)}}
                 ]}
               ]}
             ]}
@@ -102,10 +104,10 @@
     initHTMLAppender(_parent, widget);    
   }
 
-  function addColumns(count) {
+  function addColumns(count, _parent) {
     for(var i = 0, col = parseInt(12/count); i < count; i++) {
-      var attributes = {id: "column"+(i+1), class: "col-md-"+col};
-      $("#form-holder").append($("<div />", attributes));
+      var attributes = {class: "col-md-"+col+" column"+(i+1)};
+      _parent.append($("<div />", attributes));
     }
   }
 
@@ -113,27 +115,25 @@
     _parent.append($("<div />", {class: "space-"+count}));
   }
 
-  function buildForm() {
+  function buildForm(form_config, _parent, nameKey) {
     // console.log("buildForm")
-    form_config = gon.form_config;
+    // form_config = gon.form_config;
     var columns = Object.keys(form_config.fields).length
-    addColumns(columns);
+    addColumns(columns, _parent);
 
     for(var column in form_config.fields) {
-      var _parent = $("#"+column);
+      var _column = $(_parent.find("."+column));
       for(var modelKey in form_config.fields[column]) {
         var label = form_config.labels[modelKey];
         var yamlConfig = form_config.fields[column][modelKey];
-        var jsonHTML = buildHTMLFromYAML(modelKey, label, yamlConfig);
-        initHTMLAppender(_parent, jsonHTML);
-        appendSpace(_parent, 12);
+        var jsonHTML = buildHTMLFromYAML(modelKey, label, yamlConfig, nameKey);
+        initHTMLAppender(_column, jsonHTML);
+        appendSpace(_column, 12);
       }
     }
-
-    // addAceFormEffects();
   }
 
-  function buildHTMLFromYAML(modelKey, label, yamlConfig) {
+  function buildHTMLFromYAML(modelKey, label, yamlConfig, nameKey) {
     var htmlType = yamlConfig.html.tag + "_" + yamlConfig.html.type;
     var selectOptions = [];
     var radioOptions = [];
@@ -155,7 +155,7 @@
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
-            {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "text", name: "form["+modelKey+"]"}}
+            {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "text", name: nameKey+"["+modelKey+"]"}}
           ]}
         ]}
       ],
@@ -163,7 +163,7 @@
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
-            {type: "<textarea />", attributes: {class: "col-md-"+yamlConfig.html.size+" autosize-transition", placeholder: label, name: "form["+modelKey+"]", style: "overflow:hidden;word-wrap: break-word;resize:none"}}
+            {type: "<textarea />", attributes: {class: "col-md-"+yamlConfig.html.size+" autosize-transition", placeholder: label, name: nameKey+"["+modelKey+"]", style: "overflow:hidden;word-wrap: break-word;resize:none"}}
           ]}
         ]}
       ],
@@ -172,7 +172,7 @@
         {type: "<div />", attributes: {class:"row"}, children: [
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
-            {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "password", name: "form["+modelKey+"]"}}
+            {type: "<input />", attributes: {class: "col-md-"+yamlConfig.html.size, placeholder: label, type: "password", name: nameKey+"["+modelKey+"]"}}
           ]}
         ]}
       ],
@@ -182,7 +182,7 @@
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" input-group"}, children: [
-              {type: "<input />", attributes: {class: "date-picker", placeholder: label, type: "text", name: "form["+modelKey+"]", style:"width:100%"}},
+              {type: "<input />", attributes: {class: "date-picker", placeholder: label, type: "text", name: nameKey+"["+modelKey+"]", style:"width:100%"}},
               {type: "<span />", attributes: {class:"input-group-addon"}, children:[
                 {type: "<i />", attributes: {class:"fa fa-calendar bigger-110"}}
               ]}
@@ -196,7 +196,7 @@
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
-              {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: "files["+modelKey+"]"}}
+              {type: "<input />", attributes: {class: "ace-file-input", type: "file", name: nameKey+"["+modelKey+"]"}}
             ]}
           ]}
         ]}
@@ -208,7 +208,7 @@
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
               {type: "<label />", attributes: {}, children: [
-                {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: "form["+modelKey+"]"}},
+                {type: "<input />", attributes: {class: "ace ace-switch ace-switch-6", type: "checkbox", name: nameKey+"["+modelKey+"]"}},
                 {type: "<span />", attributes: {class: "lbl"}}
               ]}
             ]}
@@ -230,7 +230,7 @@
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
-              {type: "<select />", attributes: {class: "chosen-select", name: "form["+modelKey+"]"}, children: selectOptions}
+              {type: "<select />", attributes: {class: "chosen-select", name: nameKey+"["+modelKey+"]"}, children: selectOptions}
             ]}
           ]}
         ]}
@@ -241,7 +241,7 @@
           {type: "<div />", attributes: {class:"form-group"}, children: [
             {type: "<label />", attributes: {class: "col-md-"+yamlConfig.label.size+" control-label no-padding-left no-padding-right", html: label}},
             {type: "<div />", attributes: {class: "col-md-"+yamlConfig.html.size+" no-padding-right no-padding-left"}, children: [
-              {type: "<select />", attributes: {class: "chosen-select", multiple: "", name: "form["+modelKey+"][]"}, children: selectOptions}
+              {type: "<select />", attributes: {class: "chosen-select", multiple: "", name: nameKey+"["+modelKey+"][]"}, children: selectOptions}
             ]}
           ]}
         ]}

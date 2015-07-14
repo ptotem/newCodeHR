@@ -34,7 +34,7 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def create
-		# render :json => params
+		# render :json => params[:process]
 		# return
 		process_master = ProcessMaster.create!(params[:process])
 		params[:masterSteps].each do |key, value|

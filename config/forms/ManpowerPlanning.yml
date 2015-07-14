@@ -101,3 +101,8 @@ fields:
         size: 7 #between 1-12
         tag: "select"
         type: "single"
+
+'sub_forms':
+  - model: "Employee"
+    key: "manpower_planning"
+    type: "object" # ['object', 'array']
