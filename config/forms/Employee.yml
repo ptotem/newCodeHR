@@ -1,0 +1,38 @@
+model: "Employee"
+title: "Fill Form - Document Creation"
+labels: 
+  code: "Document Code"
+  name: "Document Name"
+  file: "Document"
+  version_controlled: "Version Controlled?"
+fields:
+  column1:
+    code:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    file:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "file"
+  column2:
+    name:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
+    version_controlled:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "checkbox"

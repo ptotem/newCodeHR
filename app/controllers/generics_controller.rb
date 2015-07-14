@@ -24,16 +24,19 @@ class GenericsController < InheritedResources::Base
 
 		if params['files']
 			params['files'].each do |key, obj|
-				fs = FileStorage.create!(file: obj);
-				fs.save!
-				params['form'][key] = fs.file.path
+			# test =  obj.is_a? (String)
+			render :json => obj.eof()
+			return
+			# 	fs = FileStorage.create!(file: obj);
+			# 	fs.save!
+			# 	params['form'][key] = fs.file.path
 			end
 		end
 
-		step_instance['action_obj'] = params['form']
-		step_instance.save!
-		step_instance.end_processing_step
-		redirect_to root_path
+		# step_instance['action_obj'] = params['form']
+		# step_instance.save!
+		# step_instance.end_processing_step
+		# redirect_to root_path
 
 		
 	end
