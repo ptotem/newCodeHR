@@ -146,14 +146,14 @@
 
             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
               <li>
-                <a href="/employee_masters/<%= current_user.employee_master.id rescue nil %>/edit">
+                <a href="/employee/<%= current_user.employee.id rescue nil %>/edit">
                   <i class="ace-icon fa fa-cog"></i>
                   Settings
                 </a>
               </li>
 
               <li>
-                <a href="/employee_details/<%= current_user.employee_master._id.to_s rescue nil %>/edit">
+                <a href="/employee/<%= current_user.employee._id.to_s rescue nil %>/edit">
                   <i class="ace-icon fa fa-user"></i>
                   Profile
                 </a>
