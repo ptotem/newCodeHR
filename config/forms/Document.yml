@@ -39,5 +39,13 @@ fields:
 
 'sub_forms':
   - model: "ManpowerPlanning"
-    key: "manpower_planning"
-    type: "object" # ['object', 'array']
+    key: "manpower_plannings"
+    type: "Array" # ['object', 'array']
+
+  - model: "ManpowerPlanning"
+    key: "manpower_plannings"
+    type: "Array" # ['object', 'array']
+
+  # - model: "Employee"
+  #   key: "employee"
+  #   type: "object" # ['object', 'array']

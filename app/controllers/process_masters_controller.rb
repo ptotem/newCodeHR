@@ -1,5 +1,6 @@
 class ProcessMastersController < ApplicationController
 
+	require "json"
 	def index
 		@process_masters = ProcessMaster.all
 	end
@@ -34,9 +35,10 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def create
-		# render :json => params[:process]
+		# render :json => params
 		# return
-		process_master = ProcessMaster.create!(params[:process])
+		# process_master = ProcessMaster.create!(params[:process])
+		process_master = ProcessMaster.create!(:name => params[:process]['name'])
 		params[:masterSteps].each do |key, value|
 			if value['action_obj']
 				if value['action_obj']['manager'] 
@@ -53,26 +55,31 @@ class ProcessMastersController < ApplicationController
 
 				idsHash = value['action_obj']['agents']['ids']
 				value['action_obj']['agents']['ids'] = hashToArray(idsHash)
+				process_master.master_steps.push(MasterStep.create!(:sequence => value['sequence'], :action => value['action'], :action_class => value['action_class'], :action_obj => value['action_obj']))
+			else
+				process_master.master_steps.push(MasterStep.create!(:sequence => value['sequence'], :action => value['action'], :action_class => value['action_class']))
 			end
 
-			# render :json => value
+			# render :json => process_master.master_steps
 			# return
 
-			process_master.master_steps.push(MasterStep.create!(value))
+			# process_master.master_steps.push(MasterStep.create!(value))
 		end
 		# render :json => process_master.master_steps
 		# return
 		
-
-		respond_to do |format|
-      if process_master.save
-        format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
-        format.json { render json: process_master, status: :created, location: process_master }
-      else
-        format.html { render action: "new" }
-        format.json { render json: process_master.errors, status: :unprocessable_entity }
-      end
-    end
+		process_master.save!
+		render :json => process_master
+		return
+		# respond_to do |format|
+  #     if process_master.save
+  #       format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
+  #       format.json { render json: process_master, status: :created, location: process_master }
+  #     else
+  #       format.html { render action: "new" }
+  #       format.json { render json: process_master.errors, status: :unprocessable_entity }
+  #     end
+  #   end
 		
 	end
 

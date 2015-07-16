@@ -14,8 +14,15 @@ fields:
         size: 7 #between 1-12
         tag: "input"
         type: "text"
+    email:
+      label:
+        size: 3 #between 1-12
+      html:
+        size: 7 #between 1-12
+        tag: "input"
+        type: "text"
   column2:
-    employee_name:
+    name:
       label:
         size: 3 #between 1-12
       html:

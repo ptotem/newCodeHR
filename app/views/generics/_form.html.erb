@@ -10,7 +10,7 @@
           <h5 class="widget-title"><%= @form_title %></h5>
         </div>
         <div class="widget-body">
-          <div class="row">
+          <div class="row" style="margin-left:-9px">
             <div class="col-md-12">
               <div class="col-md-12 form-holder">
             
@@ -21,28 +21,9 @@
       </div>
     </div>
   </div>
-  
-
-
-
-
-
-
-
-
-
-
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="form-holder">
-
-
-      </div>
-    </div>
-  </div>
 
   <div class="space-12"></div>
+
   <div class="row">
     <div class="col-md-12">
       <div class="actions">
@@ -58,6 +39,7 @@
   function initFormBuilder(form, nameKey) {
     var _parent = $('.form-holder').last();
     appendSpace(_parent, 12);
+    appendModelNameHiddenInput(_parent, form['main_form']['model'], nameKey)
     formBuilder(form.main_form, _parent, nameKey);
     if(form['sub_forms']) {
       for(var i = 0, length = form['sub_forms'].length; i < length; i++) {
@@ -77,6 +59,7 @@
     appendSpace(_parent, 6);
     initFormBuilder(form, subNameKey);
   }
+  console.log(gon.form)
 
   initFormBuilder(gon.form, "form");
 
@@ -113,6 +96,11 @@
 
   function appendSpace(_parent, count) {
     _parent.append($("<div />", {class: "space-"+count}));
+  }
+
+  function appendModelNameHiddenInput (_parent, modelName, nameKey) {
+    console.log(_parent)
+    _parent.append($("<input />", {type:"hidden", name: nameKey+"[action_class]", value:modelName, class:"model-holder"}));
   }
 
   function buildForm(form_config, _parent, nameKey) {
@@ -287,7 +275,7 @@
   }
 
 
-  buildForm();
+  // buildForm();
 
   // console.log(gon);
 

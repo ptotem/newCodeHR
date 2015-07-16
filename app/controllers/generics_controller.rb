@@ -23,9 +23,12 @@ class GenericsController < InheritedResources::Base
 
 	def create
 		step_instance = StepInstance.find(params['step'])
-		
+		# render :json => params['form']
+		# return
 		parseFilesInForm(params['form'])
 		step_instance['action_obj'] = params['form']
+		# render :json => step_instance
+		# return
 		step_instance.save!
 		step_instance.end_processing_step
 		redirect_to root_path

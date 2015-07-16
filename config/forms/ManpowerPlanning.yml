@@ -102,7 +102,7 @@ fields:
         tag: "select"
         type: "single"
 
-'sub_forms':
-  - model: "Employee"
-    key: "manpower_planning"
-    type: "object" # ['object', 'array']
+# 'sub_forms':
+  # - model: "Employee"
+  #   key: "manpower_planning"
+  #   type: "object" # ['object', 'array']

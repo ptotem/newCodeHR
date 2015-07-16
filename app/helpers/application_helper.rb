@@ -53,8 +53,9 @@ module ApplicationHelper
 		puts step_instance.to_json
 		fillStep = step_instance.get_previous_step({action: "Fill"})
 		puts fillStep.to_json
-		eval(fillStep['action_class']).create!(fillStep['action_obj']['obj'])
-		step_instance.end_processing_step
+		full_form = process_step_MarkComplete_processing(fillStep['action_obj'])
+		# eval(fillStep['action_class']).create!(fillStep['action_obj']['obj'])
+		# step_instance.end_processing_step
 	end
 
 	def process_step_SpawnD(step_instance)
@@ -90,6 +91,37 @@ module ApplicationHelper
     processInstance.build_process_instance 
 
 		step_instance.end_processing_step
+	end
+
+	def process_step_MarkComplete_processing(obj)
+		form = eval(obj['action_class']).create!(obj['main_form'])
+		form_confg = YAML::load_file("#{Rails.root}/config/forms/#{obj['action_class']}.yml")
+		puts eval(form_confg['sub_forms'][0]['key']).class
+		if obj['sub_forms']
+			i = 0
+			obj['sub_forms'].each do |key, value|
+				# subform = process_step_MarkComplete_processing(value)
+				if form_confg['sub_forms'][i]['type'] == "Array"
+					if i == 0
+						puts '-------------------------------------in if---------------------------------'
+						form[form_confg['sub_forms'][i]['key']] = []
+					end 
+
+					form[form_confg['sub_forms'][i]['key']].push(process_step_MarkComplete_processing(value))
+				else
+					form[form_confg['sub_forms'][i]['key']] = process_step_MarkComplete_processing(value)
+				end
+
+				i = i + 1
+			end
+			puts 'form.to_json'
+			puts form.to_json
+			puts 'form.to_json'
+			form.save!
+		end
+
+		return form
+		
 	end
 end
 	
