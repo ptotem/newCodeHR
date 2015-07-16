@@ -17,4 +17,5 @@ class ManpowerPlanning
   field :end_date, type: Date
 
   belongs_to :document
+  
 end

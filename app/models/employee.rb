@@ -15,6 +15,7 @@ class Employee
   has_and_belongs_to_many :department
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :band
+  belongs_to :document
 
   after_create :create_user
 

@@ -68,18 +68,15 @@ class ProcessMastersController < ApplicationController
 		# render :json => process_master.master_steps
 		# return
 		
-		process_master.save!
-		render :json => process_master
-		return
-		# respond_to do |format|
-  #     if process_master.save
-  #       format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
-  #       format.json { render json: process_master, status: :created, location: process_master }
-  #     else
-  #       format.html { render action: "new" }
-  #       format.json { render json: process_master.errors, status: :unprocessable_entity }
-  #     end
-  #   end
+		respond_to do |format|
+      if process_master.save
+        format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
+        format.json { render json: process_master, status: :created, location: process_master }
+      else
+        format.html { render action: "new" }
+        format.json { render json: process_master.errors, status: :unprocessable_entity }
+      end
+    end
 		
 	end
 
