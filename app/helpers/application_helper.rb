@@ -55,7 +55,7 @@ module ApplicationHelper
 		puts fillStep.to_json
 		processed_form = process_step_MarkComplete_processing(fillStep['action_obj'])
 		# eval(fillStep['action_class']).create!(fillStep['action_obj']['obj'])
-		# step_instance.end_processing_step
+		step_instance.end_processing_step
 	end
 
 	def process_step_SpawnD(step_instance)
@@ -97,14 +97,13 @@ module ApplicationHelper
 		form = eval(obj['action_class']).create!(obj['main_form'])
 		form_confg = YAML::load_file("#{Rails.root}/config/forms/#{obj['action_class']}.yml")
 		if obj['sub_forms']
-			puts '------------------------------------------------- in if'
 			obj['sub_forms'].each_with_index do |(key, value), index|
 					subform = process_step_MarkComplete_processing(value)
 					eval("form.#{form_confg['sub_forms'][index]['key']}") << subform
 			end
+			form.save!
 		end
-			
-		form.save!
+
 		return form
 	end
 end

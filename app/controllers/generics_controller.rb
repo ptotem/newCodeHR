@@ -4,37 +4,36 @@ class GenericsController < InheritedResources::Base
 	def new
 		@generic = Generic.new
 		@step_instance = StepInstance.find(params[:step_id])
-		@model = @step_instance[:action_class]
-
-		@form_config = YAML::load_file("#{Rails.root}/config/forms/#{@model}.yml")
-		@form_title = @form_config['title']
-
-		@forms = getForm(@model)
-
-		gon.notice = session[:notice]
-		gon.form_config = @form_config
-		gon.form = @forms
-		gon.model = {}
-		gon.model['Role'] = Role.all
-		gon.model['Band'] = Band.all
-		gon.model['Department'] = Department.all
-		
+		model = @step_instance[:action_class]
+		setFormDetailsForView(model)
 	end
 
 	def create
 		step_instance = StepInstance.find(params['step'])
-		# render :json => params['form']
-		# return
 		parseFilesInForm(params['form'])
 		step_instance['action_obj'] = params['form']
-		# render :json => step_instance
-		# return
 		step_instance.save!
 		step_instance.end_processing_step
 		redirect_to root_path
-
-		
 	end
+
+
+  def approve_step
+    @generic = Generic.new
+    approve_step = StepInstance.find(params[:stepId])
+    @approver = approve_step.approval.approvers.where(:user_id => current_user._id.to_s).first
+
+    # fill_step = approve_step.get_previous_step({action: "Fill"})
+    @step_instance = approve_step.get_previous_step({action: "Fill"})
+    # @step_instance = StepInstance.find(fill_step._id)
+    model = @step_instance[:action_class]
+    @path = change_approver_state_path
+
+    setFormDetailsForView(model)
+
+    
+    gon.fill_step = @step_instance
+  end
 
   private
 
@@ -73,6 +72,18 @@ class GenericsController < InheritedResources::Base
 					i = i + 1
 				end
 			end
+  	end
+
+  	def setFormDetailsForView(model)
+			@form_title = YAML::load_file("#{Rails.root}/config/forms/#{model}.yml")['title']
+			forms = getForm(model)
+
+			gon.notice = session[:notice]
+			gon.form = forms
+			gon.model = {}
+			gon.model['Role'] = Role.all
+			gon.model['Band'] = Band.all
+			gon.model['Department'] = Department.all 		
   	end
 
     # def generic_params
