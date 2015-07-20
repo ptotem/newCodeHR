@@ -562,7 +562,8 @@ while i < userLen do
 	# @users[i][:gender] = if @users[i][:gender] == "Male" then "M" elsif @users[i][:gender] == "Female" then "F" else "O" end
 	# @users[i][:date_of_birth] = if @users[i][:date_of_birth].blank? then "" else @users[i][:date_of_birth].to_date end
 	# @users[i][:date_of_joining] = if @users[i][:date_of_joining].blank? then "" else @users[i][:date_of_joining].to_date end
-	@users[i][:parent_ids] = if @users[i][:parent_ids] == "" then [] else [if !Employee.where(:code => @users[i][:parent_ids].to_s).first.nil? then Employee.where(:code => @users[i][:parent_ids].to_s).first.id end] end
+	@users[i][:parent_ids] = if @users[i][:parent_ids] == "" then [] else [if !Employee.where(:code => @users[i][:parent_ids].to_s).first.nil? then Employee.where(:code => @users[i][:parent_ids].to_s).first.id.to_s end] end
+	# @users[i][:parent_ids] = [(Employee.where(:code => @users[i][:parent_ids].to_s).last._id.to_s rescue '')]
 	# @users[i][:role_ids] = [(Role.where(:name => @users[i][:role_ids].to_s).first.id rescue '')]
 	# @users[i][:band_master_ids] = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first.id}
 	bandGrp = @users[i][:band].to_s.split(',').map{|i| Band.where(:name => i).first}
@@ -577,6 +578,7 @@ while i < userLen do
 	thisEmp[:code] = @users[i][:employee_code]
 	thisEmp[:name] = @users[i][:employee_name]
 	thisEmp[:email] = @users[i][:official_email].downcase
+
 	thisEmp[:managers] = @users[i][:parent_ids]
 
 	thisEmp[:role] = roles

@@ -39,8 +39,12 @@ class ProcessMastersController < ApplicationController
 		# return
 		# process_master = ProcessMaster.create!(params[:process])
 		process_master = ProcessMaster.create!(:name => params[:process]['name'])
+		# render :json => params[:masterSteps]
+		# return
 		params[:masterSteps].each do |key, value|
 			if value['action_obj']
+
+
 				if value['action_obj']['manager'] 
 					value['action_obj']['manager'] = if value['action_obj']['manager'] == 'on' then true else false end 
 				end

@@ -58,7 +58,7 @@
       </button>
 
       <div class="navbar-header pull-left">
-        <a href="#" class="navbar-brand">
+        <a href="<%= root_path %>" class="navbar-brand">
           <small>
             <i class="fa fa-leaf"></i>
             CodeHR
@@ -91,11 +91,9 @@
               <% end %>
 
               <li class="dropdown-footer">
-                <a href="#">
                   <%= link_to 'See all Tasks', tasks_path %>
                   <!-- See tasks with details
                   <i class="ace-icon fa fa-arrow-right"></i> -->
-                </a>
               </li>
             </ul>
           </li>
@@ -126,9 +124,7 @@
               <% end %>
 
               <li class="dropdown-footer">
-                <a href="#">
-                  <%= link_to 'See all Notifications', notifications_path %>
-                </a>
+                <%= link_to 'See all Notifications', notifications_path %>
               </li>
             </ul>
           </li>

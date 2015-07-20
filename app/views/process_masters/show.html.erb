@@ -64,47 +64,48 @@
 												Repeat Escalation: <%= step.action_obj['repeat_escalation'] %>
 										</div>
 									</div>
-
-									<div class="tree-folder">
-										<div class="tree-folder-header">
-											<i class="red ace-icon fa fa-minus"></i>
-											<div class="tree-folder-name">
-												Agents
-											</div>
-										</div>
-										<div class="tree-folder-content">
-											<div class="tree-folder">
-												<div class="tree-item">
-													<div class="tree-item-name">
-														<i class="red ace-icon fa fa-chevron-right"></i>
-															Model: <%= step.action_obj['agents']['model'] %>
-													</div>
+									<% if step.action_obj['agents']['model'] != "" %>
+										<div class="tree-folder">
+											<div class="tree-folder-header">
+												<i class="red ace-icon fa fa-minus"></i>
+												<div class="tree-folder-name">
+													Agents
 												</div>
 											</div>
-
-											<div class="tree-folder">
-												<div class="tree-folder-header">
-													<i class="red ace-icon fa fa-minus"></i>
-													<div class="tree-folder-name">
-														Ids
-													</div>
-												</div>
-												<div class="tree-folder-content">
-
-													<% step.action_obj['agents']['ids'].each do |id| %>
+											<div class="tree-folder-content">
+												<div class="tree-folder">
 													<div class="tree-item">
 														<div class="tree-item-name">
 															<i class="red ace-icon fa fa-chevron-right"></i>
-															<%= id %>
+																Model: <%= step.action_obj['agents']['model'] %>
 														</div>
 													</div>
-													<% end %>
-
 												</div>
-											</div>
 
+												<div class="tree-folder">
+													<div class="tree-folder-header">
+														<i class="red ace-icon fa fa-minus"></i>
+														<div class="tree-folder-name">
+															Ids
+														</div>
+													</div>
+													<div class="tree-folder-content">
+
+														<% step.action_obj['agents']['ids'].each do |id| %>
+														<div class="tree-item">
+															<div class="tree-item-name">
+																<i class="red ace-icon fa fa-chevron-right"></i>
+																<%= id %>
+															</div>
+														</div>
+														<% end %>
+
+													</div>
+												</div>
+
+											</div>
 										</div>
-									</div>
+									<% end %>
 
 								</div>
 								<% end %>

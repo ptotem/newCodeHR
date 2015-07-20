@@ -140,6 +140,7 @@ class ProcessInstance
     self.update_attributes(processInstanceDuplicate)
 
     stepInstances = []
+    current_user = User.find(self.initiator)
     master_steps.asc(:sequence).each do |step|
       _step = duplicateModelObject(step)
       if _step['action_obj']
@@ -149,7 +150,7 @@ class ProcessInstance
           current_emp = current_user.employee
           if current_emp
             current_emp['managers'].each do |manager|
-              _step['action_obj']['agents']['users'] << manager.user._id unless _step['action_obj']['agents']['users'].include?(manager.user._id)
+              _step['action_obj']['agents']['users'] << Employee.find(manager).user._id unless _step['action_obj']['agents']['users'].include?(Employee.find(manager).user._id)
             end
           end
         end

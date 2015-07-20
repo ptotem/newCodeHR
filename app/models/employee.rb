@@ -5,7 +5,7 @@ class Employee
   field :code, type: String
   field :name, type: String
   field :email, type: String
-  field :managers, type: Array
+  field :managers, type: Array, :default => []
   field :active, type: Boolean, :default => true
 
 
