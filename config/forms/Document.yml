@@ -37,9 +37,9 @@ fields:
         tag: "input"
         type: "checkbox"
 
-'sub_forms':
-  - model: "ManpowerPlanning"
-    key: "manpower_plannings"
+# 'sub_forms':
+#   - model: "ManpowerPlanning"
+#     key: "manpower_plannings"
 
 #   # - model: "ManpowerPlanning"
 #   #   key: "manpower_plannings"
