@@ -73,6 +73,11 @@ class ProcessMastersController < ApplicationController
 		end
 	end
 
+	def update
+		render :json => params
+		return
+	end
+
 	def show
 		@process_master = ProcessMaster.find(params[:id])
 		
