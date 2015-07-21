@@ -133,6 +133,9 @@ class ProcessInstance
   end
 
   def build_process_instance
+    puts '############################################################'
+    puts 'build_process_instance'
+    puts '############################################################'
     process_master = ProcessMaster.find(self.process_master_id)
     master_steps = process_master.master_steps
     processInstanceDuplicate = duplicateModelObject(process_master)
@@ -143,6 +146,9 @@ class ProcessInstance
     current_user = User.find(self.initiator)
     master_steps.asc(:sequence).each do |step|
       _step = duplicateModelObject(step)
+      puts '############################################################'
+      puts _step
+      puts '############################################################'
       if _step['action_obj']
         _step['action_obj']['agents']['users'] = getUsersFromAgents(_step['action_obj']['agents']['model'], _step['action_obj']['agents']['ids'])
         

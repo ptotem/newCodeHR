@@ -2,5 +2,56 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @process_master %> |
-<%= link_to 'Back', process_masters_path %>
+<%# link_to 'Show', @process_master %> |
+<%# link_to 'Back', process_masters_path %>
+
+
+<script>
+  function addMasterStep(selectedAction, selectedActionModel) {
+	  var lastStep = $("#process-master-form .stepno_hidden").last()[0];
+
+	  var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
+	  // console.log($("#process-master-form"))
+	  initHTMLAppender($("#process-master-form"), buildMasterStep(stepno, selectedAction, selectedActionModel));
+	  renameMasterSteps();
+	  
+	  $("#process-master-form .panel .accordion-toggle").last().trigger('click');
+  }
+
+  function addMasterStepsToEdit(){
+  	// console.log(gon.modelData.master_steps)
+  	for(var i = 0, len = gon.modelData.master_steps.length; i < len; i++){
+  		addMasterStep(gon.modelData.master_steps[i].action, gon.modelData.master_steps[i].action_class);
+  		var actionJqueryObj = $("#process-master-form .chosen-select").eq($("#process-master-form .chosen-select").length - 2);
+	  	getActionForm(actionJqueryObj);
+	  	if(gon.modelData.master_steps[i].action_obj)
+	  		addActionObjectDetails(gon.modelData.master_steps[i].action_obj, $("#process-master-form .action-form-container").eq($("#process-master-form .action-form-container").length - 1));
+  	}
+  	makeChosen();
+  }
+
+  function addActionObjectDetails(action_obj, actionObjContainer){
+  	console.log(action_obj);
+  	console.log(actionObjContainer);
+		var stepno = $("#process-master-form .stepno_hidden").last()[0].value;
+  	for(var i in action_obj){
+  		if(typeof action_obj[i] != "object"){
+  			
+  			setValueOfinputField(i, action_obj[i], stepno)
+  		}
+  			
+		}
+  }
+
+  function setValueOfinputField (key, value, stepno){ 
+  	var selector = '[name="masterSteps['+ stepno +'][action_obj]['+ key +']"]'
+  	console.log(selector)
+		var jqueryObj = $(selector);
+		
+		jqueryObj.val(value)
+		if(jqueryObj.attr('type') != 'text' && jqueryObj.attr('type') != undefined)
+			jqueryObj.trigger('click')
+  }
+
+  addMasterStepsToEdit();
+</script>

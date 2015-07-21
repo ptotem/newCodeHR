@@ -1,3 +1,18 @@
 <h1>New Process Master</h1>
 
 <%= render 'form' %>
+
+
+<script>
+
+  function addMasterStep() {
+    var lastStep = $("#process-master-form .stepno_hidden").last()[0];
+
+    var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
+    initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
+    renameMasterSteps();
+    makeChosen();
+    $("#process-master-form .panel .accordion-toggle").last().trigger('click');
+  }
+	addMasterStep();
+</script>

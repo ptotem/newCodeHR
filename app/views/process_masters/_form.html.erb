@@ -21,7 +21,7 @@
             <div class="row">
               <div class="form-group">
                 <label class="col-md-3 control-label no-padding-right"> Process Name </label>
-                <input type="text" class="col-md-9" placeholder="Process Name" name="process[name]">
+                <input type="text" class="col-md-9" placeholder="Process Name" name="process[name]" value="<%= @process_master.name %>">
               </div>
             </div>
           </div>
@@ -82,19 +82,25 @@
     $('.chosen-select').chosen(); 
     $('.chosen-container').css('width','99.5%');
   }
-  makeChosen();
+  // makeChosen();
 
-  function addMasterStep() {
-    var lastStep = $("#process-master-form .stepno_hidden").last()[0];
 
-    var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
-    initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
-    renameMasterSteps();
-    makeChosen();
-    $("#process-master-form .panel .accordion-toggle").last().trigger('click');
-  }
+  function buildMasterStep(stepno, selectedAction, selectedActionModel) {
+    var actions = [
+      {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
+      {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
+      {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
+      {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
+      {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
+      {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
+    ];
 
-  function buildMasterStep(stepno) {
+    if(selectedAction){
+      var actionToSetSelected = $.grep(actions, function(action){
+        return action.attributes.value == selectedAction
+      })[0];
+      actionToSetSelected.attributes.selected = 'true';
+    }
     var masterStep = [
       {type: "<div />", attributes: {class:"panel panel-default"}, children:[
         {type: "<div />", attributes: {class:"panel-heading"}, children:[
@@ -121,14 +127,7 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterSteps["+stepno+"][action]"}, children: [
-                        {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
-                        {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
-                        {type: "<option />", attributes: {value: "Notify", html: "Notify"}},
-                        {type: "<option />", attributes: {value: "MarkComplete", html: "MarkComplete"}},
-                        {type: "<option />", attributes: {value: "SpawnD", html: "SpawnD"}},
-                        {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
-                      ]}
+                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterSteps["+stepno+"][action]"}, children: actions}
                     ]}
                   ]}
                 ]}
@@ -138,7 +137,7 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action Model "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", onchange: "getActionForm($(this))", name: "masterSteps["+stepno+"][action_class]"}, children: buildActionClasses()
+                      {type: "<select />", attributes: {class:"chosen-select", name: "masterSteps["+stepno+"][action_class]"}, children: buildActionClasses(selectedActionModel)
                       // [
                       //   {type: "<option />", attributes: {value: "Document", html: "Document"}},
                       //   {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
@@ -163,10 +162,14 @@
     return masterStep;
   }
 
-  function buildActionClasses() {
+  function buildActionClasses(selectedActionModel) {
     var actionClasses = [];
     for(var i = 0, len = gon.modelData.forms.length; i < len; i++) {
-      actionClasses.push({type: "<option />", attributes: {value: gon.modelData.forms[i]['model'], html: gon.modelData.forms[i]['title']}});
+      var actionObj = {type: "<option />", attributes: {value: gon.modelData.forms[i]['model'], html: gon.modelData.forms[i]['title']}}
+      if(gon.modelData.forms[i]['model'] == selectedActionModel)
+        actionObj.attributes.selected = 'true'
+      
+      actionClasses.push(actionObj);
     }
     return actionClasses;
   }
@@ -192,7 +195,7 @@
       stepSeq[i].value = i;
     }
   }
-  addMasterStep();
+  
 
   function getActionForm(_this) {
     var action = _this.val();
@@ -239,7 +242,7 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}},
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", type: "text", html: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}},
                   {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}}
                 ]}
               ]}
@@ -386,6 +389,9 @@
   }
 
   function getModelTableData(_this, key, subkey) {
+    console.log(_this);
+    console.log(key);
+    console.log(subkey);
     var modelValues = gon.modelData[_this.val()];
     var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
     var tableValues = [];
@@ -395,7 +401,7 @@
       var obj = {type: "<tr />", attributes: {}, children: [
         {type: "<td />", attributes: {class: "center"}, children: [
           {type: "<label />", attributes: {class: "position-relative"}, children: [
-            {type: "<input />", attributes: {class: "ace", type: "checkbox", name: "masterSteps["+stepno+"]["+key+"]["+subkey+"][ids]["+i+"]", value: modelValues[i]._id.$oid}},
+            {type: "<input />", attributes: {class: "ace", type: "checkbox", name: "masterSteps["+stepno+"]["+key+"]["+subkey+"][ids][]", value: modelValues[i]._id.$oid}},
             {type: "<span />", attributes: {class: "lbl"}}
           ]}
         ]},

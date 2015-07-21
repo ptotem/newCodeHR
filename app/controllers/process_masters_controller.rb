@@ -8,29 +8,7 @@ class ProcessMastersController < ApplicationController
 	def new
 
 		@process_master = ProcessMaster.new
-		@employees = Employee.all
-		@bands = Band.all
-		@departments = Department.all
-		@roles = Role.all
-		@groups = Group.all
-		@processes = ProcessMaster.all
-		# @forms = Generic.all
-		
-		@forms = []
-		all_forms = YAML::load_file("#{Rails.root}/config/forms/index.yml")
-		all_forms['forms'].each do |model|
-			@form_config = YAML::load_file("#{Rails.root}/config/forms/#{model}.yml")
-			@forms.push(title: @form_config['title'], model: @form_config['model'])
-		end
-
-		gon.modelData = {}
-		gon.modelData['Employee'] = @employees
-		gon.modelData['Band'] = @bands
-		gon.modelData['Department'] = @departments
-		gon.modelData['Role'] = @roles
-		gon.modelData['Group'] = @groups
-		gon.modelData['processes'] = @processes
-		gon.modelData['forms'] = @forms
+		SetVariablesForView()
 		
 	end
 
@@ -39,11 +17,9 @@ class ProcessMastersController < ApplicationController
 		# return
 		# process_master = ProcessMaster.create!(params[:process])
 		process_master = ProcessMaster.create!(:name => params[:process]['name'])
-		# render :json => params[:masterSteps]
-		# return
+
 		params[:masterSteps].each do |key, value|
 			if value['action_obj']
-
 
 				if value['action_obj']['manager'] 
 					value['action_obj']['manager'] = if value['action_obj']['manager'] == 'on' then true else false end 
@@ -57,18 +33,21 @@ class ProcessMastersController < ApplicationController
 					value['action_obj']['file'] = if value['action_obj']['file'] == 'on' then true else false end 
 				end
 
-				idsHash = value['action_obj']['agents']['ids']
-				value['action_obj']['agents']['ids'] = hashToArray(idsHash)
-				process_master.master_steps.push(MasterStep.create!(:sequence => value['sequence'], :action => value['action'], :action_class => value['action_class'], :action_obj => value['action_obj']))
-			else
-				process_master.master_steps.push(MasterStep.create!(:sequence => value['sequence'], :action => value['action'], :action_class => value['action_class']))
-			end
+				# idsHash = value['action_obj']['agents']['ids']
+				# value['action_obj']['agents']['ids'] = hashToArray(idsHash)
 
+			end
+			stepObj = jsonToRubyHash(value)
+			# render :json => stepObj
+			# return
+			process_master.master_steps.push(MasterStep.create!(stepObj))
 			# render :json => process_master.master_steps
 			# return
 
 			# process_master.master_steps.push(MasterStep.create!(value))
 		end
+
+
 		# render :json => process_master.master_steps
 		# return
 		
@@ -82,6 +61,16 @@ class ProcessMastersController < ApplicationController
       end
     end
 		
+	end
+
+	def edit
+		@process_master = ProcessMaster.find(params[:id])
+		SetVariablesForView()
+
+		gon.modelData['master_steps'] = []
+		@process_master.master_steps.asc(:sequence).each do |master_step|
+			gon.modelData['master_steps'] << master_step
+		end
 	end
 
 	def show
@@ -102,14 +91,47 @@ class ProcessMastersController < ApplicationController
 
   private
 
-  	def hashToArray(hash)
-  		array = []
-  		if !hash.nil?
-				hash.each do |key, value|
-					array.push(value)
-				end
+  	# def hashToArray(hash)
+  	# 	array = []
+  	# 	if !hash.nil?
+			# 	hash.each do |key, value|
+			# 		array.push(value)
+			# 	end
+			# end
+			# return array
+  	# end
+
+  	def jsonToRubyHash(obj)
+  		rubyHash = {}
+  		obj.keys.each do |key|
+  			rubyHash[key] = obj[key]
+  		end
+  		return rubyHash
+  	end
+
+  	def SetVariablesForView
+  		@employees = Employee.all
+			@bands = Band.all
+			@departments = Department.all
+			@roles = Role.all
+			@groups = Group.all
+			@processes = ProcessMaster.all
+
+			@forms = []
+			all_forms = YAML::load_file("#{Rails.root}/config/forms/index.yml")
+			all_forms['forms'].each do |model|
+				@form_config = YAML::load_file("#{Rails.root}/config/forms/#{model}.yml")
+				@forms.push(title: @form_config['title'], model: @form_config['model'])
 			end
-			return array
+
+			gon.modelData = {}
+			gon.modelData['Employee'] = @employees
+			gon.modelData['Band'] = @bands
+			gon.modelData['Department'] = @departments
+			gon.modelData['Role'] = @roles
+			gon.modelData['Group'] = @groups
+			gon.modelData['processes'] = @processes
+			gon.modelData['forms'] = @forms
   	end
 
     # def process_master_params

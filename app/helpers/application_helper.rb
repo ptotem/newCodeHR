@@ -71,6 +71,10 @@ module ApplicationHelper
     processInstance['parent_stepno'] = step_instance.sequence
     processInstance['spawn'] = true
     processInstance['dependent'] = true
+
+    puts '/************ processInstance *************/'
+    puts processInstance.to_json
+    puts '/************ processInstance *************/'
     processInstance.build_process_instance 
 		# step_instances.pawn_process
 		# step_instance.end_processing_step
