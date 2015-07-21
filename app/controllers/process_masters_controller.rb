@@ -13,9 +13,6 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def create
-		# render :json => params
-		# return
-		# process_master = ProcessMaster.create!(params[:process])
 		process_master = ProcessMaster.create!(:name => params[:process]['name'])
 
 		params[:masterSteps].each do |key, value|
@@ -38,19 +35,9 @@ class ProcessMastersController < ApplicationController
 
 			end
 			stepObj = jsonToRubyHash(value)
-			# render :json => stepObj
-			# return
 			process_master.master_steps.push(MasterStep.create!(stepObj))
-			# render :json => process_master.master_steps
-			# return
-
-			# process_master.master_steps.push(MasterStep.create!(value))
 		end
 
-
-		# render :json => process_master.master_steps
-		# return
-		
 		respond_to do |format|
       if process_master.save
         format.html { redirect_to process_master, notice: 'ProcessMaster was successfully created.' }
