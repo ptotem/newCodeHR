@@ -3,9 +3,14 @@
 <%= render 'form' %>
 
 <script>
-  function addMasterStep(selectedAction, selectedActionModel, stepno) {
+
+  function addInitialMasterStep(selectedAction, selectedActionModel, stepno) {
 	  initHTMLAppender($("#process-master-form"), buildMasterStep(stepno, selectedAction, selectedActionModel));
 	  renameMasterSteps();
+	  var actionSelect = $("#process-master-form .chosen-select").eq($("#process-master-form .chosen-select").length - 2);
+	  setSingleSelectTagValue(actionSelect, selectedAction)
+	  var actionModelSelect = $("#process-master-form .chosen-select").eq($("#process-master-form .chosen-select").length - 1);
+	  setSingleSelectTagValue(actionModelSelect, selectedActionModel)
 	  
 	  $("#process-master-form .panel .accordion-toggle").last().trigger('click');
   }
@@ -14,17 +19,17 @@
   	for(var i = 0, len = gon.modelData.master_steps.length; i < len; i++){
   		var lastStep = $("#process-master-form .stepno_hidden").last()[0];
 	  	var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
-  		addMasterStep(gon.modelData.master_steps[i].action, gon.modelData.master_steps[i].action_class, stepno);
+  		addInitialMasterStep(gon.modelData.master_steps[i].action, gon.modelData.master_steps[i].action_class, stepno);
+
   		var actionJqueryObj = $("#process-master-form .chosen-select").eq($("#process-master-form .chosen-select").length - 2);
 	  	getActionForm(actionJqueryObj);
+
 	  	if(gon.modelData.master_steps[i].action_obj)
 	  		addActionObjectDetails(gon.modelData.master_steps[i].action_obj, '');
 
 	  	if(gon.modelData.master_steps[i].action == 'SpawnD' || gon.modelData.master_steps[i].action == 'SpawnI'){
-	  		var selector = '[name="masterSteps['+ stepno +'][spawn_process]"]';
-  			var jqueryObj = $(selector);
-  			jqueryObj.find('[value="'+ gon.modelData.master_steps[i].spawn_process +'"]').attr('selected', true);
-				jqueryObj.trigger("chosen:updated");
+  			var jqueryObj = $('[name="masterSteps['+ stepno +'][spawn_process]"]');
+  			setSingleSelectTagValue(jqueryObj, gon.modelData.master_steps[i].spawn_process)
 	  	}
   	}
   	makeChosen();
@@ -37,13 +42,13 @@
   			var key = loopKey + '[' +i +']';
   			var selector = '[name="masterSteps['+ stepno +'][action_obj]'+ key +'"]'
   			var jqueryObj = $(selector);
-  			setValueOfObject(selector, jqueryObj ,action_obj[i]);
+  			setValueOfObject(jqueryObj ,action_obj[i]);
   		}
   		else if(action_obj[i].constructor == Array){
   			var key = loopKey + '[' +i +'][]';
   			var selector = '[name="masterSteps['+ stepno +'][action_obj]'+ key +'"]'
   			var jqueryObj = $(selector);
-  			setValueOfArray(selector, jqueryObj, action_obj[i]);
+  			setValueOfArray(selector, action_obj[i]);
   		}
   		else{
   			addActionObjectDetails(action_obj[i], '[' + i + ']');
@@ -52,29 +57,52 @@
   }
 
 
-  function setValueOfObject (selector, _this, value){ 
-		if(_this[0].tagName != "SELECT"){
-			_this.val(value)
-			if(_this.attr('type') != 'text' && _this.attr('type') != undefined)
-				_this.trigger('click')
-		}else{
-			_this.find('[value="'+ value +'"]').attr('selected', true)
-			_this.trigger("chosen:updated");
-			getModelTableData(_this, 'action_obj', 'agents');
-		}
+  function setValueOfObject (_this, value){ 
+  	var functionLookUp = {
+  		SELECT:"setSingleSelectTagValue;getModelTableData(_this, 'action_obj', 'agents')",
+  		INPUT:"setSingleInputValue",
+  		TEXTAREA:"setSingleInputValue"
+  	}
+
+  	if(functionLookUp[_this[0].tagName].split(';')[1])
+			eval(functionLookUp[_this[0].tagName].split(';')[0])(_this, value, functionLookUp[_this[0].tagName].split(';')[1])
+  	
+		else
+			eval(functionLookUp[_this[0].tagName].split(';')[0])(_this, value)
   }
 
-  function setValueOfArray (selector, _this, values) {
-  	if(_this.length > 1)
-  		for(var i = 0, len = values.length; i < len; i++)
-  			$(selector + '[value='+ values[i] +']').trigger('click')
-  	else{
-  		for(var i = 0, len = values.length; i < len; i++){
-  			_this.find('[value='+ values[i] +']').attr('selected', true)
-  		}
-  		_this.trigger("chosen:updated");
+  function setValueOfArray (selector, values) {
+  	var functionLookUp = {
+  		INPUT:"setSingleInputValue",
+  		SELECT:"setSingleSelectTagValue"
+  	}
+  	for(var i = 0, len = values.length; i < len; i++){
+  		var _this = $(selector + '[value='+ values[i] +']');
+  		eval(functionLookUp[_this[0].tagName])(_this, values[i])
+  		
+  		if(_this[0].tagName == 'INPUT' && i == (len - 1))
+  			makeDataTable(_this.closest('.table-container'))
   	}
   }
+
+  	function setSingleSelectTagValue (_this, value, callBack) {
+		_this.find('[value="'+ value +'"]').attr('selected', true)
+		_this.trigger("chosen:updated");
+		
+		if(callBack)
+			eval(callBack);
+	}
+
+	function setSingleInputValue (_this, value, callBack) {
+		_this.val(value);
+
+		if(_this.attr('type') == 'checkbox')
+			_this.trigger('click');
+
+		if(callBack)
+			eval(callBack);
+	}
+
 
   addMasterStepsToEdit();
 		

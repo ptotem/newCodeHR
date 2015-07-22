@@ -58,11 +58,39 @@ class ProcessMastersController < ApplicationController
 		@process_master.master_steps.asc(:sequence).each do |master_step|
 			gon.modelData['master_steps'] << master_step
 		end
+
 	end
 
 	def update
-		render :json => params
-		return
+		process_master = ProcessMaster.find(params[:id])
+		master_steps = process_master.master_steps
+
+		params[:masterSteps].each do |key, masterStep|
+			step = master_steps.where(:sequence => masterStep[:sequence]).first
+			if step
+				_step = jsonToRubyHash(masterStep)
+				step.update_attributes(_step)
+			else
+				stepObj = jsonToRubyHash(masterStep)
+				process_master.master_steps.push(MasterStep.create!(stepObj))
+			end
+			process_master.save!
+		end
+
+		masterStepsCount = master_steps.length.to_i
+		updateMasterStepCount = params[:masterSteps].keys.length
+		if masterStepsCount > updateMasterStepCount
+			while updateMasterStepCount != masterStepsCount
+				master_steps.where(:sequence => updateMasterStepCount).first.destroy
+				updateMasterStepCount = updateMasterStepCount + 1
+			end
+		end
+
+
+		_process = jsonToRubyHash(params[:process])
+		process_master.update_attributes(_process)
+		redirect_to process_master
+
 	end
 
 	def show
@@ -96,7 +124,9 @@ class ProcessMastersController < ApplicationController
   	def jsonToRubyHash(obj)
   		rubyHash = {}
   		obj.keys.each do |key|
-  			rubyHash[key] = obj[key]
+  			# if key != '_id' && key != 'created_at' && key != 'updated_at' && key != 'process_master_id'
+  				rubyHash[key] = obj[key]
+  			# end
   		end
   		return rubyHash
   	end

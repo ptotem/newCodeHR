@@ -78,14 +78,34 @@
     
 // apply_dataTable('#user_table_table', '#user_table_wrapper','#user_table_length', '#user_table_filter');
 
+  function makeDataTable (_this) {
+    console.log(_this)
+    $(_this.find('table')[0]).dataTable({
+      pagingType: "full",
+      order: [[1, 'asc']],
+      aoColumnDefs: [
+          { bSortable: false, aTargets: [ 0, 1 ] }
+       ]
+    });
+
+  }
   function makeChosen() {
     $('.chosen-select').chosen(); 
     $('.chosen-container').css('width','99.5%');
   }
   // makeChosen();
 
+  function addMasterStep() {
+    var lastStep = $("#process-master-form .stepno_hidden").last()[0];
 
-  function buildMasterStep(stepno, selectedAction, selectedActionModel) {
+    var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
+    initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
+    renameMasterSteps();
+    makeChosen();
+    $("#process-master-form .panel .accordion-toggle").last().trigger('click');
+  }
+
+  function buildMasterStep(stepno) {
     var actions = [
       {type: "<option />", attributes: {value: "Fill", html: "Fill"}},
       {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
@@ -95,14 +115,8 @@
       {type: "<option />", attributes: {value: "SpawnI", html: "SpawnI"}}
     ];
 
-    if(selectedAction){
-      var actionToSetSelected = $.grep(actions, function(action){
-        return action.attributes.value == selectedAction
-      })[0];
-      actionToSetSelected.attributes.selected = 'true';
-    }
     var masterStep = [
-      {type: "<div />", attributes: {class:"panel panel-default"}, children:[
+      {type: "<div />", attributes: {class:"panel panel-default test"}, children:[
         {type: "<div />", attributes: {class:"panel-heading"}, children:[
           {type: "<h4 />", attributes: {class:"panel-title"}, children:[
             {type: "<a />", attributes: {class:"accordion-toggle collapsed", onclick:"toggleMasterStep($(this))"}, children:[
@@ -137,7 +151,7 @@
                   {type: "<div />", attributes: {class:"form-group"}, children: [
                     {type: "<div />", attributes: {class:"col-md-3 control-label no-padding-right", html: " Action Model "}},
                     {type: "<div />", attributes: {class:"col-md-9"}, children: [
-                      {type: "<select />", attributes: {class:"chosen-select", name: "masterSteps["+stepno+"][action_class]"}, children: buildActionClasses(selectedActionModel)
+                      {type: "<select />", attributes: {class:"chosen-select", name: "masterSteps["+stepno+"][action_class]"}, children: buildActionClasses()
                       // [
                       //   {type: "<option />", attributes: {value: "Document", html: "Document"}},
                       //   {type: "<option />", attributes: {value: "Approve", html: "Approve"}},
@@ -162,12 +176,10 @@
     return masterStep;
   }
 
-  function buildActionClasses(selectedActionModel) {
+  function buildActionClasses() {
     var actionClasses = [];
     for(var i = 0, len = gon.modelData.forms.length; i < len; i++) {
       var actionObj = {type: "<option />", attributes: {value: gon.modelData.forms[i]['model'], html: gon.modelData.forms[i]['title']}}
-      if(gon.modelData.forms[i]['model'] == selectedActionModel)
-        actionObj.attributes.selected = 'true'
       
       actionClasses.push(actionObj);
     }
@@ -242,7 +254,7 @@
             {type: "<div />", attributes: {class: "row"}, children: [
               {type: "<div />", attributes: {class: "col-md-12"}, children: [
                 {type: "<div />", attributes: {class: "form-group"}, children: [
-                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", type: "text", html: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}},
+                  {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", type: "text", html: "Set Escalation"}},
                   {type: "<input />", attributes: {class: "col-md-7", type: "text", placeholder: "Set Escalation", name: "masterSteps["+stepno+"][action_obj][escalation]"}}
                 ]}
               ]}
@@ -272,7 +284,7 @@
               {type: "<div />", attributes: {class: "form-group"}, children: [
                 {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select agents By:"}},
                 {type: "<div />", attributes: {class: "col-md-8"}, children: [
-                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'action_obj', 'agents')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select", onchange: "getModelTableData($(this), 'action_obj', 'agents','makeDataTable')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
                     {type: "<option />", attributes: {value: "", html: "Select Approver Type"}},
                     {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
                     {type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -341,7 +353,7 @@
               {type: "<div />", attributes: {class: "form-group"}, children: [
                 {type: "<label />", attributes: {class: "col-md-4 control-label no-padding-right", html: "Select Recipient By:"}},
                 {type: "<div />", attributes: {class: "col-md-8"}, children: [
-                  {type: "<select />", attributes: {class: "form-control chosen-select",onchange: "getModelTableData($(this), 'action_obj', 'agents')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
+                  {type: "<select />", attributes: {class: "form-control chosen-select",onchange: "getModelTableData($(this), 'action_obj', 'agents', 'makeDataTable')", name: "masterSteps["+stepno+"][action_obj][agents][model]"}, children: [
                     {type: "<option />", attributes: {value: "", html: "Select Recipient Type"}},
                     {type: "<option />", attributes: {value: "Employee", html: "Employee"}},
                     {type: "<option />", attributes: {value: "Role", html: "Role"}},
@@ -388,10 +400,7 @@
     return actionForms[action]
   }
 
-  function getModelTableData(_this, key, subkey) {
-    console.log(_this);
-    console.log(key);
-    console.log(subkey);
+  function getModelTableData(_this, key, subkey, callBack) {
     var modelValues = gon.modelData[_this.val()];
     var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
     var tableValues = [];
@@ -427,14 +436,8 @@
 
     _tableContainer.empty();
     initHTMLAppender(_tableContainer, tableStruct);
-
-    $(_tableContainer.find('table')[0]).dataTable({
-      pagingType: "full",
-      order: [[1, 'asc']],
-      aoColumnDefs: [
-          { bSortable: false, aTargets: [ 0, 1 ] }
-       ]
-    });
+    if(callBack)
+      eval(callBack)(_tableContainer)
   }
 
 </script>
