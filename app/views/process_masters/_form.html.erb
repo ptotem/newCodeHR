@@ -79,7 +79,6 @@
 // apply_dataTable('#user_table_table', '#user_table_wrapper','#user_table_length', '#user_table_filter');
 
   function makeDataTable (_this) {
-    console.log(_this)
     $(_this.find('table')[0]).dataTable({
       pagingType: "full",
       order: [[1, 'asc']],
@@ -401,26 +400,33 @@
   }
 
   function getModelTableData(_this, key, subkey, callBack) {
+    // console.log(_this);
+    // console.log(key);
+    // console.log(subkey);
+    // console.log(callBack);
     var modelValues = gon.modelData[_this.val()];
     var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
     var tableValues = [];
     var stepno = _this.closest('.panel-collapse').siblings('.panel-heading').find('.stepno_hidden').val();
 
-    for(var i = 0, len = modelValues.length; i < len; i++) {
-      var obj = {type: "<tr />", attributes: {}, children: [
-        {type: "<td />", attributes: {class: "center"}, children: [
-          {type: "<label />", attributes: {class: "position-relative"}, children: [
-            {type: "<input />", attributes: {class: "ace", type: "checkbox", name: "masterSteps["+stepno+"]["+key+"]["+subkey+"][ids][]", value: modelValues[i]._id.$oid}},
-            {type: "<span />", attributes: {class: "lbl"}}
+      
+    if (modelValues) {
+      for(var i = 0, len = modelValues.length; i < len; i++) {
+        var obj = {type: "<tr />", attributes: {}, children: [
+          {type: "<td />", attributes: {class: "center"}, children: [
+            {type: "<label />", attributes: {class: "position-relative"}, children: [
+              {type: "<input />", attributes: {class: "ace", type: "checkbox", name: "masterSteps["+stepno+"]["+key+"]["+subkey+"][ids][]", value: modelValues[i]._id.$oid}},
+              {type: "<span />", attributes: {class: "lbl"}}
+            ]}
+          ]},
+          {type: "<td />", attributes: {}, children: [
+            {type: "<span />", attributes: {html: modelValues[i].name}}
           ]}
-        ]},
-        {type: "<td />", attributes: {}, children: [
-          {type: "<span />", attributes: {html: modelValues[i].name}}
-        ]}
-      ]};
+        ]};
 
-      tableValues.push(obj);
-    }
+        tableValues.push(obj);
+      }
+    };
 
     var tableStruct = [
       {type: "<table />", attributes: {class: "table table-striped table-bordered table-hover"}, children: [
@@ -439,5 +445,9 @@
     if(callBack)
       eval(callBack)(_tableContainer)
   }
+
+  $( "#process-master-form" ).sortable({
+    update: function( event, ui ) {renameMasterSteps()}
+  });
 
 </script>

@@ -53,42 +53,72 @@ class ProcessMastersController < ApplicationController
 	def edit
 		@process_master = ProcessMaster.find(params[:id])
 		SetVariablesForView()
-
 		gon.modelData['master_steps'] = []
 		@process_master.master_steps.asc(:sequence).each do |master_step|
 			gon.modelData['master_steps'] << master_step
 		end
+		# render :json => gon.modelData['master_steps']
+		# return
 
 	end
 
 	def update
 		process_master = ProcessMaster.find(params[:id])
 		master_steps = process_master.master_steps
+		updatedMasterSteps = hashToArray(params[:masterSteps])
 
-		params[:masterSteps].each do |key, masterStep|
-			step = master_steps.where(:sequence => masterStep[:sequence]).first
-			if step
-				_step = jsonToRubyHash(masterStep)
-				step.update_attributes(_step)
+		render :json => params[:masterSteps]
+		return
+		master_steps.each do |masterStep|
+			updatedMasterStep = updatedMasterSteps.where(:sequence => masterStep[:sequence]).first
+			if updatedMasterStep
+				masterStep.update_attributes(jsonToRubyHash(updatedMasterStep))
 			else
-				stepObj = jsonToRubyHash(masterStep)
-				process_master.master_steps.push(MasterStep.create!(stepObj))
+				masterStep.destroy
 			end
-			process_master.save!
 		end
 
 		masterStepsCount = master_steps.length.to_i
 		updateMasterStepCount = params[:masterSteps].keys.length
-		if masterStepsCount > updateMasterStepCount
-			while updateMasterStepCount != masterStepsCount
-				master_steps.where(:sequence => updateMasterStepCount).first.destroy
-				updateMasterStepCount = updateMasterStepCount + 1
+		if updateMasterStepCount > masterStepsCount
+			i = updateMasterStepCount - masterStepsCount
+			while i != 0
+				_step = jsonToRubyHash(updatedMasterSteps.where(:sequence => masterStepsCount).first)
+				process_master.master_steps.push(MasterStep.create!(_step))
+				i = i - 1
 			end
+			process_master.save!
 		end
+
+
+
+
+
+		# params[:masterSteps].each do |key, masterStep|
+		# 	step = master_steps.where(:sequence => masterStep[:sequence]).first
+		# 	if step
+		# 		_step = jsonToRubyHash(masterStep)
+		# 		step.update_attributes(_step)
+		# 	else
+		# 		stepObj = jsonToRubyHash(masterStep)
+		# 		process_master.master_steps.push(MasterStep.create!(stepObj))
+		# 	end
+		# 	process_master.save!
+		# end
+
+		
+		# if masterStepsCount > updateMasterStepCount
+		# 	while updateMasterStepCount != masterStepsCount
+		# 		master_steps.where(:sequence => updateMasterStepCount).first.destroy
+		# 		updateMasterStepCount = updateMasterStepCount + 1
+		# 	end
+		# end
 
 
 		_process = jsonToRubyHash(params[:process])
 		process_master.update_attributes(_process)
+		# render :json => process_master.master_steps
+		# return
 		redirect_to process_master
 
 	end
@@ -111,15 +141,15 @@ class ProcessMastersController < ApplicationController
 
   private
 
-  	# def hashToArray(hash)
-  	# 	array = []
-  	# 	if !hash.nil?
-			# 	hash.each do |key, value|
-			# 		array.push(value)
-			# 	end
-			# end
-			# return array
-  	# end
+  	def hashToArray(hash)
+  		array = []
+  		if !hash.nil?
+				hash.each do |key, value|
+					array.push(value)
+				end
+			end
+			return array
+  	end
 
   	def jsonToRubyHash(obj)
   		rubyHash = {}
