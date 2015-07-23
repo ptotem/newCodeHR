@@ -58,6 +58,7 @@ gem "will_paginate_mongoid"
 gem 'mongoid-observers'
 gem 'kaminari'
 gem 'lazy_high_charts'
+gem 'underscore-rails'
 
 gem 'toastr-rails'
 group :development do

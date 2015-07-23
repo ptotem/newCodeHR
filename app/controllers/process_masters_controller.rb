@@ -67,10 +67,11 @@ class ProcessMastersController < ApplicationController
 		master_steps = process_master.master_steps
 		updatedMasterSteps = hashToArray(params[:masterSteps])
 
-		render :json => params[:masterSteps]
-		return
-		master_steps.each do |masterStep|
-			updatedMasterStep = updatedMasterSteps.where(:sequence => masterStep[:sequence]).first
+
+		master_steps.asc(:sequence).each do |masterStep|
+			updatedMasterStep = updatedMasterSteps.select{ |item| item[:sequence] == masterStep[:sequence].to_s }[0]
+			# render :json => updatedMasterStep
+			# return
 			if updatedMasterStep
 				masterStep.update_attributes(jsonToRubyHash(updatedMasterStep))
 			else
@@ -82,9 +83,11 @@ class ProcessMastersController < ApplicationController
 		updateMasterStepCount = params[:masterSteps].keys.length
 		if updateMasterStepCount > masterStepsCount
 			i = updateMasterStepCount - masterStepsCount
+			seq = masterStepsCount
 			while i != 0
-				_step = jsonToRubyHash(updatedMasterSteps.where(:sequence => masterStepsCount).first)
+				_step = jsonToRubyHash(updatedMasterSteps.select{ |item| item[:sequence] == seq.to_s }[0])
 				process_master.master_steps.push(MasterStep.create!(_step))
+				seq = seq + 1
 				i = i - 1
 			end
 			process_master.save!

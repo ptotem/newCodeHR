@@ -400,10 +400,6 @@
   }
 
   function getModelTableData(_this, key, subkey, callBack) {
-    // console.log(_this);
-    // console.log(key);
-    // console.log(subkey);
-    // console.log(callBack);
     var modelValues = gon.modelData[_this.val()];
     var _tableContainer = $(_this.closest('.model-selector').siblings('.model-values').find('.table-container')[0]);
     var tableValues = [];
