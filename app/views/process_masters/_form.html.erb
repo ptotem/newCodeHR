@@ -94,10 +94,19 @@
   }
   // makeChosen();
 
-  function addMasterStep() {
-    var lastStep = $("#process-master-form .stepno_hidden").last()[0];
+  function getMaxOfArrayOfObjects (arrayOfObjects, key) {
+    var maxNo = 0;
+    var objKey = key ? key : 'value';
 
-    var stepno = lastStep ? parseInt(lastStep.value)+1 : 1;
+    for(i=0,len = arrayOfObjects.length;i<len;i++)
+      maxNo = maxNo > parseInt(arrayOfObjects[i][key]) ? maxNo : parseInt(arrayOfObjects[i][key]);
+    
+    return maxNo
+  }
+
+  function addMasterStep() {
+    var maxStepNo = getMaxOfArrayOfObjects($("#process-master-form .stepno_hidden"), 'value');
+    var stepno = parseInt(maxStepNo) + 1;
     initHTMLAppender($("#process-master-form"), buildMasterStep(stepno));
     renameMasterSteps();
     makeChosen();
