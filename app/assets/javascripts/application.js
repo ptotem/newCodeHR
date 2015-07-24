@@ -18,5 +18,8 @@
 //= require bootstrap.min
 //= require x-editable/bootstrap-editable.min
 //= require ace.min
+
+
 //= require toastr
+//= require paloma
 //= require_tree .

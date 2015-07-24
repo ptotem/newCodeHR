@@ -1,5 +1,8 @@
 function showDeleteAlertBox (callback, _this, e) {
-  // e.preventDefault();
+  console.log(callback)
+  console.log(_this)
+  console.log(e)
+  e.preventDefault();
   bootbox.dialog({
     message: "Are you sure?",
     title: "Alert!!",
@@ -8,7 +11,7 @@ function showDeleteAlertBox (callback, _this, e) {
       label: "Delete",
       className: "btn-danger",
       callback: function() {
-      callback(_this)
+      callback
       }
     },
       danger: {

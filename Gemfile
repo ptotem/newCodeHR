@@ -58,9 +58,11 @@ gem "will_paginate_mongoid"
 gem 'mongoid-observers'
 gem 'kaminari'
 gem 'lazy_high_charts'
-gem 'underscore-rails'
 
+
+gem 'underscore-rails'
 gem 'toastr-rails'
+gem 'paloma'
 group :development do
   # gem "better_errors"
 end

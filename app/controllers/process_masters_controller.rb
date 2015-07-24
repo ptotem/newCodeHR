@@ -108,6 +108,8 @@ class ProcessMastersController < ApplicationController
 	end
 
 	def destroy
+		render :json => params
+		return
 		process_master = ProcessMaster.find(params[:id])
 		process_master.destroy
 		process_masters = ProcessMaster.new
