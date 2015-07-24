@@ -5,9 +5,6 @@
 <script>
 
 	function setSingleSelectTagValue (_this, value, callBack) {
-  		// console.log(_this)
-  		// console.log(value)
-  		// console.log(callBack)
 			_this.find('[value="'+ value +'"]').attr('selected', true)
 			_this.trigger("chosen:updated");
 			
@@ -66,13 +63,10 @@
 		}
 		// console.log(action_obj);
 		$.each(action_obj, function(key, value){
-			console.log(key);
-			console.log(value);
 			var selectorKey = selectorLoopKey + '[' + key +']';
 			if(value.constructor.name == 'Array')
 				selectorKey +='[]';
 			var selector = '[name="masterSteps['+ stepno +'][action_obj]'+ selectorKey +'"]';
-			console.log(selector)
 
 			if(lookUp[value.constructor.name])
 				eval(lookUp[value.constructor.name]);
