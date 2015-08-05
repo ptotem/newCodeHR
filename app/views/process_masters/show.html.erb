@@ -166,16 +166,16 @@
 															</div>
 														</div>
 														<div class="tree-folder-content">
-
-															<% step.action_obj['agents']['ids'].each do |id| %>
-															<div class="tree-item">
-																<div class="tree-item-name">
-																	<i class="red ace-icon fa fa-chevron-right"></i>
-																	<%= id %>
-																</div>
-															</div>
-															<% end %>
-
+															<% if !step.action_obj['agents']['ids'].nil? %>
+																<% step.action_obj['agents']['ids'].each do |id| %>
+																	<div class="tree-item">
+																		<div class="tree-item-name">
+																			<i class="red ace-icon fa fa-chevron-right"></i>
+																			<%= id %>
+																		</div>
+																	</div>
+																<% end %>
+															<%end%>
 														</div>
 													</div>
 
