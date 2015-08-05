@@ -140,6 +140,9 @@ class ProcessInstance
     master_steps = process_master.master_steps
     processInstanceDuplicate = duplicateModelObject(process_master)
     
+    puts '#####################processInstanceDuplicate#######################################'
+    puts process_master.to_json
+    puts '########################processInstanceDuplicate####################################'
     self.update_attributes(processInstanceDuplicate)
 
     stepInstances = []
@@ -188,7 +191,7 @@ class ProcessInstance
   def duplicateModelObject(modelObj)
     _modelObj = {}
     modelObj.attributes.each do |key, value|
-      if key != '_id' && key != 'created_at' && key != 'updated_at' && key != 'process_master_id'
+      if key != '_id' && key != 'created_at' && key != 'updated_at' && key != 'process_master_id' && key != 'left_panel_ids'
         _modelObj[key] = value
       end
     end
@@ -207,8 +210,10 @@ class ProcessInstance
           end
         end
       else
-        array.each do |employee|
-          users.push(Employee.find(employee).user._id)
+        if !array.nil?
+          array.each do |employee|
+            users.push(Employee.find(employee).user._id)
+          end
         end
       end
 

@@ -173,8 +173,14 @@
   </div>
 
   <div class="main-container" id="main-container">
+  	<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
 
     <div id="sidebar" class="sidebar responsive">
+    	<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
       <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
           <a href = "/reports" class="btn btn-success">
@@ -295,16 +301,18 @@
       </div>
     </div>
 
-    <div class="main-content">
-      <div class="page-content">
-        <div class="page-content-area">
+    <div class="col-md-10" style="padding:0">
+    	<div class="main-content">
+	      <div class="page-content">
+	        <div class="page-content-area">
 
-          <%= yield %>
-          <%= insert_paloma_hook %>
-        </div>
-      </div>
-
+	          <%= yield %>
+	          <%= insert_paloma_hook %>
+	        </div>
+	      </div>
+	    </div>
     </div>
+
   </div>
 
   <script type="text/javascript">
